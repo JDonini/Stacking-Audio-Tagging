@@ -80,8 +80,7 @@ target/
 .mypy_cache/
 
 # Models
-/database/CAL500/models/weights_per_epochs/*
-/database/FMA/models/weights_per_epochs/*
-/database/MagnaTagATune/models/weights_per_epochs/*
-/database/MillionSong/models/weights_per_epochs/*
-
+/database/CAL500/model/*
+/database/FMA/model/*
+/database/MagnaTagATune/model/*
+/database/MillionSong/model/*
