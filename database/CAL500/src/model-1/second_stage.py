@@ -12,7 +12,7 @@ from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceL
 from keras.optimizers import RMSprop
 from model import cnn_cnn_model_1
 sys.path.append('src')
-from metrics import auc
+from metrics import auc_roc
 from generate_structure import  TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM, \
  MODEL_1_TENSOR, MODEL_1_WEIGHTS_FINAL, MODEL_1_WEIGTHS_PER_EPOCHS, MODEL_1_OUT_SECOND_STAGE
 sys.path.append('database/CAL500')
@@ -71,7 +71,7 @@ model = cnn_cnn_model_1()
 model.load_weights(MODEL_1_WEIGHTS_FINAL + 'first_stage.h5')
 
 model.compile(loss='binary_crossentropy', optimizer=RMSprop(
-    lr=LR, decay=LR_DECAY), metrics=['accuracy', auc])
+    lr=LR, decay=LR_DECAY), metrics=[auc_roc])
 
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 

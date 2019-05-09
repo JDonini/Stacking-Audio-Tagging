@@ -12,7 +12,7 @@ from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceL
 from keras.optimizers import RMSprop, Adam, SGD
 from model import cnn_cnn_model_1
 sys.path.append('src')
-from metrics import auc_roc, top_k_categorical_accuracy, subset_accuracy
+from metrics import auc_roc
 from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM, \
  MODEL_1_TENSOR, MODEL_1_WEIGHTS_FINAL, MODEL_1_WEIGTHS_PER_EPOCHS, MODEL_1_OUT_FIRST_STAGE
 sys.path.append('database/CAL500')
@@ -69,7 +69,7 @@ STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 model = cnn_cnn_model_1()
 
 model.compile(loss='binary_crossentropy', optimizer=RMSprop(
-    lr=LR, decay=LR_DECAY), metrics=[subset_accuracy])
+    lr=LR, decay=LR_DECAY), metrics=[auc_roc])
 
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
