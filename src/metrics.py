@@ -1,6 +1,5 @@
 from keras import backend as K
 import tensorflow as tf
-from sklearn.metrics import label_ranking_loss
 import numpy as np
 
 
