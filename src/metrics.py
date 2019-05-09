@@ -1,7 +1,11 @@
 from keras import backend as K
-from sklearn.metrics import accuracy_score, roc_auc_score, f1_score, hamming_loss
 import tensorflow as tf
-import statistics
+import numpy as np
+
+
+def hamming_loss(y_true, y_pred):
+    y_pred = K.clip(y_pred, K.epsilon(), 1 - K.epsilon())
+    return K.mean(K.sum(- y_true * K.log(y_pred) - (1 - y_true) * K.log(1 - y_pred), axis=1))
 
 
 def auc_roc(y_true, y_pred):
