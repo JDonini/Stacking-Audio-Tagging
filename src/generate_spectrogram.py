@@ -1,8 +1,7 @@
 from tqdm import tqdm
-from joblib import Parallel, delayed
-import multiprocessing
 import numpy as np
 import sys
+import multiprocessing
 import os
 import pylab
 import librosa
@@ -12,7 +11,6 @@ from generate_structure import AUDIO, AUDIO_MFCC, AUDIO_MEL_SPECTROGRAM, \
  AUDIO_WAVEFORM, AUDIO_STFT_PERCUSSIVE, AUDIO_STFT_HARMONIC, AUDIO_CHROMAGRAM
 sys.path.append('database')
 from config_project import EXT_AUDIO, EXT_IMG, FIG_SIZE, N_MELS, SR, OFFSET, DURATION
-
 
 pbar = tqdm(total=len(os.listdir(AUDIO)))
 

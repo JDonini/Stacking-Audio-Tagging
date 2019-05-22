@@ -26,17 +26,6 @@ MODEL_WEIGTHS_PER_EPOCHS = BASE + '/model/weights_per_epochs/'
 OUT_FIRST_STAGE = BASE + '/out/first_stage/'
 OUT_SECOND_STAGE = BASE + '/out/second_stage/'
 
-MODEL_2_SRC = SRC + 'model-2/'
-MODEL_3_SRC = SRC + 'model-3/'
-MODEL_4_SRC = SRC + 'model-4/'
-MODEL_5_SRC = SRC + 'model-5/'
-MODEL_6_SRC = SRC + 'model-6/'
-MODEL_7_SRC = SRC + 'model-7/'
-MODEL_8_SRC = SRC + 'model-8/'
-MODEL_9_SRC = SRC + 'model-9/'
-MODEL_10_SRC = SRC + 'model-10/'
-MODEL_11_SRC = SRC + 'model-11/'
-
 # Model CNN-CNN-SIMPLE
 MODEL_1_SRC = SRC + 'model-1/'
 MODEL_1_TENSOR = MODEL_TENSOR + "model-1/"

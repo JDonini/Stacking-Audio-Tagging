@@ -1,14 +1,14 @@
 import sys
 from keras.models import Model
-from keras.layers import Dense, Flatten, Dropout, Input
-from keras.layers.convolutional import Conv2D, MaxPooling2D, AveragePooling2D
+from keras.layers import Dense, Input, Dropout, Flatten
+from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
 from keras import backend as K
 sys.path.append('database/CAL500')
 from config_cal500 import IMG_SIZE
 
 
-def cnn_cnn_model_1():
+def cnn_cnn_model_5():
     input = Input(shape=(IMG_SIZE))
 
     x = Conv2D(16, (3, 3), activation='relu')(input)

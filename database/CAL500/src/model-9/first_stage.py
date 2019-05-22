@@ -13,9 +13,9 @@ from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceL
 from keras.optimizers import RMSprop
 from model import cnn_cnn_autoencoders_model
 sys.path.append('src/')
-from metrics import auc
-from generate_structure import MODELS_CNN_CNN_ROBOUST_WEIGHTS_FINAL, MODELS_CNN_CNN_ROBOUST_TENSOR, \
- MODELS_CNN_CNN_ROBOUST_WEIGTHS_PER_EPOCHS, OUT_CNN_CNN_ROBOUST_FIRST, \
+from metrics import auc_roc
+from generate_structure import MODEL_9_WEIGHTS_FINAL, MODEL_9_TENSOR, \
+ MODEL_9_WEIGTHS_PER_EPOCHS, MODEL_9_OUT_FIRST_STAGE, \
  TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM
 sys.path.append('database/CAL500')
 from config_cal500 import BATCH_SIZE, IMG_SIZE, TARGET_SIZE, LR, NUM_WORKERS, NUM_EPOCHS, LR_DECAY, SEED
@@ -26,7 +26,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 
-datagen = ImageDataGenerator(rescale=1./255)
+datagen = ImageDataGenerator(rescale=1./255.)
 
 train_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(TRAIN_ANNOTATIONS),
@@ -64,32 +64,24 @@ valid_generator = datagen.flow_from_dataframe(
     target_size=TARGET_SIZE
 )
 
-def train_generate_multiple_output():
-    while True:
-        for (X1i, X2i) in zip(train_generator_mfcc, train_generator_spectrogram):
-            yield [X1i[0], X2i[0]], X1i[1]
-
 STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 STEP_SIZE_TEST = test_generator.n/test_generator.batch_size
 
 model = cnn_cnn_autoencoders_model()
 
-model.compile(loss={'classification': 'categorical_crossentropy',
-                    'autoencoder': 'binary_crossentropy'},
-              optimizer='adam',
-              metrics={'Accuracy': 'accuracy'}
-              )
+model.compile(optimizer='adadelta', loss='binary_crossentropy')
+model.summary()
 
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
 callbacks_list = [
-    ModelCheckpoint(MODELS_CNN_CNN_ROBOUST_WEIGTHS_PER_EPOCHS + 'weights_first_stage_{epoch:03d}.h5', save_weights_only=True, save_best_only=True),
+    ModelCheckpoint(MODEL_9_WEIGTHS_PER_EPOCHS + 'weights_first_stage_{epoch:03d}.h5', save_weights_only=True, save_best_only=True),
     EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=50),
     EarlyStopping(monitor='val_acc', mode='max', patience=50),
-    TensorBoard(log_dir=MODELS_CNN_CNN_ROBOUST_TENSOR + 'first_stage/' + datetime_str, histogram_freq=0, write_graph=True),
+    TensorBoard(log_dir=MODEL_9_TENSOR + 'first_stage/' + datetime_str, histogram_freq=0, write_graph=True),
     ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=20, min_lr=1e-10, mode='auto', verbose=1),
-    CSVLogger(OUT_CNN_CNN_ROBOUST_FIRST + 'training.csv', append=True, separator=',')
+    CSVLogger(MODEL_9_OUT_FIRST_STAGE + 'training.csv', append=True, separator=',')
 ]
 
 history = model.fit_generator(
@@ -103,69 +95,31 @@ history = model.fit_generator(
     max_queue_size=100
 )
 
-model.save_weights(MODELS_CNN_CNN_ROBOUST_WEIGHTS_FINAL + 'first_stage.h5')
+# model.save_weights(MODEL_9_WEIGHTS_FINAL + 'first_stage.h5')
 
-score = model.evaluate_generator(
-    valid_generator, steps=STEP_SIZE_VALID, verbose=0, max_queue_size=100)
+# score = model.evaluate_generator(
+#     valid_generator, steps=STEP_SIZE_VALID, verbose=0, max_queue_size=100)
 
-results_testing = pd.DataFrame(columns=["Test Loss", "Test Acc"])
-results_testing.loc[0, 'Test Loss'] = float("{0:.4f}".format(score[0]))
-results_testing.loc[0, 'Test Acc'] = float("{0:.4f}".format(score[1]*100))
-results_testing.loc[0, 'Auc'] = float("{0:.4f}".format(score[2]*100))
-results_testing.to_csv(OUT_CNN_CNN_ROBOUST_FIRST + "testing.csv", index=False)
+# results_testing = pd.DataFrame(columns=["Test Loss", "Test Acc"])
+# results_testing.loc[0, 'Test Loss'] = float("{0:.4f}".format(score[0]))
+# results_testing.loc[0, 'Test Acc'] = float("{0:.4f}".format(score[1]*100))
+# results_testing.loc[0, 'Auc'] = float("{0:.4f}".format(score[2]*100))
+# results_testing.to_csv(MODEL_9_OUT_FIRST_STAGE + "testing.csv", index=False)
 
-test_generator.reset()
-predictions = model.predict_generator(test_generator,
-                                      steps=STEP_SIZE_TEST,
-                                      verbose=0,
-                                      max_queue_size=100)
+# test_generator.reset()
+# predictions = model.predict_generator(test_generator,
+#                                       steps=STEP_SIZE_TEST,
+#                                       verbose=0,
+#                                       max_queue_size=100)
 
-predictions_bool = (predictions > 0.5)
-predictions = predictions_bool.astype(int)
+# predictions_bool = (predictions > 0.5)
+# predictions = predictions_bool.astype(int)
 
-results = pd.DataFrame(predictions, columns=columns)
-results["Song Name"] = test_generator.filenames
-ordered_cols = ["Song Name"] + columns
-results = results[ordered_cols]
-results.to_csv(OUT_CNN_CNN_ROBOUST_FIRST + "predictions.csv", index=False)
-
-
-def generate_acc_graph():
-    plt.plot(history.history['acc'])
-    plt.plot(history.history['val_acc'])
-    plt.title('Model accuracy')
-    plt.ylabel('Accuracy')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.savefig(OUT_CNN_CNN_ROBOUST_FIRST + 'model_accuracy_first_stage.png')
-    plt.close()
-
-
-def generate_loss_graph():
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('Model loss')
-    plt.ylabel('Loss')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.savefig(OUT_CNN_CNN_ROBOUST_FIRST + 'model_loss_first_stage.png')
-    plt.close()
-
-
-def generate_auc_graph():
-    plt.plot(history.history['auc'])
-    plt.plot(history.history['val_auc'])
-    plt.title('Model AUC')
-    plt.ylabel('AUC')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.savefig(OUT_CNN_CNN_ROBOUST_FIRST + 'model_auc_first_stage.png')
-    plt.close()
+# results = pd.DataFrame(predictions, columns=columns)
+# results["Song Name"] = test_generator.filenames
+# ordered_cols = ["Song Name"] + columns
+# results = results[ordered_cols]
+# results.to_csv(MODEL_9_OUT_FIRST_STAGE + "predictions.csv", index=False)
 
 if __name__ == '__main__':
     K.clear_session()
-    generate_acc_graph()
-    generate_loss_graph()
-    generate_auc_graph()
-    plot_model(model, to_file=OUT_CNN_CNN_ROBOUST_FIRST + 'cnn_cnn_roboust_inputs_first_stage.png')
-

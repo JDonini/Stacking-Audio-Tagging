@@ -94,4 +94,3 @@ def merge_model_4():
     output = Dense(97, activation='sigmoid')(hidden_2)
 
     return Model(inputs=[input_arq_1, input_arq_2], outputs=output)
-
