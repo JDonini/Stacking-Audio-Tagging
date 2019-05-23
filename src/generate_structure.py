@@ -1,4 +1,9 @@
 import os
+import sys
+sys.path.append('database')
+from config_project import FIG_SIZE
+
+fig_size = '/' + str(FIG_SIZE).replace('.', '').replace(',', '-').replace('(', '').replace(')', '').replace(' ', '')
 
 pwd = os.getcwdb().decode('utf8')
 database_name = os.environ["database_name"]
@@ -11,7 +16,7 @@ TEST_ANNOTATIONS = ANNOTATIONS + 'test.csv'
 VALIDATION_ANNOTATIONS = ANNOTATIONS + 'validation.csv'
 
 AUDIO = '/mnt/Files/Database/' + database_name + '/audio/'
-AUDIO_PROCESSED = '/mnt/Files/Database/' + database_name
+AUDIO_PROCESSED = '/mnt/Files/Database/' + database_name + fig_size
 AUDIO_MEL_SPECTROGRAM = AUDIO_PROCESSED + '/mel_spectrogram/'
 AUDIO_MFCC = AUDIO_PROCESSED + '/mfcc/'
 AUDIO_STFT_HARMONIC = AUDIO_PROCESSED + '/stft_harmonic/'
