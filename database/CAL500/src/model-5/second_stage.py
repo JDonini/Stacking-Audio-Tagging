@@ -14,7 +14,7 @@ from keras.models import load_model, Model
 from keras.layers import Dense, Input, Dropout, Flatten
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
-from model import merge_model_5
+from model import merge_model_5, vector_model_5
 sys.path.append('src')
 from metrics import auc_roc
 from generate_structure import  TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM, \
@@ -69,6 +69,8 @@ valid_generator = datagen.flow_from_dataframe(
 STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 STEP_SIZE_TEST = test_generator.n/test_generator.batch_size
+
+print(vector_model_5)
 
 model = merge_model_5()
 

@@ -80,9 +80,13 @@ def image_model_5():
 
     x = Flatten()(x)
 
+    return input, x
+
 
 def vector_model_5():
-    features = pd.read_csv(MODEL_5_OUT_FIRST_STAGE + "predictions.csv", delimiter=',', header=None)
+    features = pd.read_csv(MODEL_5_OUT_FIRST_STAGE + "features.csv", delimiter=',', index_col=None)
+    print(features)
+    return features
 
 
 def merge_model_5():

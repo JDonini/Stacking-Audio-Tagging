@@ -112,7 +112,7 @@ predictions = model.predict_generator(test_generator,
                                       max_queue_size=100)
 
 features = pd.DataFrame(predictions, columns=columns)
-features.to_csv(MODEL_5_OUT_FIRST_STAGE + "features.csv", index=False)
+features.to_csv(MODEL_5_OUT_FIRST_STAGE + "features.csv", index=False, header=None)
 
 results = pd.DataFrame(data=(predictions > 0.5).astype(int), columns=columns)
 results["song_name"] = test_generator.filenames
