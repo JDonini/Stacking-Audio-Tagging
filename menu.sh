@@ -1,19 +1,19 @@
 #!/bin/sh
 show_menu(){
-    NORMAL=`echo "\033[m"`
-    MENU=`echo "\033[36m"` #Blue
-    NUMBER=`echo "\033[33m"` #yellow
-    FGRED=`echo "\033[41m"`
-    RED_TEXT=`echo "\033[31m"`
-    ENTER_LINE=`echo "\033[33m"`
-    echo -e "${MENU}*********************************************${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 1)${MENU} CAL500 ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 2)${MENU} FMA ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 3)${MENU} MagnaTagATune ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 4)${MENU} MillionSong ${NORMAL}"
-    echo -e "${MENU}*********************************************${NORMAL}"
-    echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT} enter to exit. ${NORMAL}"
-    read opt
+  NORMAL=`echo "\033[m"`
+  MENU=`echo "\033[36m"` #Blue
+  NUMBER=`echo "\033[33m"` #yellow
+  FGRED=`echo "\033[41m"`
+  RED_TEXT=`echo "\033[31m"`
+  ENTER_LINE=`echo "\033[33m"`
+  echo -e "${MENU}*********************************************${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 1)${MENU} CAL500 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 2)${MENU} FMA ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 3)${MENU} MagnaTagATune ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 4)${MENU} MillionSong ${NORMAL}"
+  echo -e "${MENU}*********************************************${NORMAL}"
+  echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT} enter to exit. ${NORMAL}"
+  read opt
 
   while [ opt != '' ]
   do
@@ -61,58 +61,57 @@ show_menu(){
 }
 
 function option_picked() {
-    COLOR='\033[01;31m' # bold red
-    RESET='\033[00;00m' # normal white
-    MESSAGE=${@:-"${RESET}Error: No message passed"}
-    echo -e "${COLOR}${MESSAGE}${RESET}"
+  COLOR='\033[01;31m' # bold red
+  RESET='\033[00;00m' # normal white
+  MESSAGE=${@:-"${RESET}Error: No message passed"}
+  echo -e "${COLOR}${MESSAGE}${RESET}"
 }
 
 pyclean () {
-        find . -name "*.pyc" -exec rm -f {} \;
-        find . -name "__pycache__" -exec rm -rf {} \;
+  find . -regex '^.*\(__pycache__\|\.py[co]\)$' -delete
 }
 
 sub_menu(){
-    NORMAL=`echo "\033[m"`
-    MENU=`echo "\033[36m"` #Blue
-    NUMBER=`echo "\033[33m"` #yellow
-    FGRED=`echo "\033[41m"`
-    RED_TEXT=`echo "\033[31m"`
-    ENTER_LINE=`echo "\033[33m"`
-    echo -e "${MENU}*********************************************${NORMAL}"
-    echo -e "${MENU}**${RED_TEXT} 0)${MENU} Return to Menu ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 1)${MENU} Generate Structure ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 2)${MENU} Preprocessing Dataset ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 3)${MENU} Check Data ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 4)${MENU} Generate Graph - Samples per Time ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 5)${MENU} Generate Spectrogram ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 6)${MENU} Generate Train/Test/Validation ${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 7)${MENU} Model 1 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 8)${MENU} Model 1 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 9)${MENU} Model 2 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 10)${MENU} Model 2 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 11)${MENU} Model 3 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 12)${MENU} Model 3 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 13)${MENU} Model 4 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 14)${MENU} Model 4 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 15)${MENU} Model 5 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 16)${MENU} Model 5 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 17)${MENU} Model 6 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 18)${MENU} Model 6 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 19)${MENU} Model 7 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 20)${MENU} Model 7 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 21)${MENU} Model 8 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 22)${MENU} Model 8 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 23)${MENU} Model 9 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 24)${MENU} Model 9 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 25)${MENU} Model 10 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 26)${MENU} Model 10 - Second Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 27)${MENU} Model 11 - Extract Features${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 28)${MENU} Model 11 - First Stage${NORMAL}"
-    echo -e "${MENU}**${NUMBER} 29)${MENU} Model 11 - Second Stage${NORMAL}"
-    echo -e "${MENU}*********************************************${NORMAL}"
-    echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT}enter to exit. ${NORMAL}"
-    read sub1
+  NORMAL=`echo "\033[m"`
+  MENU=`echo "\033[36m"` #Blue
+  NUMBER=`echo "\033[33m"` #yellow
+  FGRED=`echo "\033[41m"`
+  RED_TEXT=`echo "\033[31m"`
+  ENTER_LINE=`echo "\033[33m"`
+  echo -e "${MENU}*********************************************${NORMAL}"
+  echo -e "${MENU}**${RED_TEXT} 0)${MENU} Return to Menu ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 1)${MENU} Generate Structure ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 2)${MENU} Preprocessing Dataset ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 3)${MENU} Check Data ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 4)${MENU} Generate Graph - Samples per Time ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 5)${MENU} Generate Spectrogram ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 6)${MENU} Generate Train/Test/Validation ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 7)${MENU} Model 1 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 8)${MENU} Model 1 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 9)${MENU} Model 2 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 10)${MENU} Model 2 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 11)${MENU} Model 3 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 12)${MENU} Model 3 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 13)${MENU} Model 4 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 14)${MENU} Model 4 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 15)${MENU} Model 5 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 16)${MENU} Model 5 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 17)${MENU} Model 6 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 18)${MENU} Model 6 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 19)${MENU} Model 7 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 20)${MENU} Model 7 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 21)${MENU} Model 8 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 22)${MENU} Model 8 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 23)${MENU} Model 9 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 24)${MENU} Model 9 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 25)${MENU} Model 10 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 26)${MENU} Model 10 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 27)${MENU} Model 11 - Extract Features${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 28)${MENU} Model 11 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 29)${MENU} Model 11 - Second Stage${NORMAL}"
+  echo -e "${MENU}*********************************************${NORMAL}"
+  echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT}enter to exit. ${NORMAL}"
+  read sub1
   while [ sub1 != '' ]
   do
     if [[ $sub1 = "" ]]; then

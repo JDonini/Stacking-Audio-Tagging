@@ -1,21 +1,19 @@
 import os
 import sys
-import h5py
 import datetime
 import numpy as np
 import pandas as pd
 import tensorflow as tf
 import matplotlib.pyplot as plt
-from keras.applications.resnet50 import ResNet50, preprocess_input
+from keras import backend as K
 from keras.models import Model, Sequential
 from keras.utils import plot_model
 from keras_preprocessing.image import ImageDataGenerator
-from keras import backend as K
 from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceLROnPlateau, Callback, CSVLogger
 from keras.optimizers import RMSprop, Adam, SGD
 from model import cnn_cnn_model_5
 sys.path.append('src')
-from metrics import auc_roc
+from metrics import auc_roc, auc_pr, hamming_loss, ranking_loss
 from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM, \
  MODEL_5_TENSOR, MODEL_5_WEIGHTS_FINAL, MODEL_5_WEIGTHS_PER_EPOCHS, MODEL_5_OUT_FIRST_STAGE
 sys.path.append('database/CAL500')
@@ -24,9 +22,6 @@ from config_cal500 import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEE
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-
-model_resnet50 = ResNet50(weights='imagenet', include_top=False)
-model_resnet50.summary()
 
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 
@@ -75,7 +70,7 @@ STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 model = cnn_cnn_model_5()
 
 model.compile(loss='binary_crossentropy', optimizer=RMSprop(
-    lr=LR, decay=LR_DECAY), metrics=['accuracy', auc_roc])
+    lr=LR, decay=LR_DECAY), metrics=['accuracy', auc_roc, auc_pr, hamming_loss, ranking_loss])
 
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
@@ -116,9 +111,10 @@ predictions = model.predict_generator(test_generator,
                                       verbose=0,
                                       max_queue_size=100)
 
-predictions = (predictions > 0.5).astype(int)
+features = pd.DataFrame(predictions, columns=columns)
+features.to_csv(MODEL_5_OUT_FIRST_STAGE + "features.csv", index=False)
 
-results = pd.DataFrame(predictions, columns=columns)
+results = pd.DataFrame(data=(predictions > 0.5).astype(int), columns=columns)
 results["song_name"] = test_generator.filenames
 ordered_cols = ["song_name"] + columns
 results = results[ordered_cols]
@@ -147,29 +143,56 @@ def generate_loss_graph():
     plt.close()
 
 
-def generate_auc_graph():
+def generate_auc_roc_graph():
     plt.plot(history.history['auc_roc'])
     plt.plot(history.history['val_auc_roc'])
-    plt.title('Model AUC')
-    plt.ylabel('AUC')
+    plt.title('Model AUC - ROC')
+    plt.ylabel('AUC - ROC')
     plt.xlabel('Epoch')
     plt.legend(['Train', 'Test'], loc='upper left')
     plt.savefig(MODEL_5_OUT_FIRST_STAGE + 'model_auc_roc_first_stage.png')
     plt.close()
 
 
-def save_features():
-    intermediate_layer_model = Model(inputs=model.input, outputs=model.get_layer('conv2d_5').output)
-    intermediate_output = intermediate_layer_model.predict(predictions)
-    h5f = h5py.File(MODEL_5_WEIGHTS_FINAL + 'features.h5', 'w')
-    h5f.create_dataset('extract_features', data=intermediate_layer_model)
-    h5f.create_dataset('output', data=intermediate_output)
-    h5f.close()
+def generate_auc_pr_graph():
+    plt.plot(history.history['auc_pr'])
+    plt.plot(history.history['val_auc_pr'])
+    plt.title('Model AUC - PR')
+    plt.ylabel('AUC - PR')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.savefig(MODEL_5_OUT_FIRST_STAGE + 'model_auc_pr_first_stage.png')
+    plt.close()
+
+
+def generate_hamming_loss_graph():
+    plt.plot(history.history['hamming_loss'])
+    plt.plot(history.history['val_hamming_loss'])
+    plt.title('Model Hamming Loss')
+    plt.ylabel('Hamming Loss')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.savefig(MODEL_5_OUT_FIRST_STAGE + 'model_hamming_loss_first_stage.png')
+    plt.close()
+
+
+def generate_ranking_loss_graph():
+    plt.plot(history.history['ranking_loss'])
+    plt.plot(history.history['val_ranking_loss'])
+    plt.title('Ranking Loss')
+    plt.ylabel('Ranking Loss')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.savefig(MODEL_5_OUT_FIRST_STAGE + 'model_ranking_loss_first_stage.png')
+    plt.close()
+
 
 if __name__ == '__main__':
     K.clear_session()
     generate_acc_graph()
     generate_loss_graph()
-    generate_auc_graph()
+    generate_auc_roc_graph()
+    generate_auc_pr_graph()
+    generate_hamming_loss_graph()
+    generate_ranking_loss_graph()
     plot_model(model, to_file=MODEL_5_OUT_FIRST_STAGE + 'cnn_model_1_first_stage.png')
-    save_features()
