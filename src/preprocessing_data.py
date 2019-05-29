@@ -7,7 +7,7 @@ import pandas as pd
 import librosa
 import librosa.display
 sys.path.append('src/')
-from generate_structure import TAG_ANNOTATIONS, BINARY_ANNOTATIONS, NOTES, AUDIO
+from generate_structure import TAG_ANNOTATIONS, BINARY_ANNOTATIONS, AUDIO
 sys.path.append('database/')
 from config_project import EXT_AUDIO, AUDIO_THRESHOLD, EXT_IMG, SEED
 
@@ -68,7 +68,6 @@ def create_annotations():
     for key, items in dict_names.items():
         print('One Hot Annotation: {}'.format(key))
         df_binary.loc[key, items] = 1
-
     df_binary.to_csv(BINARY_ANNOTATIONS, sep=',')
 
 
@@ -76,4 +75,3 @@ if __name__ == '__main__':
     remove_short_audio()
     create_dict_annotations()
     create_annotations()
-

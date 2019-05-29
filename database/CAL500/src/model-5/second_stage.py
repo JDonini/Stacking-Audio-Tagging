@@ -3,7 +3,6 @@ import sys
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-import matplotlib.pyplot as plt
 import datetime
 from keras.utils import plot_model
 from keras_preprocessing.image import ImageDataGenerator
@@ -11,13 +10,10 @@ from keras import backend as K
 from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceLROnPlateau, Callback, CSVLogger
 from keras.optimizers import RMSprop
 from keras.models import load_model, Model
-from keras.layers import Dense, Input, Dropout, Flatten
-from keras.layers.convolutional import Conv2D, MaxPooling2D
-from keras.layers.normalization import BatchNormalization
 from model import merge_model_5, vector_model_5
 sys.path.append('src')
 from metrics import auc_roc
-from generate_structure import  TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM, \
+from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM, \
  MODEL_5_TENSOR, MODEL_5_WEIGHTS_FINAL, MODEL_5_WEIGTHS_PER_EPOCHS, MODEL_5_OUT_FIRST_STAGE, MODEL_5_OUT_SECOND_STAGE
 sys.path.append('database/CAL500')
 from config_cal500 import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED
@@ -70,97 +66,7 @@ STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 STEP_SIZE_TEST = test_generator.n/test_generator.batch_size
 
-print(vector_model_5)
-
 model = merge_model_5()
-
-# model.load_weights(MODEL_1_WEIGHTS_FINAL + 'first_stage.h5')
-
-# model.compile(loss='binary_crossentropy', optimizer=RMSprop(
-#     lr=LR, decay=LR_DECAY), metrics=[auc_roc])
-
-# datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
-
-# callbacks_list = [
-#     ModelCheckpoint(MODEL_1_WEIGTHS_PER_EPOCHS + 'weights_second_stage_{epoch:03d}.h5', save_weights_only=True, save_best_only=True),
-#     EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
-#     EarlyStopping(monitor='val_acc', mode='max', patience=20),
-#     TensorBoard(log_dir=MODEL_1_TENSOR + 'second_stage/' + datetime_str, histogram_freq=0, write_graph=True),
-#     ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=15, min_lr=1e-10, mode='auto', verbose=1),
-#     CSVLogger(MODEL_1_OUT_SECOND_STAGE + 'training.csv', append=True, separator=',')
-# ]
-
-# history = model.fit_generator(
-#     generator=train_generator,
-#     steps_per_epoch=STEP_SIZE_TRAIN,
-#     validation_data=valid_generator,
-#     validation_steps=STEP_SIZE_VALID,
-#     epochs=NUM_EPOCHS,
-#     callbacks=callbacks_list,
-#     verbose=1,
-#     max_queue_size=100
-# )
-
-# score = model.evaluate_generator(
-#     valid_generator, steps=STEP_SIZE_VALID, verbose=0, max_queue_size=100)
-
-# results_testing = pd.DataFrame(columns=["Test Loss", "Test Acc", "Auc"])
-# results_testing.loc[0, 'Test Loss'] = float("{0:.4f}".format(score[0]))
-# results_testing.loc[0, 'Test Acc'] = float("{0:.4f}".format(score[1]*100))
-# results_testing.loc[0, 'Auc'] = float("{0:.4f}".format(score[2]*100))
-# results_testing.to_csv(MODEL_1_OUT_SECOND_STAGE + "testing.csv", index=False)
-
-# test_generator.reset()
-# predictions = model.predict_generator(test_generator,
-#                                       steps=STEP_SIZE_TEST,
-#                                       verbose=0,
-#                                       max_queue_size=100)
-
-# predictions_bool = (predictions > 0.5)
-# predictions = predictions_bool.astype(int)
-
-# results = pd.DataFrame(predictions, columns=columns)
-# results["Song Name"] = test_generator.filenames
-# ordered_cols = ["Song Name"] + columns
-# results = results[ordered_cols]
-# results.to_csv(MODEL_1_OUT_SECOND_STAGE + "predictions.csv", index=False)
-
-
-# def generate_acc_graph():
-#     plt.plot(history.history['acc'])
-#     plt.plot(history.history['val_acc'])
-#     plt.title('Model accuracy')
-#     plt.ylabel('Accuracy')
-#     plt.xlabel('Epoch')
-#     plt.legend(['Train', 'Test'], loc='upper left')
-#     plt.savefig(MODEL_1_OUT_SECOND_STAGE + 'model_accuracy_second_stage.png')
-#     plt.close()
-
-
-# def generate_loss_graph():
-#     plt.plot(history.history['loss'])
-#     plt.plot(history.history['val_loss'])
-#     plt.title('Model loss')
-#     plt.ylabel('Loss')
-#     plt.xlabel('Epoch')
-#     plt.legend(['Train', 'Test'], loc='upper left')
-#     plt.savefig(MODEL_1_OUT_SECOND_STAGE + 'model_loss_second_stage.png')
-#     plt.close()
-
-
-# def generate_auc_graph():
-#     plt.plot(history.history['auc'])
-#     plt.plot(history.history['val_auc'])
-#     plt.title('Model AUC')
-#     plt.ylabel('AUC')
-#     plt.xlabel('Epoch')
-#     plt.legend(['Train', 'Test'], loc='upper left')
-#     plt.savefig(MODEL_1_OUT_SECOND_STAGE + 'model_auc_second_stage.png')
-#     plt.close()
 
 if __name__ == '__main__':
     K.clear_session()
-#     generate_acc_graph()
-#     generate_loss_graph()
-#     generate_auc_graph()
-#     plot_model(model, to_file=MODEL_1_OUT_SECOND_STAGE + 'cnn_model_1_second_stage.png')

@@ -1,10 +1,6 @@
 from keras import backend as K
-from keras.callbacks import Callback
-from sklearn.metrics import roc_auc_score, f1_score, precision_score, recall_score
-from itertools import tee
+from sklearn.metrics import accuracy_score
 import tensorflow as tf
-import numpy as np
-import logging
 
 
 def auc_roc(y_true, y_pred):
