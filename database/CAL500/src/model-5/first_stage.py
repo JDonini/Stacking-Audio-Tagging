@@ -102,13 +102,13 @@ score = model.evaluate_generator(
     valid_generator, steps=STEP_SIZE_VALID, max_queue_size=100)
 
 results_testing = pd.DataFrame()
-results_testing.loc[0, 'Loss'] = float("{0:.4f}".format(score[0]))
-results_testing.loc[0, 'Accuracy'] = float("{0:.4f}".format(score[1]))
-results_testing.loc[0, 'AUC-ROC'] = float("{0:.4f}".format(score[2]))
-results_testing.loc[0, 'AUC-PR'] = float("{0:.4f}".format(score[3]))
-results_testing.loc[0, 'Hamming Loss'] = float("{0:.4f}".format(score[4]))
-results_testing.loc[0, 'Ranking Loss'] = float("{0:.4f}".format(score[5]))
-results_testing.to_csv(MODEL_5_OUT_FIRST_STAGE + "testing.csv", index=False)
+results_testing.loc[0, 'Loss'] = float('{0:.4f}'.format(score[0]))
+results_testing.loc[0, 'Accuracy'] = float('{0:.4f}'.format(score[1]))
+results_testing.loc[0, 'AUC-ROC'] = float('{0:.4f}'.format(score[2]))
+results_testing.loc[0, 'AUC-PR'] = float('{0:.4f}'.format(score[3]))
+results_testing.loc[0, 'Hamming Loss'] = float('{0:.4f}'.format(score[4]))
+results_testing.loc[0, 'Ranking Loss'] = float('{0:.4f}'.format(score[5]))
+results_testing.to_csv(MODEL_5_OUT_FIRST_STAGE + 'testing.csv', index=False)
 
 test_generator.reset()
 predictions = model.predict_generator(test_generator,
@@ -116,20 +116,13 @@ predictions = model.predict_generator(test_generator,
                                       max_queue_size=100)
 
 results = pd.DataFrame(data=(predictions > 0.5).astype(int), columns=columns)
-results["song_name"] = test_generator.filenames
-ordered_cols = ["song_name"] + columns
+results['song_name'] = test_generator.filenames
+ordered_cols = ['song_name'] + columns
 results = results[ordered_cols]
-results.to_csv(MODEL_5_OUT_FIRST_STAGE + "predictions.csv", index=False)
+results.to_csv(MODEL_5_OUT_FIRST_STAGE + 'predictions.csv', index=False)
 
-train_generator.reset()
-features_train = model.predict_generator(
-    train_generator, steps=STEP_SIZE_TRAIN, max_queue_size=100)
-
-features = pd.DataFrame(features_train, columns=columns)
-features["song_name"] = train_generator.filenames
-ordered_cols = ["song_name"] + columns
-features = features[ordered_cols]
-features.to_csv(MODEL_5_OUT_FIRST_STAGE + "features.csv", index=False)
+features_train = model.predict_generator(train_generator, steps=STEP_SIZE_TRAIN)
+np.save(open(MODEL_5_OUT_FIRST_STAGE + 'features_train.npy', 'wb'), features_train)
 
 if __name__ == '__main__':
     K.clear_session()
