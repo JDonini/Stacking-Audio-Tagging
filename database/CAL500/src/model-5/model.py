@@ -1,8 +1,8 @@
 import sys
 import numpy as np
 import pandas as pd
-from keras.models import Model, Sequential
-from keras.layers import Dense, Input, Dropout, Flatten
+from keras.models import Model
+from keras.layers import Dense, Input, Dropout, Flatten, Concatenate, Average
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
 from keras.layers.merge import concatenate
@@ -51,15 +51,43 @@ def cnn_cnn_model_5():
 
 
 def bottleneck_features():
-    train_data = np.load(open(MODEL_5_OUT_FIRST_STAGE + 'features_train.npy', 'rb'))
-    input_features = Input(shape=train_data.shape[:])
+    input_images = Input(shape=(IMG_SIZE))
 
-    x = Conv2D(16, (3, 3,), activation='relu')(input_features)
+    train_data = np.load(open(MODEL_5_OUT_FIRST_STAGE + 'features_train.npy', 'rb'))
+    input_features = Input(shape=train_data.shape)
+
+    x = Conv2D(16, (3, 3), activation='relu')(input_images)
+    x = BatchNormalization()(x)
+    x = Dropout(rate=0.2)(x)
+    x = MaxPooling2D()(x)
+
+    x = Conv2D(32, (3, 3), activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(rate=0.2)(x)
+    x = MaxPooling2D()(x)
+
+    x = Conv2D(64, (3, 3), activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(rate=0.25)(x)
+    x = MaxPooling2D()(x)
+
+    x = Conv2D(128, (3, 3), activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(rate=0.2)(x)
+    x = MaxPooling2D()(x)
+
+    x = Conv2D(256, (3, 3), activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(rate=0.3)(x)
+    x = MaxPooling2D()(x)
 
     x = Flatten()(x)
+    y = Flatten()(input_features)
 
-    hidden_1 = Dense(512, activation='relu')(x)
+    merge_flatten = Concatenate(axis=1)([x, y])
+
+    hidden_1 = Dense(512, activation='relu')(merge_flatten)
     hidden_2 = Dense(256, activation='relu')(hidden_1)
     output = Dense(97, activation='sigmoid')(hidden_2)
 
-    return Model(inputs=input_features, outputs=output)
+    return Model(inputs=[input_images, input_features], outputs=output)

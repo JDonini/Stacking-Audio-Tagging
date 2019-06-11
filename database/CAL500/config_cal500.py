@@ -1,7 +1,10 @@
+import os
 import multiprocessing
+from keras import backend as K
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 # Keras Parameters
-BATCH_SIZE = 4
+BATCH_SIZE = 4 * len(K.tensorflow_backend._get_available_gpus())
 IMG_SIZE = (224, 672, 3)
 TARGET_SIZE = (224, 672)
 LR = 1e-3

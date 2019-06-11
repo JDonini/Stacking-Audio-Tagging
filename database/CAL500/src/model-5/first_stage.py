@@ -10,7 +10,7 @@ from keras.models import Model, Sequential
 from keras.utils import plot_model
 from keras_preprocessing.image import ImageDataGenerator
 from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceLROnPlateau, Callback, CSVLogger
-from keras.optimizers import RMSprop, Adam, SGD
+from keras.optimizers import RMSprop
 from model import cnn_cnn_model_5
 sys.path.append('src')
 from metrics import auc_roc, auc_pr, hamming_loss, ranking_loss
@@ -81,7 +81,7 @@ callbacks_list = [
     EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
     EarlyStopping(monitor='val_acc', mode='max', patience=20),
     TensorBoard(log_dir=MODEL_5_TENSOR + 'first_stage/' + datetime_str, histogram_freq=0, write_graph=False, write_images=True),
-    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=15, min_lr=1e-10, mode='auto', verbose=1),
+    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=12, min_lr=1e-10, mode='auto', verbose=1),
     CSVLogger(MODEL_5_OUT_FIRST_STAGE + 'training.csv', append=True, separator=',')
 ]
 
@@ -95,8 +95,6 @@ history = model.fit_generator(
     verbose=1,
     max_queue_size=100
 )
-
-model.save_weights(MODEL_5_WEIGHTS_FINAL + 'first_stage.h5')
 
 score = model.evaluate_generator(
     valid_generator, steps=STEP_SIZE_VALID, max_queue_size=100)
@@ -121,8 +119,11 @@ ordered_cols = ['song_name'] + columns
 results = results[ordered_cols]
 results.to_csv(MODEL_5_OUT_FIRST_STAGE + 'predictions.csv', index=False)
 
-features_train = model.predict_generator(train_generator, steps=STEP_SIZE_TRAIN)
+features_train = model.predict_generator(train_generator, steps=STEP_SIZE_TRAIN, verbose=1)
 np.save(open(MODEL_5_OUT_FIRST_STAGE + 'features_train.npy', 'wb'), features_train)
+
+features_validation = model.predict_generator(valid_generator, steps=STEP_SIZE_VALID, verbose=1)
+np.save(open(MODEL_5_OUT_FIRST_STAGE + 'features_validation.npy', 'wb'), features_validation)
 
 if __name__ == '__main__':
     K.clear_session()
