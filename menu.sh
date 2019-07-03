@@ -106,9 +106,15 @@ sub_menu(){
   echo -e "${MENU}**${NUMBER} 24)${MENU} Model 9 - Second Stage${NORMAL}"
   echo -e "${MENU}**${NUMBER} 25)${MENU} Model 10 - First Stage${NORMAL}"
   echo -e "${MENU}**${NUMBER} 26)${MENU} Model 10 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 27)${MENU} Model 11 - Extract Features${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 28)${MENU} Model 11 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 29)${MENU} Model 11 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 27)${MENU} Model 11 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 28)${MENU} Model 11 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 29)${MENU} Model 12 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 30)${MENU} Model 12 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 31)${MENU} Model 13 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 32)${MENU} Model 13 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 33)${MENU} Model 14 - First Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 34)${MENU} Model 14 - Second Stage${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 35)${MENU} Metrics - Cardinality and Density ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT}enter to exit. ${NORMAL}"
   read sub1
@@ -308,22 +314,64 @@ sub_menu(){
 
       27) clear;
       pyclean;
-      option_picked "Model 11 - Extract Features";
-      python3 $(pwd)/database/$database_name/src/model-11/extract_features.py
-      sub_menu;
-      ;;
-
-      28) clear;
-      pyclean;
       option_picked "Model 11 - First Stage";
       bash $(pwd)/database/$database_name/src/model-11/first_stage.sh
       sub_menu;
       ;;
 
-      29) clear;
+      28) clear;
       pyclean;
       option_picked "Model 11 - Second Stage";
       bash $(pwd)/database/$database_name/src/model-11/second_stage.sh
+      sub_menu;
+      ;;
+
+      29) clear;
+      pyclean;
+      option_picked "Model 12 - First Stage";
+      bash $(pwd)/database/$database_name/src/model-12/first_stage.sh
+      sub_menu;
+      ;;
+
+      30) clear;
+      pyclean;
+      option_picked "Model 12 - Second Stage";
+      bash $(pwd)/database/$database_name/src/model-12/second_stage.sh
+      sub_menu;
+      ;;
+
+      31) clear;
+      pyclean;
+      option_picked "Model 13 - First Stage";
+      bash $(pwd)/database/$database_name/src/model-13/first_stage.sh
+      sub_menu;
+      ;;
+
+      32) clear;
+      pyclean;
+      option_picked "Model 13 - Second Stage";
+      bash $(pwd)/database/$database_name/src/model-13/second_stage.sh
+      sub_menu;
+      ;;
+
+      33) clear;
+      pyclean;
+      option_picked "Model 14 - First Stage";
+      bash $(pwd)/database/$database_name/src/model-14/first_stage.sh
+      sub_menu;
+      ;;
+
+      34) clear;
+      pyclean;
+      option_picked "Model 14 - Second Stage";
+      bash $(pwd)/database/$database_name/src/model-14/second_stage.sh
+      sub_menu;
+      ;;
+
+      35) clear;
+      pyclean;
+      option_picked "Metrics - Cardinality and Density";
+      python3 $(pwd)/src/metrics.py
       sub_menu;
       ;;
 

@@ -1,5 +1,4 @@
 from keras import backend as K
-from sklearn.metrics import accuracy_score
 import tensorflow as tf
 
 

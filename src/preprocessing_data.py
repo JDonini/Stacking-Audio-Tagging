@@ -16,6 +16,10 @@ np.random.seed(SEED)
 column_name = []
 dict_names, dict_tags, folders_name = {}, {}, {}
 
+df_tag_annotations = pd.read_csv(BINARY_ANNOTATIONS)
+df_tag_annotations = df_tag_annotations.drop(df_tag_annotations.columns[0], axis=1)
+N = len(df_tag_annotations)
+
 
 def remove_short_audio():
     print('Removing Short Audios')
@@ -71,7 +75,20 @@ def create_annotations():
     df_binary.to_csv(BINARY_ANNOTATIONS, sep=',')
 
 
+def cardinality():
+    sum_Y_i = df_tag_annotations.apply(lambda row: sum(row[::] == 1), axis=1).sum()
+    print('Cardinality: {:.4f}'.format(sum_Y_i / N))
+
+
+def density():
+    labels = len(list(df_tag_annotations.columns.values[0::]))
+    sum_Y_i_L = df_tag_annotations.apply(lambda row: sum(row[::] == 1)/labels, axis=1).sum()
+    print('Density: {:.4f}'.format(sum_Y_i_L / N))
+
+
 if __name__ == '__main__':
     remove_short_audio()
     create_dict_annotations()
     create_annotations()
+    cardinality()
+    density()
