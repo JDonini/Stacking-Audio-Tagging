@@ -18,8 +18,8 @@ from generate_graph import generate_acc_graph, generate_loss_graph, generate_auc
  generate_hamming_loss_graph, generate_ranking_loss_graph
 from generate_structure import  TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM, \
  MODEL_1_TENSOR, MODEL_1_WEIGHTS_FINAL, MODEL_1_WEIGTHS_PER_EPOCHS, MODEL_1_OUT_SECOND_STAGE
-sys.path.append('database/CAL500')
-from config_cal500 import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED
+sys.path.append('database')
+from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED
 
 np.random.seed(SEED)
 tf.set_random_seed(SEED)

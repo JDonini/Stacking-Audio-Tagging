@@ -4,8 +4,8 @@ from keras.layers import Dense, Flatten, Dropout, Input
 from keras.layers.convolutional import Conv2D, MaxPooling2D, AveragePooling2D
 from keras.layers.normalization import BatchNormalization
 from keras import backend as K
-sys.path.append('database/CAL500')
-from config_cal500 import IMG_SIZE
+sys.path.append('database')
+from config_project import IMG_SIZE
 
 
 def cnn_cnn_model_1():

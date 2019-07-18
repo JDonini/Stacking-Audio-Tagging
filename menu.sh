@@ -85,36 +85,28 @@ sub_menu(){
   echo -e "${MENU}**${NUMBER} 3)${MENU} Check Data ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 4)${MENU} Generate Graph - Samples per Time ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 5)${MENU} Generate Spectrogram ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 6)${MENU} Generate Train/Test/Validation ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 7)${MENU} Model 1 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 8)${MENU} Model 1 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 9)${MENU} Model 2 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 10)${MENU} Model 2 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 11)${MENU} Model 3 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 12)${MENU} Model 3 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 13)${MENU} Model 4 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 14)${MENU} Model 4 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 15)${MENU} Model 5 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 16)${MENU} Model 5 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 17)${MENU} Model 6 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 18)${MENU} Model 6 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 19)${MENU} Model 7 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 20)${MENU} Model 7 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 21)${MENU} Model 8 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 22)${MENU} Model 8 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 23)${MENU} Model 9 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 24)${MENU} Model 9 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 25)${MENU} Model 10 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 26)${MENU} Model 10 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 27)${MENU} Model 11 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 28)${MENU} Model 11 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 29)${MENU} Model 12 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 30)${MENU} Model 12 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 31)${MENU} Model 13 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 32)${MENU} Model 13 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 33)${MENU} Model 14 - First Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 34)${MENU} Model 14 - Second Stage${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 35)${MENU} Metrics - Cardinality and Density ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 6)${MENU} Generate Autoencoders ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 7)${MENU} Generate Train/Test/Validation ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 8)${MENU} Metrics - Cardinality and Density ${NORMAL}"
+  echo -e "${MENU}*********************************************${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 10)${MENU} Model 1 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 11)${MENU} Model 2 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 12)${MENU} Model 3 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 13)${MENU} Model 4 ${NORMAL}"
+  echo -e "${MENU}*********************************************${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 20)${MENU} Model 5 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 21)${MENU} Model 6 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 22)${MENU} Model 7 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 23)${MENU} Model 8 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 24)${MENU} Model 9 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 25)${MENU} Model 10 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 26)${MENU} Model 11 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 27)${MENU} Model 12 ${NORMAL}"
+  echo -e "${MENU}*********************************************${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 30)${MENU} Model 13 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 31)${MENU} Model 14 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 32)${MENU} Model 15 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 33)${MENU} Model 16 ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT}enter to exit. ${NORMAL}"
   read sub1
@@ -167,19 +159,41 @@ sub_menu(){
 
       6) clear;
       pyclean;
+      option_picked "Generate Autoencoders Chromagram";
+      python3 $(pwd)/src/generate_autoencoders_chromagram.py
+      # pyclean;
+      # option_picked "Generate Autoencoders Mel Spectrogram";
+      # python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
+      # pyclean;
+      # option_picked "Generate Autoencoders MFCC";
+      # python3 $(pwd)/src/generate_autoencoders_mfcc.py
+      # pyclean;
+      # option_picked "Generate Autoencoders STFT Harmonic";
+      # python3 $(pwd)/src/generate_autoencoders_stft_harmonic.py
+      # pyclean;
+      # option_picked "Generate Autoencoders STFT Percussive";
+      # python3 $(pwd)/src/generate_autoencoders_stft_percussive.py
+      sub_menu;
+      ;;
+  
+      7) clear;
+      pyclean;
       option_picked "Generate TRAIN/TEST/VALIDATION";
       python3 $(pwd)/src/generate_holdout.py      
       sub_menu;
       ;;
 
-      7) clear;
+      8) clear;
       pyclean;
-      option_picked "Model 1 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-1/first_stage.py
+      option_picked "Metrics - Cardinality and Density";
+      python3 $(pwd)/src/metrics.py
       sub_menu;
       ;;
 
-      8) clear;
+      10) clear;
+      pyclean;
+      option_picked "Model 1 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-1/first_stage.py
       pyclean;
       option_picked "Model 1 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-1/second_stage.py
@@ -190,108 +204,77 @@ sub_menu(){
       pyclean;
       option_picked "Model 2 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-2/first_stage.py
-      sub_menu;
-      ;;
-
-      10) clear;
       pyclean;
       option_picked "Model 2 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-2/second_stage.py
       sub_menu;
       ;;
 
-      11) clear;
+      10) clear;
       pyclean;
       option_picked "Model 3 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-3/first_stage.py
-      sub_menu;
-      ;;
-
-      12) clear;
       pyclean;
       option_picked "Model 3 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-3/second_stage.py
       sub_menu;
       ;;
 
-      13) clear;
+
+      11) clear;
       pyclean;
       option_picked "Model 4 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-4/first_stage.py
-      sub_menu;
-      ;;
-
-      14) clear;
       pyclean;
       option_picked "Model 4 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-4/second_stage.py
       sub_menu;
       ;;
 
-      15) clear;
+      20) clear;
       pyclean;
       option_picked "Model 5 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-5/first_stage.py
-      sub_menu;
-      ;;
-
-      16) clear;
       pyclean;
       option_picked "Model 5 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-5/second_stage.py
       sub_menu;
       ;;
 
-      17) clear;
+      21) clear;
       pyclean;
       option_picked "Model 6 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-6/first_stage.py
-      sub_menu;
-      ;;
-
-      18) clear;
       pyclean;
       option_picked "Model 6 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-6/second_stage.py
       sub_menu;
       ;;
 
-      19) clear;
+      22) clear;
       pyclean;
       option_picked "Model 7 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-7/first_stage.py
-      sub_menu;
-      ;;
-
-      20) clear;
       pyclean;
       option_picked "Model 7 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-7/second_stage.py
       sub_menu;
       ;;
 
-      21) clear;
+      23) clear;
       pyclean;
       option_picked "Model 8 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-8/first_stage.py
-      sub_menu;
-      ;;
-
-      22) clear;
       pyclean;
       option_picked "Model 8 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-8/second_stage.py
       sub_menu;
       ;;
 
-      23) clear;
+      24) clear;
       pyclean;
       option_picked "Model 9 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-9/first_stage.py
-      sub_menu;
-      ;;
-
-      24) clear;
       pyclean;
       option_picked "Model 9 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-9/second_stage.py
@@ -302,76 +285,70 @@ sub_menu(){
       pyclean;
       option_picked "Model 10 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-10/first_stage.py
-      sub_menu;
-      ;;
-
-      26) clear;
       pyclean;
       option_picked "Model 10 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-10/second_stage.py
       sub_menu;
       ;;
 
-      27) clear;
+      26) clear;
       pyclean;
       option_picked "Model 11 - First Stage";
       bash $(pwd)/database/$database_name/src/model-11/first_stage.sh
-      sub_menu;
-      ;;
-
-      28) clear;
       pyclean;
       option_picked "Model 11 - Second Stage";
       bash $(pwd)/database/$database_name/src/model-11/second_stage.sh
       sub_menu;
       ;;
 
-      29) clear;
+      27) clear;
       pyclean;
       option_picked "Model 12 - First Stage";
       bash $(pwd)/database/$database_name/src/model-12/first_stage.sh
-      sub_menu;
-      ;;
-
-      30) clear;
       pyclean;
       option_picked "Model 12 - Second Stage";
       bash $(pwd)/database/$database_name/src/model-12/second_stage.sh
       sub_menu;
       ;;
 
-      31) clear;
+      30) clear;
       pyclean;
       option_picked "Model 13 - First Stage";
-      bash $(pwd)/database/$database_name/src/model-13/first_stage.sh
+      python3 $(pwd)/database/$database_name/src/model-13/stacking.py
+      pyclean;
+      option_picked "Model 13 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-13/second_stage.py
+      sub_menu;
+      sub_menu;
+      ;;
+
+      31) clear;
+      pyclean;
+      option_picked "Model 14 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-14/first_stage.py
+      pyclean;
+      option_picked "Model 14 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-14/second_stage.py
       sub_menu;
       ;;
 
       32) clear;
       pyclean;
-      option_picked "Model 13 - Second Stage";
-      bash $(pwd)/database/$database_name/src/model-13/second_stage.sh
+      option_picked "Model 15 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-15/first_stage.py
+      pyclean;
+      option_picked "Model 15 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-15/second_stage.py
       sub_menu;
       ;;
 
       33) clear;
       pyclean;
-      option_picked "Model 14 - First Stage";
-      bash $(pwd)/database/$database_name/src/model-14/first_stage.sh
-      sub_menu;
-      ;;
-
-      34) clear;
+      option_picked "Model 16 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-16/first_stage.py
       pyclean;
-      option_picked "Model 14 - Second Stage";
-      bash $(pwd)/database/$database_name/src/model-14/second_stage.sh
-      sub_menu;
-      ;;
-
-      35) clear;
-      pyclean;
-      option_picked "Metrics - Cardinality and Density";
-      python3 $(pwd)/src/metrics.py
+      option_picked "Model 16 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-16/second_stage.py
       sub_menu;
       ;;
 

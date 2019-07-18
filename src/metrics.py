@@ -1,5 +1,10 @@
 from keras import backend as K
+from keras.metrics import binary_accuracy
 import tensorflow as tf
+
+
+def accuracy(y_true, y_pred):
+    return binary_accuracy(y_true, y_pred)
 
 
 def auc_roc(y_true, y_pred):
