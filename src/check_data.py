@@ -1,10 +1,7 @@
 import os
 import sys
-import subprocess
 import numpy as np
 import pandas as pd
-import librosa
-import librosa.display
 sys.path.append('src/')
 from generate_structure import BINARY_ANNOTATIONS, AUDIO
 sys.path.append('database/')
@@ -18,7 +15,6 @@ def remove_missing_data():
     fp = open(BINARY_ANNOTATIONS, 'r+')
 
     content = fp.read().split('\n')
-    cab = content[0].split(',')
     content = content[1:]
 
     for i in range(len(content)):
@@ -43,6 +39,7 @@ def remove_missing_data():
         print('Remove Annotation : {}'.format(file + EXT_IMG))
         df = df[df.song_name != file + EXT_IMG]
     df.to_csv(BINARY_ANNOTATIONS, sep=',', index=False)
+
 
 if __name__ == '__main__':
     remove_missing_data()

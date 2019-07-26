@@ -1,7 +1,7 @@
+from sklearn.utils import shuffle
 import sys
 import numpy as np
 import pandas as pd
-from sklearn.utils import shuffle
 sys.path.append('src/')
 from generate_structure import BINARY_ANNOTATIONS, TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS
 sys.path.append('database')

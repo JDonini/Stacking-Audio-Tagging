@@ -4,13 +4,12 @@ from keras.layers import Dense, Input, Dropout, Flatten
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
 from keras.layers.merge import concatenate
-from keras import backend as K
 sys.path.append('database')
 from config_project import IMG_SIZE
 
 
 def cnn_cnn_model_4_arq_1():
-    input_1 = Input(shape=(IMG_SIZE))
+    input_1 = Input(shape=IMG_SIZE)
     x = Conv2D(32, (3, 3), activation='relu')(input_1)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.2)(x)
@@ -49,7 +48,7 @@ def cnn_cnn_model_4_arq_1():
 
 
 def cnn_cnn_model_4_arq_2():
-    input_2 = Input(shape=(IMG_SIZE))
+    input_2 = Input(shape=IMG_SIZE)
     y = Conv2D(32, (3, 3), activation='relu')(input_2)
     y = BatchNormalization()(y)
     y = Dropout(rate=0.2)(y)

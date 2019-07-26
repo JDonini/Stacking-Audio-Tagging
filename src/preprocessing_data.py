@@ -7,7 +7,7 @@ import pandas as pd
 import librosa
 import librosa.display
 sys.path.append('src/')
-from generate_structure import TAG_ANNOTATIONS, BINARY_ANNOTATIONS, AUDIO
+from generate_structure import BINARY_ANNOTATIONS, AUDIO
 sys.path.append('database/')
 from config_project import EXT_AUDIO, AUDIO_THRESHOLD, EXT_IMG, SEED
 
@@ -21,50 +21,6 @@ df_tag_annotations = df_tag_annotations.drop(df_tag_annotations.columns[0], axis
 N = len(df_tag_annotations)
 
 
-def remove_short_audio():
-    print('Removing Short Audios')
-    for file in tqdm(os.listdir(AUDIO)):
-        y, sr = librosa.load(AUDIO + file)
-        audio_duration = librosa.core.get_duration(y=y, sr=sr)
-        if audio_duration < AUDIO_THRESHOLD:
-            with open(TAG_ANNOTATIONS, 'rt') as lines:
-                for line in lines:
-                    audio_name, _ = file.split(EXT_AUDIO)
-                    if line.startswith(audio_name):
-                        subprocess.call(['sed', '-i', '/.*' + str(audio_name) + '.*/d', TAG_ANNOTATIONS])
-                    if os.path.isfile(AUDIO + file):
-                        os.remove(AUDIO + file)
-
-
-def create_dict_annotations():
-    with open(TAG_ANNOTATIONS) as f:
-        for row in f:
-            song_name, tag_name = row.strip().split('\t')
-            song_name = song_name + EXT_IMG
-            if tag_name not in column_name:
-                column_name.append(tag_name)
-            if tag_name not in dict_tags.keys():
-                dict_tags.setdefault(tag_name, len(dict_tags.keys()) + 1)
-            if song_name not in dict_names.keys():
-                dict_names.setdefault(song_name, [tag_name])
-            else:
-                dict_names[song_name].append(tag_name)
-    dict_mapping = {k: [] for k in dict_names}
-    for tag_key, tag_value in dict_tags.items():
-        for song_name, value in dict_names.items():
-            for v in value:
-                if v == tag_key:
-                    dict_mapping[song_name].append(tag_value)
-    return dict_mapping
-
-
-def create_train_test_validation():
-    for song_name, tag_value in create_dict_annotations().items():
-        tag_value = '-'.join(str(x) for x in tag_value)
-        folders_name.setdefault(song_name, tag_value)
-    return folders_name
-
-
 def create_annotations():
     df_binary = pd.DataFrame(columns=column_name, index=dict_names.keys())
     df_binary.index.name = 'song_name'
@@ -76,19 +32,17 @@ def create_annotations():
 
 
 def cardinality():
-    sum_Y_i = df_tag_annotations.apply(lambda row: sum(row[::] == 1), axis=1).sum()
-    print('Cardinality: {:.4f}'.format(sum_Y_i / N))
+    sum_y_i = df_tag_annotations.apply(lambda row: sum(row[::] == 1), axis=1).sum()
+    print('Cardinality: {:.4f}'.format(sum_y_i / N))
 
 
 def density():
     labels = len(list(df_tag_annotations.columns.values[0::]))
-    sum_Y_i_L = df_tag_annotations.apply(lambda row: sum(row[::] == 1)/labels, axis=1).sum()
-    print('Density: {:.4f}'.format(sum_Y_i_L / N))
+    sum_y_i_l = df_tag_annotations.apply(lambda row: sum(row[::] == 1)/labels, axis=1).sum()
+    print('Density: {:.4f}'.format(sum_y_i_l / N))
 
 
 if __name__ == '__main__':
-    remove_short_audio()
-    create_dict_annotations()
     create_annotations()
     cardinality()
     density()

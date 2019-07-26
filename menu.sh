@@ -1,8 +1,9 @@
 #!/bin/sh
+
 show_menu(){
   NORMAL=`echo "\033[m"`
-  MENU=`echo "\033[36m"` #Blue
-  NUMBER=`echo "\033[33m"` #yellow
+  MENU=`echo "\033[36m"`
+  NUMBER=`echo "\033[33m"`
   FGRED=`echo "\033[41m"`
   RED_TEXT=`echo "\033[31m"`
   ENTER_LINE=`echo "\033[33m"`
@@ -61,8 +62,8 @@ show_menu(){
 }
 
 function option_picked() {
-  COLOR='\033[01;31m' # bold red
-  RESET='\033[00;00m' # normal white
+  COLOR='\033[01;31m'
+  RESET='\033[00;00m'
   MESSAGE=${@:-"${RESET}Error: No message passed"}
   echo -e "${COLOR}${MESSAGE}${RESET}"
 }
@@ -73,8 +74,8 @@ pyclean () {
 
 sub_menu(){
   NORMAL=`echo "\033[m"`
-  MENU=`echo "\033[36m"` #Blue
-  NUMBER=`echo "\033[33m"` #yellow
+  MENU=`echo "\033[36m"`
+  NUMBER=`echo "\033[33m"`
   FGRED=`echo "\033[41m"`
   RED_TEXT=`echo "\033[31m"`
   ENTER_LINE=`echo "\033[33m"`
@@ -98,15 +99,11 @@ sub_menu(){
   echo -e "${MENU}**${NUMBER} 21)${MENU} Model 6 ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 22)${MENU} Model 7 ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 23)${MENU} Model 8 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 24)${MENU} Model 9 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 25)${MENU} Model 10 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 26)${MENU} Model 11 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 27)${MENU} Model 12 ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 30)${MENU} Model 13 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 31)${MENU} Model 14 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 32)${MENU} Model 15 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 33)${MENU} Model 16 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 30)${MENU} Model 9 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 31)${MENU} Model 10 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 32)${MENU} Model 11 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 33)${MENU} Model 12 ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT}enter to exit. ${NORMAL}"
   read sub1
@@ -161,18 +158,14 @@ sub_menu(){
       pyclean;
       option_picked "Generate Autoencoders Chromagram";
       python3 $(pwd)/src/generate_autoencoders_chromagram.py
-      # pyclean;
-      # option_picked "Generate Autoencoders Mel Spectrogram";
-      # python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
-      # pyclean;
-      # option_picked "Generate Autoencoders MFCC";
-      # python3 $(pwd)/src/generate_autoencoders_mfcc.py
-      # pyclean;
-      # option_picked "Generate Autoencoders STFT Harmonic";
-      # python3 $(pwd)/src/generate_autoencoders_stft_harmonic.py
-      # pyclean;
-      # option_picked "Generate Autoencoders STFT Percussive";
-      # python3 $(pwd)/src/generate_autoencoders_stft_percussive.py
+      option_picked "Generate Autoencoders Mel Spectrogram";
+      python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
+      option_picked "Generate Autoencoders MFCC";
+      python3 $(pwd)/src/generate_autoencoders_mfcc.py
+      option_picked "Generate Autoencoders STFT Harmonic";
+      python3 $(pwd)/src/generate_autoencoders_stft_harmonic.py
+      option_picked "Generate Autoencoders STFT Percussive";
+      python3 $(pwd)/src/generate_autoencoders_stft_percussive.py
       sub_menu;
       ;;
   
@@ -194,38 +187,34 @@ sub_menu(){
       pyclean;
       option_picked "Model 1 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-1/first_stage.py
-      pyclean;
       option_picked "Model 1 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-1/second_stage.py
       sub_menu;
       ;;
 
-      9) clear;
+      11) clear;
       pyclean;
       option_picked "Model 2 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-2/first_stage.py
-      pyclean;
       option_picked "Model 2 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-2/second_stage.py
       sub_menu;
       ;;
 
-      10) clear;
+      12) clear;
       pyclean;
       option_picked "Model 3 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-3/first_stage.py
-      pyclean;
       option_picked "Model 3 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-3/second_stage.py
       sub_menu;
       ;;
 
 
-      11) clear;
+      13) clear;
       pyclean;
       option_picked "Model 4 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-4/first_stage.py
-      pyclean;
       option_picked "Model 4 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-4/second_stage.py
       sub_menu;
@@ -235,7 +224,6 @@ sub_menu(){
       pyclean;
       option_picked "Model 5 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-5/first_stage.py
-      pyclean;
       option_picked "Model 5 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-5/second_stage.py
       sub_menu;
@@ -245,7 +233,6 @@ sub_menu(){
       pyclean;
       option_picked "Model 6 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-6/first_stage.py
-      pyclean;
       option_picked "Model 6 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-6/second_stage.py
       sub_menu;
@@ -255,7 +242,6 @@ sub_menu(){
       pyclean;
       option_picked "Model 7 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-7/first_stage.py
-      pyclean;
       option_picked "Model 7 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-7/second_stage.py
       sub_menu;
@@ -265,90 +251,44 @@ sub_menu(){
       pyclean;
       option_picked "Model 8 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-8/first_stage.py
-      pyclean;
       option_picked "Model 8 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-8/second_stage.py
       sub_menu;
       ;;
 
-      24) clear;
+      30) clear;
       pyclean;
       option_picked "Model 9 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-9/first_stage.py
-      pyclean;
       option_picked "Model 9 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-9/second_stage.py
       sub_menu;
       ;;
 
-      25) clear;
+      31) clear;
       pyclean;
       option_picked "Model 10 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-10/first_stage.py
-      pyclean;
       option_picked "Model 10 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-10/second_stage.py
       sub_menu;
       ;;
 
-      26) clear;
-      pyclean;
-      option_picked "Model 11 - First Stage";
-      bash $(pwd)/database/$database_name/src/model-11/first_stage.sh
-      pyclean;
-      option_picked "Model 11 - Second Stage";
-      bash $(pwd)/database/$database_name/src/model-11/second_stage.sh
-      sub_menu;
-      ;;
-
-      27) clear;
-      pyclean;
-      option_picked "Model 12 - First Stage";
-      bash $(pwd)/database/$database_name/src/model-12/first_stage.sh
-      pyclean;
-      option_picked "Model 12 - Second Stage";
-      bash $(pwd)/database/$database_name/src/model-12/second_stage.sh
-      sub_menu;
-      ;;
-
-      30) clear;
-      pyclean;
-      option_picked "Model 13 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-13/stacking.py
-      pyclean;
-      option_picked "Model 13 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-13/second_stage.py
-      sub_menu;
-      sub_menu;
-      ;;
-
-      31) clear;
-      pyclean;
-      option_picked "Model 14 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-14/first_stage.py
-      pyclean;
-      option_picked "Model 14 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-14/second_stage.py
-      sub_menu;
-      ;;
-
       32) clear;
       pyclean;
-      option_picked "Model 15 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-15/first_stage.py
-      pyclean;
-      option_picked "Model 15 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-15/second_stage.py
+      option_picked "Model 11 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-11/first_stage.py
+      option_picked "Model 11 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-11/second_stage.py
       sub_menu;
       ;;
 
       33) clear;
       pyclean;
-      option_picked "Model 16 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-16/first_stage.py
-      pyclean;
-      option_picked "Model 16 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-16/second_stage.py
+      option_picked "Model 12 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-12/first_stage.py
+      option_picked "Model 12 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-12/second_stage.py
       sub_menu;
       ;;
 

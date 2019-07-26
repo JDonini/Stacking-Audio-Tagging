@@ -1,22 +1,24 @@
 import os
 import sys
+import datetime
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-import matplotlib.pyplot as plt
-from keras.utils import plot_model
+from tensorflow.keras.utils import plot_model
 from keras_preprocessing.image import ImageDataGenerator
-from keras import backend as K
+from keras import backend as k
 from keras.utils.training_utils import multi_gpu_model
-from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceLROnPlateau, Callback, CSVLogger
+from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceLROnPlateau, CSVLogger
 from keras.optimizers import RMSprop
-from model import cnn_svm_model
-sys.path.append('src/')
-from metrics import auc
-from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM,\
- MODELS_CNN_SVM_TENSOR, MODELS_CNN_SVM_WEIGHTS_FINAL, MODELS_CNN_SVM_WEIGTHS_PER_EPOCHS, OUT_CNN_SVM_FIRST
-sys.path.append('database/CAL500')
-from config_cal500 import BATCH_SIZE, IMG_SIZE, TARGET_SIZE, LR, NUM_WORKERS, NUM_EPOCHS, LR_DECAY, SEED
+from model import cnn_cnn_model_10_s1
+sys.path.append('src')
+from metrics import auc_roc, hamming_loss, ranking_loss, auc_pr
+from generate_graph import generate_acc_graph, generate_loss_graph, generate_auc_roc_graph, generate_auc_pr_graph, \
+ generate_hamming_loss_graph, generate_ranking_loss_graph
+from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM, \
+ MODEL_10_TENSOR, MODEL_10_WEIGHTS_FINAL, MODEL_10_OUT_FIRST_STAGE
+sys.path.append('database')
+from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED
 
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
@@ -24,7 +26,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 
-datagen = ImageDataGenerator(rescale=1./255.)
+datagen = ImageDataGenerator(rescale=1./255)
 
 train_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(TRAIN_ANNOTATIONS),
@@ -62,25 +64,28 @@ valid_generator = datagen.flow_from_dataframe(
     target_size=TARGET_SIZE
 )
 
-model = cnn_svm_model()
+STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
+STEP_SIZE_TEST = test_generator.n/test_generator.batch_size
+STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 
-plot_model(model, to_file=OUT_CNN_SVM_FIRST + 'cnn_svm_inputs_first_stage.png')
+if len(k.tensorflow_backend._get_available_gpus()) > 1:
+    model = multi_gpu_model(cnn_cnn_model_10_s1(), gpus=len(k.tensorflow_backend._get_available_gpus()))
+else:
+    model = cnn_cnn_model_10_s1()
 
 model.compile(loss='binary_crossentropy', optimizer=RMSprop(
-    lr=LR, decay=LR_DECAY), metrics=['accuracy', auc])
+    lr=LR, decay=LR_DECAY), metrics=['accuracy', auc_roc, auc_pr, hamming_loss, ranking_loss])
+
+datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
 callbacks_list = [
-    ModelCheckpoint(MODELS_CNN_SVM_WEIGTHS_PER_EPOCHS + 'weights_first_stage_{epoch:03d}.h5', save_weights_only=True, save_best_only=True),
-    TensorBoard(log_dir=MODELS_CNN_SVM_TENSOR + 'first_stage/', histogram_freq=0, write_graph=True),
-    EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=25),
-    EarlyStopping(monitor='val_acc', mode='max', patience=25),
-    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=15, min_lr=1e-10, mode='auto', verbose=1),
-    CSVLogger(OUT_CNN_SVM_FIRST + 'training.csv', append=True, separator=',')
+    ModelCheckpoint(MODEL_10_WEIGHTS_FINAL + 'weights_first_stage.h5', save_weights_only=True, save_best_only=True),
+    EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
+    EarlyStopping(monitor='val_acc', mode='max', patience=20),
+    TensorBoard(log_dir=MODEL_10_TENSOR + 'first_stage/' + datetime_str, histogram_freq=0, write_graph=False, write_images=True),
+    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=12, min_lr=1e-10, mode='auto', verbose=1),
+    CSVLogger(MODEL_10_OUT_FIRST_STAGE + 'training.csv', append=True, separator=',')
 ]
-
-STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
-STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
-STEP_SIZE_TEST = test_generator.n/test_generator.batch_size
 
 history = model.fit_generator(
     generator=train_generator,
@@ -89,72 +94,39 @@ history = model.fit_generator(
     validation_steps=STEP_SIZE_VALID,
     epochs=NUM_EPOCHS,
     callbacks=callbacks_list,
-    verbose=1
+    verbose=1,
+    max_queue_size=100
 )
 
-model.save_weights(MODELS_CNN_SVM_WEIGHTS_FINAL + 'first_stage.h5')
+score = model.evaluate_generator(
+    valid_generator, steps=STEP_SIZE_VALID, max_queue_size=100)
 
-score = model.evaluate_generator(valid_generator, steps=STEP_SIZE_VALID, verbose=0)
-
-print('\nTest Loss: {:.4f} \nTest Accuracy: {:.4f}\n'.format(score[0], score[1]))
+results_testing = pd.DataFrame()
+results_testing.loc[0, 'Loss'] = float('{0:.4f}'.format(score[0]))
+results_testing.loc[0, 'Accuracy'] = float('{0:.4f}'.format(score[1]))
+results_testing.loc[0, 'AUC-ROC'] = float('{0:.4f}'.format(score[2]))
+results_testing.loc[0, 'AUC-PR'] = float('{0:.4f}'.format(score[3]))
+results_testing.loc[0, 'Hamming Loss'] = float('{0:.4f}'.format(score[4]))
+results_testing.loc[0, 'Ranking Loss'] = float('{0:.4f}'.format(score[5]))
+results_testing.to_csv(MODEL_10_OUT_FIRST_STAGE + "testing.csv", index=False)
 
 test_generator.reset()
-predictions_test = model.predict_generator(test_generator,
-                                           steps=STEP_SIZE_TEST,
-                                           verbose=0)
+predictions = model.predict_generator(test_generator,
+                                      steps=STEP_SIZE_TEST,
+                                      max_queue_size=100)
 
-train_generator.reset()
-predictions_train = model.predict_generator(train_generator,
-                                            steps=STEP_SIZE_TRAIN,
-                                            verbose=0)
-
-results_test = pd.DataFrame(predictions_test, columns=columns)
-results_test["Song Name"] = test_generator.filenames
-ordered_cols = ["Song Name"] + columns
-results_test = results_test[ordered_cols]
-results_test.to_csv(OUT_CNN_SVM_FIRST + "predictions_test.csv", index=False)
-
-results_train = pd.DataFrame(predictions_train, columns=columns)
-results_train["Song Name"] = train_generator.filenames
-ordered_cols = ["Song Name"] + columns
-results_train = results_train[ordered_cols]
-results_train.to_csv(OUT_CNN_SVM_FIRST + "predictions_train.csv", index=False)
-
-
-def generate_acc_graph():
-    plt.plot(history.history['acc'])
-    plt.plot(history.history['val_acc'])
-    plt.title('Model accuracy')
-    plt.ylabel('Accuracy')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.savefig(OUT_CNN_SVM_FIRST + 'model_accuracy_first_stage.png')
-    plt.close()
-
-
-def generate_loss_graph():
-    plt.plot(history.history['loss'])
-    plt.plot(history.history['val_loss'])
-    plt.title('Model loss')
-    plt.ylabel('Loss')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.savefig(OUT_CNN_SVM_FIRST + 'model_loss_first_stage.png')
-    plt.close()
-
-
-def generate_auc_graph():
-    plt.plot(history.history['auc'])
-    plt.plot(history.history['val_auc'])
-    plt.title('Model AUC')
-    plt.ylabel('AUC')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.savefig(OUT_CNN_SVM_FIRST + 'model_auc_first_stage.png')
-    plt.close()
+results = pd.DataFrame(data=(predictions > 0.5).astype(int), columns=columns)
+results["song_name"] = test_generator.filenames
+ordered_cols = ["song_name"] + columns
+results = results[ordered_cols]
+results.to_csv(MODEL_10_OUT_FIRST_STAGE + "predictions.csv", index=False)
 
 if __name__ == '__main__':
-    generate_acc_graph()
-    generate_loss_graph()
-    generate_auc_graph()
-    K.clear_session()
+    k.clear_session()
+    generate_acc_graph(history, MODEL_10_OUT_FIRST_STAGE, 'model_accuracy_first_stage.png')
+    generate_loss_graph(history, MODEL_10_OUT_FIRST_STAGE, 'model_loss_first_stage.png')
+    generate_auc_roc_graph(history, MODEL_10_OUT_FIRST_STAGE, 'model_auc_roc_first_stage.png')
+    generate_auc_pr_graph(history, MODEL_10_OUT_FIRST_STAGE, 'model_auc_pr_first_stage.png')
+    generate_hamming_loss_graph(history, MODEL_10_OUT_FIRST_STAGE, 'model_hamming_loss_first_stage.png')
+    generate_ranking_loss_graph(history, MODEL_10_OUT_FIRST_STAGE, 'model_ranking_loss_first_stage.png')
+    plot_model(model, to_file=MODEL_10_OUT_FIRST_STAGE + 'cnn_model_14_first_stage.png')
