@@ -162,10 +162,8 @@ sub_menu(){
       python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
       option_picked "Generate Autoencoders MFCC";
       python3 $(pwd)/src/generate_autoencoders_mfcc.py
-      option_picked "Generate Autoencoders STFT Harmonic";
-      python3 $(pwd)/src/generate_autoencoders_stft_harmonic.py
-      option_picked "Generate Autoencoders STFT Percussive";
-      python3 $(pwd)/src/generate_autoencoders_stft_percussive.py
+      option_picked "Generate Autoencoders STFT";
+      python3 $(pwd)/src/generate_autoencoders_stft.py
       sub_menu;
       ;;
   

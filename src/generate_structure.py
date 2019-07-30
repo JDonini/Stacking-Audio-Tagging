@@ -8,9 +8,9 @@ fig_size_autoencoders = '/' + str(FIG_SIZE_AUTOENCODERS).replace('.', '').replac
 
 pwd = os.getcwdb().decode('utf8')
 database_name = os.environ["database_name"]
-BASE = pwd + '/database/' + database_name
+base = pwd + '/database/' + database_name
 
-ANNOTATIONS = BASE + '/data/annotations/'
+ANNOTATIONS = base + '/data/annotations/'
 BINARY_ANNOTATIONS = ANNOTATIONS + 'binary_annotation.csv'
 TRAIN_ANNOTATIONS = ANNOTATIONS + 'train.csv'
 TEST_ANNOTATIONS = ANNOTATIONS + 'test.csv'
@@ -21,6 +21,7 @@ AUDIO_PROCESSED = '/mnt/Files/Database/' + database_name + fig_size
 AUDIO_CHROMAGRAM = AUDIO_PROCESSED + '/chromagram/'
 AUDIO_MEL_SPECTROGRAM = AUDIO_PROCESSED + '/mel_spectrogram/'
 AUDIO_MFCC = AUDIO_PROCESSED + '/mfcc/'
+AUDIO_STFT = AUDIO_PROCESSED + '/stft/'
 AUDIO_STFT_HARMONIC = AUDIO_PROCESSED + '/stft_harmonic/'
 AUDIO_STFT_PERCUSSIVE = AUDIO_PROCESSED + '/stft_percussive/'
 AUDIO_WAVEFORM = AUDIO_PROCESSED + '/waveform/'
@@ -29,14 +30,13 @@ AUTOENCODERS_PROCESSED = '/mnt/Files/Database/' + database_name + fig_size_autoe
 AUTOENCODERS_CHROMAGRAM = AUDIO_PROCESSED + '/autoencoders/chromagram/'
 AUTOENCODERS_MEL_SPECTROGRAM = AUDIO_PROCESSED + '/autoencoders/mel_spectrogram/'
 AUTOENCODERS_MFCC = AUDIO_PROCESSED + '/autoencoders/mfcc/'
-AUTOENCODERS_STFT_HARMONIC = AUDIO_PROCESSED + '/autoencoders/stft_harmonic/'
-AUTOENCODERS_STFT_PERCUSSIVE = AUDIO_PROCESSED + '/autoencoders/stft_percussive/'
+AUTOENCODERS_STFT = AUDIO_PROCESSED + '/autoencoders/stft/'
 
-SRC = BASE + '/src/'
-MODEL_TENSOR = BASE + '/model' + fig_size + '/tensorboard/'
-MODEL_WEIGHTS = BASE + '/model' + fig_size + '/weights/'
-OUT_FIRST_STAGE = BASE + '/out' + fig_size + '/first_stage/'
-OUT_SECOND_STAGE = BASE + '/out' + fig_size + '/second_stage/'
+SRC = base + '/src/'
+MODEL_TENSOR = base + '/model' + fig_size + '/tensorboard/'
+MODEL_WEIGHTS = base + '/model' + fig_size + '/weights/'
+OUT_FIRST_STAGE = base + '/out' + fig_size + '/first_stage/'
+OUT_SECOND_STAGE = base + '/out' + fig_size + '/second_stage/'
 
 MODEL_1_SRC = SRC + 'model-1/'
 MODEL_1_TENSOR = MODEL_TENSOR + "model-1/"
@@ -110,10 +110,10 @@ MODEL_12_WEIGHTS_FINAL = MODEL_WEIGHTS + "model-12/"
 MODEL_12_OUT_FIRST_STAGE = OUT_FIRST_STAGE + "model-12/"
 MODEL_12_OUT_SECOND_STAGE = OUT_SECOND_STAGE + "model-12/"
 
-list_dir = [ANNOTATIONS, AUDIO, AUDIO_MEL_SPECTROGRAM, AUDIO_MFCC, AUDIO_MEL_SPECTROGRAM,
+list_dir = [ANNOTATIONS, AUDIO, AUDIO_MEL_SPECTROGRAM, AUDIO_MFCC, AUDIO_MEL_SPECTROGRAM, AUDIO_STFT,
             AUDIO_STFT_HARMONIC, AUDIO_STFT_PERCUSSIVE, AUDIO_WAVEFORM, AUDIO_CHROMAGRAM,
             AUTOENCODERS_CHROMAGRAM, AUTOENCODERS_MEL_SPECTROGRAM, AUTOENCODERS_MFCC,
-            AUTOENCODERS_STFT_HARMONIC, AUTOENCODERS_STFT_PERCUSSIVE,
+            AUTOENCODERS_STFT,
             MODEL_1_SRC, MODEL_1_TENSOR, MODEL_1_WEIGHTS_FINAL,
             MODEL_1_OUT_FIRST_STAGE, MODEL_1_OUT_SECOND_STAGE,
             MODEL_2_SRC, MODEL_2_TENSOR, MODEL_2_WEIGHTS_FINAL,

@@ -13,8 +13,8 @@ from keras_preprocessing.image import ImageDataGenerator
 from keras.utils.training_utils import multi_gpu_model
 from keras import backend as k
 sys.path.append('src')
-from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_STFT_HARMONIC,\
- AUTOENCODERS_STFT_HARMONIC
+from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_STFT, \
+ AUTOENCODERS_STFT
 sys.path.append('database')
 from config_project import SEED, BATCH_SIZE, TARGET_SIZE, NUM_EPOCHS, IMG_SIZE, FIG_SIZE_AUTOENCODERS
 
@@ -28,7 +28,7 @@ datagen = ImageDataGenerator(rescale=1./255)
 
 train_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(TRAIN_ANNOTATIONS),
-    directory=AUDIO_STFT_HARMONIC,
+    directory=AUDIO_STFT,
     x_col='song_name',
     y_col=columns,
     batch_size=BATCH_SIZE,
@@ -40,7 +40,7 @@ train_generator = datagen.flow_from_dataframe(
 
 test_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(TEST_ANNOTATIONS),
-    directory=AUDIO_STFT_HARMONIC,
+    directory=AUDIO_STFT,
     x_col='song_name',
     y_col=columns,
     batch_size=BATCH_SIZE,
@@ -52,7 +52,7 @@ test_generator = datagen.flow_from_dataframe(
 
 valid_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(VALIDATION_ANNOTATIONS),
-    directory=AUDIO_STFT_HARMONIC,
+    directory=AUDIO_STFT,
     x_col='song_name',
     y_col=columns,
     batch_size=BATCH_SIZE,
@@ -166,7 +166,7 @@ def generate_train_autoencoders():
         pylab.axis('off')
         pylab.axes([0., 0., 1., 1.], frameon=False, xticks=[], yticks=[])
         pylab.imshow(restored_train_imgs[train_generator.filenames.index(audio_name)])
-        pylab.savefig(AUTOENCODERS_STFT_HARMONIC + audio_name, bbox_inches=None, pad_inches=0, format='png', dpi=100)
+        pylab.savefig(AUTOENCODERS_STFT + audio_name, bbox_inches=None, pad_inches=0, format='png', dpi=100)
         pylab.close()
 
 
@@ -177,7 +177,7 @@ def generate_test_autoencoders():
         pylab.axis('off')
         pylab.axes([0., 0., 1., 1.], frameon=False, xticks=[], yticks=[])
         pylab.imshow(restored_test_imgs[test_generator.filenames.index(audio_name)])
-        pylab.savefig(AUTOENCODERS_STFT_HARMONIC + audio_name, bbox_inches=None, pad_inches=0, format='png', dpi=100)
+        pylab.savefig(AUTOENCODERS_STFT + audio_name, bbox_inches=None, pad_inches=0, format='png', dpi=100)
         pylab.close()
 
 
@@ -188,7 +188,7 @@ def generate_valid_autoencoders():
         pylab.axis('off')
         pylab.axes([0., 0., 1., 1.], frameon=False, xticks=[], yticks=[])
         pylab.imshow(restored_valid_imgs[valid_generator.filenames.index(audio_name)])
-        pylab.savefig(AUTOENCODERS_STFT_HARMONIC + audio_name, bbox_inches=None, pad_inches=0, format='png', dpi=100)
+        pylab.savefig(AUTOENCODERS_STFT + audio_name, bbox_inches=None, pad_inches=0, format='png', dpi=100)
         pylab.close()
 
 

@@ -10,13 +10,15 @@ SEED = 1337
 # Spectrogram Parameters
 N_MELS = 128
 SR = 22050
+HOP_LENGTH = 512
+N_FFT = 2048
 OFFSET = 0.0
 DURATION = 29.0
 AUDIO_THRESHOLD = 29.0
 
 # Keras Parameters
-FIG_SIZE = 7.84, 2.64
-# FIG_SIZE = 6.72, 2.24
+# FIG_SIZE = 7.84, 2.64
+FIG_SIZE = 6.72, 2.24
 # FIG_SIZE = 3.36, 1.12
 # FIG_SIZE = 1.68, 0.56
 
