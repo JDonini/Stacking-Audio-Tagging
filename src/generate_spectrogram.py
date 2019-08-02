@@ -1,4 +1,5 @@
 from tqdm import tqdm
+from pathlib import Path
 import numpy as np
 import sys
 import multiprocessing
@@ -82,13 +83,13 @@ def update(*a):
 
 if __name__ == '__main__':
     pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
-    for full_dir, file in [[(os.path.join(root, f)), f] for root, dirs, files in os.walk(AUDIO) for f in files]:
-        y, _ = librosa.load(full_dir, offset=OFFSET, duration=DURATION)
-        pool.apply_async(create_stft, args=(y, file.split(EXT_AUDIO)[0]), callback=update)
-        pool.apply_async(create_stft_harmonic, args=(y, file.split(EXT_AUDIO)[0]))
-        pool.apply_async(create_stft_percussive, args=(y, file.split(EXT_AUDIO)[0]))
-        # pool.apply_async(create_chromagram, args=(y, file.split(EXT_AUDIO)[0]))
-        # pool.apply_async(create_mel_spectrogram, args=(y, file.split(EXT_AUDIO)[0]))
-        # pool.apply_async(create_mfcc, args=(y, file.split(EXT_AUDIO)[0]))
+    for file in Path(AUDIO).iterdir():
+        y, _ = librosa.load(file, offset=OFFSET, duration=DURATION)
+        pool.apply_async(create_stft, args=(y, file.name.split(EXT_AUDIO)[0]), callback=update)
+        pool.apply_async(create_stft_harmonic, args=(y, file.name.split(EXT_AUDIO)[0]))
+        pool.apply_async(create_stft_percussive, args=(y, file.name.split(EXT_AUDIO)[0]))
+        pool.apply_async(create_chromagram, args=(y, file.name.split(EXT_AUDIO)[0]))
+        pool.apply_async(create_mel_spectrogram, args=(y, file.name.split(EXT_AUDIO)[0]))
+        pool.apply_async(create_mfcc, args=(y, file.name.split(EXT_AUDIO)[0]))
     pool.close()
     pool.join()
