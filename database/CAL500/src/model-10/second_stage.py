@@ -131,4 +131,4 @@ if __name__ == '__main__':
     generate_auc_pr_graph(history, MODEL_10_OUT_SECOND_STAGE, 'model_auc_pr_second_stage.png')
     generate_hamming_loss_graph(history, MODEL_10_OUT_SECOND_STAGE, 'model_hamming_loss_second_stage.png')
     generate_ranking_loss_graph(history, MODEL_10_OUT_SECOND_STAGE, 'model_ranking_loss_second_stage.png')
-    plot_model(model, to_file=MODEL_10_OUT_SECOND_STAGE + 'cnn_model_14_second_stage.png')
+    plot_model(model, to_file=MODEL_10_OUT_SECOND_STAGE + 'cnn_model_second_stage.png')

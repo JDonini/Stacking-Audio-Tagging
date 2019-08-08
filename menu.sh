@@ -12,6 +12,7 @@ show_menu(){
   echo -e "${MENU}**${NUMBER} 2)${MENU} FMA ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 3)${MENU} MagnaTagATune ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 4)${MENU} MillionSong ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 5)${MENU} Music2All ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT} enter to exit. ${NORMAL}"
   read opt
@@ -42,6 +43,12 @@ show_menu(){
 
       4) clear;
       export database_name="MillionSong"
+      option_picked $database_name;    
+      sub_menu;
+      ;;
+
+      5) clear;
+      export database_name="Music2All"
       option_picked $database_name;    
       sub_menu;
       ;;
@@ -82,13 +89,11 @@ sub_menu(){
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${MENU}**${RED_TEXT} 0)${MENU} Return to Menu ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 1)${MENU} Generate Structure ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 2)${MENU} Preprocessing Dataset ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 3)${MENU} Check Data ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 4)${MENU} Generate Graph - Samples per Time ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 5)${MENU} Generate Spectrogram ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 6)${MENU} Generate Autoencoders ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 7)${MENU} Generate Train/Test/Validation ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 8)${MENU} Metrics - Cardinality and Density ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 2)${MENU} Generate One Hot Vector, Samples per Time, Cardinality and Density ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 3)${MENU} Check Database ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 4)${MENU} Generate Spectrogram ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 5)${MENU} Generate Autoencoders ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 6)${MENU} Generate Train/Test/Validation ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${MENU}**${NUMBER} 10)${MENU} Model 1 ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 11)${MENU} Model 2 ${NORMAL}"
@@ -128,8 +133,8 @@ sub_menu(){
 
       2) clear;
       pyclean;
-      option_picked "Preprocessing Dataset";
-      python3 $(pwd)/src/preprocessing_data.py
+      option_picked "Generate One Hot Vector, Samples per Time, Cardinality and Density";
+      python3 $(pwd)/src/generate_info_data.py
       sub_menu;
       ;;
 
@@ -142,19 +147,12 @@ sub_menu(){
 
       4) clear;
       pyclean;
-      option_picked "Generate Graph - Samples per Time";
-      python3 $(pwd)/src/generate_graph.py
-      sub_menu;
-      ;;
-
-      5) clear;
-      pyclean;
       option_picked "Generate Spectrogram";
       python3 $(pwd)/src/generate_spectrogram.py
       sub_menu;
       ;;
 
-      6) clear;
+      5) clear;
       pyclean;
       option_picked "Generate Autoencoders Chromagram";
       python3 $(pwd)/src/generate_autoencoders_chromagram.py
@@ -167,17 +165,10 @@ sub_menu(){
       sub_menu;
       ;;
   
-      7) clear;
+      6) clear;
       pyclean;
       option_picked "Generate TRAIN/TEST/VALIDATION";
       python3 $(pwd)/src/generate_holdout.py      
-      sub_menu;
-      ;;
-
-      8) clear;
-      pyclean;
-      option_picked "Metrics - Cardinality and Density";
-      python3 $(pwd)/src/metrics.py
       sub_menu;
       ;;
 

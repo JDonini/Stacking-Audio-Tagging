@@ -10,7 +10,7 @@ import librosa.display
 import matplotlib.pyplot as plt
 sys.path.append('src/')
 from generate_structure import AUDIO, AUDIO_MFCC, AUDIO_MEL_SPECTROGRAM, \
- AUDIO_WAVEFORM, AUDIO_STFT_PERCUSSIVE, AUDIO_STFT_HARMONIC, AUDIO_CHROMAGRAM, AUDIO_STFT
+ AUDIO_STFT_PERCUSSIVE, AUDIO_STFT_HARMONIC, AUDIO_CHROMAGRAM, AUDIO_STFT
 sys.path.append('database')
 from config_project import EXT_AUDIO, EXT_IMG, FIG_SIZE, N_MELS, SR, OFFSET, DURATION, HOP_LENGTH, N_FFT
 
@@ -24,7 +24,7 @@ def create_chromagram(y, audio_name):
     pylab.axis('off')
     pylab.axes([0., 0., 1., 1.], frameon=False, xticks=[], yticks=[])
     y_harmonic, _ = librosa.effects.hpss(y)
-    librosa.display.specshow(librosa.feature.chroma_cqt(y=y_harmonic, sr=SR, n_octaves=36), sr=SR, vmin=0, vmax=1)
+    librosa.display.specshow(librosa.feature.chroma_cqt(y=y_harmonic, sr=SR), sr=SR, vmin=0, vmax=1)
     pylab.savefig(AUDIO_CHROMAGRAM + audio_name + EXT_IMG, bbox_inches=None, pad_inches=0, format='png', dpi=100)
     pylab.close()
 
@@ -85,11 +85,11 @@ if __name__ == '__main__':
     pool = multiprocessing.Pool(processes=multiprocessing.cpu_count())
     for file in Path(AUDIO).iterdir():
         y, _ = librosa.load(file, offset=OFFSET, duration=DURATION)
-        pool.apply_async(create_stft, args=(y, file.name.split(EXT_AUDIO)[0]), callback=update)
-        pool.apply_async(create_stft_harmonic, args=(y, file.name.split(EXT_AUDIO)[0]))
-        pool.apply_async(create_stft_percussive, args=(y, file.name.split(EXT_AUDIO)[0]))
-        pool.apply_async(create_chromagram, args=(y, file.name.split(EXT_AUDIO)[0]))
+        pool.apply_async(create_chromagram, args=(y, file.name.split(EXT_AUDIO)[0]), callback=update)
         pool.apply_async(create_mel_spectrogram, args=(y, file.name.split(EXT_AUDIO)[0]))
         pool.apply_async(create_mfcc, args=(y, file.name.split(EXT_AUDIO)[0]))
+        pool.apply_async(create_stft, args=(y, file.name.split(EXT_AUDIO)[0]))
+        pool.apply_async(create_stft_harmonic, args=(y, file.name.split(EXT_AUDIO)[0]))
+        pool.apply_async(create_stft_percussive, args=(y, file.name.split(EXT_AUDIO)[0]))
     pool.close()
     pool.join()

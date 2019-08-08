@@ -8,7 +8,7 @@ from tensorflow.keras.utils import plot_model
 from keras_preprocessing.image import ImageDataGenerator
 from keras import backend as k
 from keras.utils.training_utils import multi_gpu_model
-from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceLROnPlateau, CSVLogger
+from keras.callbacks import TensorBoard, EarlyStopping, ReduceLROnPlateau, CSVLogger
 from keras.optimizers import RMSprop
 from model import cnn_cnn_model_9_s1
 sys.path.append('src')
@@ -79,7 +79,6 @@ model.compile(loss='binary_crossentropy', optimizer=RMSprop(
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
 callbacks_list = [
-    ModelCheckpoint(MODEL_9_WEIGHTS_FINAL + 'weights_first_stage.h5', save_weights_only=True, save_best_only=True),
     EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
     EarlyStopping(monitor='val_acc', mode='max', patience=20),
     TensorBoard(log_dir=MODEL_9_TENSOR + 'first_stage/' + datetime_str, histogram_freq=0, write_graph=False, write_images=True),
@@ -130,4 +129,4 @@ if __name__ == '__main__':
     generate_auc_pr_graph(history, MODEL_9_OUT_FIRST_STAGE, 'model_auc_pr_first_stage.png')
     generate_hamming_loss_graph(history, MODEL_9_OUT_FIRST_STAGE, 'model_hamming_loss_first_stage.png')
     generate_ranking_loss_graph(history, MODEL_9_OUT_FIRST_STAGE, 'model_ranking_loss_first_stage.png')
-    plot_model(model, to_file=MODEL_9_OUT_FIRST_STAGE + 'cnn_model_13_first_stage.png')
+    plot_model(model, to_file=MODEL_9_OUT_FIRST_STAGE + 'cnn_model_first_stage.png')
