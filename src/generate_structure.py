@@ -16,8 +16,8 @@ TRAIN_ANNOTATIONS = ANNOTATIONS + 'train.csv'
 TEST_ANNOTATIONS = ANNOTATIONS + 'test.csv'
 VALIDATION_ANNOTATIONS = ANNOTATIONS + 'validation.csv'
 
-AUDIO = '/mnt/Database/' + database_name + '/audio/'
-AUDIO_PROCESSED = '/mnt/Database/' + database_name + fig_size
+AUDIO = '/mnt/Files/Database/' + database_name + '/audio/'
+AUDIO_PROCESSED = '/mnt/Files/Database/' + database_name + fig_size
 AUDIO_CHROMAGRAM = AUDIO_PROCESSED + '/chromagram/'
 AUDIO_MEL_SPECTROGRAM = AUDIO_PROCESSED + '/mel_spectrogram/'
 AUDIO_MFCC = AUDIO_PROCESSED + '/mfcc/'
@@ -25,7 +25,7 @@ AUDIO_STFT = AUDIO_PROCESSED + '/stft/'
 AUDIO_STFT_HARMONIC = AUDIO_PROCESSED + '/stft_harmonic/'
 AUDIO_STFT_PERCUSSIVE = AUDIO_PROCESSED + '/stft_percussive/'
 
-AUTOENCODERS_PROCESSED = '/mnt/Database/' + database_name + fig_size_autoencoders
+AUTOENCODERS_PROCESSED = '/mnt/Files/Database/' + database_name + fig_size_autoencoders
 AUTOENCODERS_CHROMAGRAM = AUDIO_PROCESSED + '/autoencoders/chromagram/'
 AUTOENCODERS_MEL_SPECTROGRAM = AUDIO_PROCESSED + '/autoencoders/mel_spectrogram/'
 AUTOENCODERS_MFCC = AUDIO_PROCESSED + '/autoencoders/mfcc/'
