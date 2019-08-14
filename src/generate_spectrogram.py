@@ -7,11 +7,16 @@ import sys
 import pylab
 import librosa
 import librosa.display
+import matplotlib.pyplot as plt
 sys.path.append('src/')
 from generate_structure import AUDIO, AUDIO_MFCC, AUDIO_MEL_SPECTROGRAM, \
  AUDIO_STFT_PERCUSSIVE, AUDIO_STFT_HARMONIC, AUDIO_CHROMAGRAM, AUDIO_STFT
 sys.path.append('database')
 from config_project import EXT_AUDIO, EXT_IMG, FIG_SIZE, N_MELS, SR, OFFSET, DURATION
+
+plt.rcParams.update({'figure.max_open_warning': 0})
+
+pbar = tqdm(total=len(os.listdir(AUDIO)))
 
 
 def create_chromagram(y, audio_name):
@@ -72,24 +77,18 @@ def create_stft_percussive(y, audio_name):
     pylab.close()
 
 
+def update(*a):
+    pbar.update()
+
+
 if __name__ == '__main__':
     for audio_file in tqdm(glob(AUDIO + EXT_AUDIO)):
-        y, _ = librosa.load(audio_file, offset=OFFSET, duration=DURATION)
-        p1 = Process(target=create_chromagram, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
-        p1.start()
-        p2 = Process(target=create_mel_spectrogram, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
-        p2.start()
-        p3 = Process(target=create_mfcc, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
-        p3.start()
-        p4 = Process(target=create_stft, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
-        p4.start()
-        p5 = Process(target=create_stft_harmonic, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
-        p5.start()
-        p6 = Process(target=create_stft_percussive, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
-        p6.start()
-        p1.join()
-        p2.join()
-        p3.join()
-        p4.join()
-        p5.join()
-        p6.join()
+        y, _ = librosa.load(file, offset=OFFSET, duration=DURATION)
+        pool.apply_async(create_chromagram, args=(y, os.path.splitext(os.path.basename(audio_file))[0]), callback=update)
+        pool.apply_async(create_mel_spectrogram, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
+        pool.apply_async(create_mfcc, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
+        pool.apply_async(create_stft, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
+        pool.apply_async(create_stft_harmonic, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
+        pool.apply_async(create_stft_percussive, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
+    pool.close()
+    pool.join()
