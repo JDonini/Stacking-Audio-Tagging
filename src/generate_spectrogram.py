@@ -1,5 +1,5 @@
 from tqdm import tqdm
-from multiprocessing import Process
+from multiprocessing import Process, Pool, cpu_count
 from glob import glob
 import os
 import numpy as np
@@ -82,8 +82,9 @@ def update(*a):
 
 
 if __name__ == '__main__':
-    for audio_file in tqdm(glob(AUDIO + EXT_AUDIO)):
-        y, _ = librosa.load(file, offset=OFFSET, duration=DURATION)
+    pool = Pool(processes=cpu_count())
+    for audio_file in glob(AUDIO + EXT_AUDIO):
+        y, _ = librosa.load(audio_file, offset=OFFSET, duration=DURATION)
         pool.apply_async(create_chromagram, args=(y, os.path.splitext(os.path.basename(audio_file))[0]), callback=update)
         pool.apply_async(create_mel_spectrogram, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))
         pool.apply_async(create_mfcc, args=(y, os.path.splitext(os.path.basename(audio_file))[0]))

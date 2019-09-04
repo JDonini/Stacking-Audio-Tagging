@@ -156,12 +156,12 @@ sub_menu(){
       pyclean;
       option_picked "Generate Autoencoders Chromagram";
       python3 $(pwd)/src/generate_autoencoders_chromagram.py
-      option_picked "Generate Autoencoders Mel Spectrogram";
-      python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
-      option_picked "Generate Autoencoders MFCC";
-      python3 $(pwd)/src/generate_autoencoders_mfcc.py
-      option_picked "Generate Autoencoders STFT";
-      python3 $(pwd)/src/generate_autoencoders_stft.py
+#      option_picked "Generate Autoencoders Mel Spectrogram";
+#      python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
+#      option_picked "Generate Autoencoders MFCC";
+#      python3 $(pwd)/src/generate_autoencoders_mfcc.py
+#      option_picked "Generate Autoencoders STFT";
+#      python3 $(pwd)/src/generate_autoencoders_stft.py
       sub_menu;
       ;;
   

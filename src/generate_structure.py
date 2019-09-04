@@ -16,7 +16,7 @@ TRAIN_ANNOTATIONS = ANNOTATIONS + 'train.csv'
 TEST_ANNOTATIONS = ANNOTATIONS + 'test.csv'
 VALIDATION_ANNOTATIONS = ANNOTATIONS + 'validation.csv'
 
-AUDIO = '/mnt/Files/Database/' + database_name + '/audio/'
+AUDIO = '/mnt/Files/Database/' + database_name + '/audios/'
 AUDIO_PROCESSED = '/mnt/Files/Database/' + database_name + fig_size
 AUDIO_CHROMAGRAM = AUDIO_PROCESSED + '/chromagram/'
 AUDIO_MEL_SPECTROGRAM = AUDIO_PROCESSED + '/mel_spectrogram/'

@@ -90,7 +90,7 @@ def autoencoders():
     decoded = Activation('relu')(decoded)
     decoded = UpSampling2D((2, 2))(decoded)
 
-    decoded = Conv2D(16, (3, 3), padding='same')(encoded)
+    decoded = Conv2D(16, (3, 3), padding='same')(decoded)
     decoded = BatchNormalization()(decoded)
     decoded = Activation('relu')(decoded)
     decoded = UpSampling2D((2, 2))(decoded)
