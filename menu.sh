@@ -92,8 +92,9 @@ sub_menu(){
   echo -e "${MENU}**${NUMBER} 2)${MENU} Generate One Hot Vector, Samples per Time, Cardinality and Density ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 3)${MENU} Check Database ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 4)${MENU} Generate Spectrogram ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 5)${MENU} Generate Autoencoders ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 6)${MENU} Generate Train/Test/Validation ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 5)${MENU} Generate Models Autoencoders ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 6)${MENU} Generate Images Autoencoders ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 7)${MENU} Generate Train/Test/Validation ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${MENU}**${NUMBER} 10)${MENU} Model 1 ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 11)${MENU} Model 2 ${NORMAL}"
@@ -154,18 +155,25 @@ sub_menu(){
 
       5) clear;
       pyclean;
-      option_picked "Generate Autoencoders Chromagram";
+      option_picked "Generate Models Autoencoders Chromagram";
+      python3 $(pwd)/src/model_autoencoders_chromagram.py
+      python3 $(pwd)/src/model_autoencoders_mel_spectrogram.py
+      python3 $(pwd)/src/model_autoencoders_mfcc.py
+      python3 $(pwd)/src/model_autoencoders_stft.py
+      sub_menu;
+      ;;
+
+      6) clear;
+      pyclean;
+      option_picked "Generate Images Autoencoders Chromagram";
       python3 $(pwd)/src/generate_autoencoders_chromagram.py
-#      option_picked "Generate Autoencoders Mel Spectrogram";
-#      python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
-#      option_picked "Generate Autoencoders MFCC";
-#      python3 $(pwd)/src/generate_autoencoders_mfcc.py
-#      option_picked "Generate Autoencoders STFT";
-#      python3 $(pwd)/src/generate_autoencoders_stft.py
+      python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
+      python3 $(pwd)/src/generate_autoencoders_mfcc.py
+      python3 $(pwd)/src/generate_autoencoders_stft.py
       sub_menu;
       ;;
   
-      6) clear;
+      7) clear;
       pyclean;
       option_picked "Generate TRAIN/TEST/VALIDATION";
       python3 $(pwd)/src/generate_holdout.py      
