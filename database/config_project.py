@@ -32,4 +32,4 @@ LR = 1e-3
 LR_DECAY = 1e-6
 MOMENTUM = 0.9
 NUM_WORKERS = multiprocessing.cpu_count()
-NUM_EPOCHS = 200
+NUM_EPOCHS = 64
