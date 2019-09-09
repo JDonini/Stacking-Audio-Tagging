@@ -5,7 +5,7 @@ import tensorflow as tf
 import numpy as np
 from keras.utils.training_utils import multi_gpu_model
 from keras.models import Model
-from keras.layers import Input, Activation
+from keras.layers import Input, Activation, Dropout
 from keras.layers.convolutional import Conv2D, MaxPooling2D, UpSampling2D
 from keras.layers.normalization import BatchNormalization
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
@@ -51,42 +51,59 @@ valid_generator = datagen.flow_from_dataframe(
 def autoencoders():
     input_img = Input(shape=IMG_SIZE)
 
-    encoded = Conv2D(64, (3, 3), padding='same')(input_img)
+    encoded = Conv2D(256, (3, 3), padding='same')(input_img)
     encoded = BatchNormalization()(encoded)
     encoded = Activation('relu')(encoded)
-    encoded = MaxPooling2D((2, 2), padding='same')(encoded)
+    encoded = MaxPooling2D()(encoded)
+
+    encoded = Conv2D(128, (3, 3), padding='same')(encoded)
+    encoded = BatchNormalization()(encoded)
+    encoded = Activation('relu')(encoded)
+    encoded = MaxPooling2D()(encoded)
+
+    encoded = Conv2D(64, (3, 3), padding='same')(encoded)
+    encoded = BatchNormalization()(encoded)
+    encoded = Activation('relu')(encoded)
+    encoded = MaxPooling2D()(encoded)
 
     encoded = Conv2D(32, (3, 3), padding='same')(encoded)
     encoded = BatchNormalization()(encoded)
     encoded = Activation('relu')(encoded)
-    encoded = MaxPooling2D((2, 2), padding='same')(encoded)
+    encoded = MaxPooling2D()(encoded)
 
     encoded = Conv2D(16, (3, 3), padding='same')(encoded)
     encoded = BatchNormalization()(encoded)
     encoded = Activation('relu')(encoded)
-    encoded = Conv2D(8, (3, 3), padding='same')(encoded)
-    encoded = BatchNormalization()(encoded)
-    encoded = Activation('relu')(encoded)
-
-    encoded = MaxPooling2D((2, 2), padding='same')(encoded)
+    encoded = MaxPooling2D()(encoded)
 
     decoded = Conv2D(16, (3, 3), padding='same')(encoded)
     decoded = BatchNormalization()(decoded)
     decoded = Activation('relu')(decoded)
-    decoded = UpSampling2D((2, 2))(decoded)
+    decoded = UpSampling2D()(decoded)
 
     decoded = Conv2D(32, (3, 3), padding='same')(decoded)
     decoded = BatchNormalization()(decoded)
     decoded = Activation('relu')(decoded)
-    decoded = UpSampling2D((2, 2))(decoded)
+    decoded = UpSampling2D()(decoded)
 
     decoded = Conv2D(64, (3, 3), padding='same')(decoded)
     decoded = BatchNormalization()(decoded)
     decoded = Activation('relu')(decoded)
-    decoded = UpSampling2D((2, 2))(decoded)
+    decoded = UpSampling2D()(decoded)
+
+    decoded = Conv2D(128, (3, 3), padding='same')(decoded)
+    decoded = BatchNormalization()(decoded)
+    decoded = Activation('relu')(decoded)
+    decoded = UpSampling2D()(decoded)
+
+    decoded = Conv2D(256, (3, 3), padding='same')(decoded)
+    decoded = BatchNormalization()(decoded)
+    decoded = Activation('relu')(decoded)
+    decoded = UpSampling2D()(decoded)
 
     decoded = Conv2D(3, (3, 3), padding='same')(decoded)
     decoded = BatchNormalization()(decoded)
+    decoded = Activation('relu')(decoded)
 
     decoded = Activation('sigmoid')(decoded)
 
