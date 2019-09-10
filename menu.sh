@@ -157,9 +157,9 @@ sub_menu(){
       pyclean;
       option_picked "Generate Models Autoencoders Chromagram";
       python3 $(pwd)/src/model_autoencoders_chromagram.py
-#      python3 $(pwd)/src/model_autoencoders_mel_spectrogram.py
-#      python3 $(pwd)/src/model_autoencoders_mfcc.py
-#      python3 $(pwd)/src/model_autoencoders_stft.py
+     python3 $(pwd)/src/model_autoencoders_mel_spectrogram.py
+     python3 $(pwd)/src/model_autoencoders_mfcc.py
+     python3 $(pwd)/src/model_autoencoders_stft.py
       sub_menu;
       ;;
 
@@ -167,9 +167,9 @@ sub_menu(){
       pyclean;
       option_picked "Generate Images Autoencoders Chromagram";
       python3 $(pwd)/src/generate_autoencoders_chromagram.py
-#      python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
-#      python3 $(pwd)/src/generate_autoencoders_mfcc.py
-#      python3 $(pwd)/src/generate_autoencoders_stft.py
+     python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
+     python3 $(pwd)/src/generate_autoencoders_mfcc.py
+     python3 $(pwd)/src/generate_autoencoders_stft.py
       sub_menu;
       ;;
   

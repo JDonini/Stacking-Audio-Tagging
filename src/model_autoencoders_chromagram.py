@@ -51,60 +51,48 @@ valid_generator = datagen.flow_from_dataframe(
 def autoencoders():
     input_img = Input(shape=IMG_SIZE)
 
-    encoded = Conv2D(256, (3, 3), padding='same')(input_img)
+    encoded = Conv2D(128, (3, 3), padding='same')(input_img)
     encoded = BatchNormalization()(encoded)
     encoded = Activation('relu')(encoded)
-    encoded = MaxPooling2D()(encoded)
-
-    encoded = Conv2D(128, (3, 3), padding='same')(encoded)
-    encoded = BatchNormalization()(encoded)
-    encoded = Activation('relu')(encoded)
-    encoded = MaxPooling2D()(encoded)
+    encoded = MaxPooling2D((2, 2), padding='same')(encoded)
 
     encoded = Conv2D(64, (3, 3), padding='same')(encoded)
     encoded = BatchNormalization()(encoded)
     encoded = Activation('relu')(encoded)
-    encoded = MaxPooling2D()(encoded)
+    encoded = MaxPooling2D((2, 2), padding='same')(encoded)
 
     encoded = Conv2D(32, (3, 3), padding='same')(encoded)
     encoded = BatchNormalization()(encoded)
     encoded = Activation('relu')(encoded)
-    encoded = MaxPooling2D()(encoded)
+    encoded = MaxPooling2D((2, 2), padding='same')(encoded)
 
     encoded = Conv2D(16, (3, 3), padding='same')(encoded)
     encoded = BatchNormalization()(encoded)
     encoded = Activation('relu')(encoded)
-    encoded = MaxPooling2D()(encoded)
+    encoded = MaxPooling2D((2, 2), padding='same')(encoded)
 
     decoded = Conv2D(16, (3, 3), padding='same')(encoded)
     decoded = BatchNormalization()(decoded)
     decoded = Activation('relu')(decoded)
-    decoded = UpSampling2D()(decoded)
+    decoded = UpSampling2D((2, 2))(decoded)
 
     decoded = Conv2D(32, (3, 3), padding='same')(decoded)
     decoded = BatchNormalization()(decoded)
     decoded = Activation('relu')(decoded)
-    decoded = UpSampling2D()(decoded)
+    decoded = UpSampling2D((2, 2))(decoded)
 
     decoded = Conv2D(64, (3, 3), padding='same')(decoded)
     decoded = BatchNormalization()(decoded)
     decoded = Activation('relu')(decoded)
-    decoded = UpSampling2D()(decoded)
+    decoded = UpSampling2D((2, 2))(decoded)
 
     decoded = Conv2D(128, (3, 3), padding='same')(decoded)
     decoded = BatchNormalization()(decoded)
     decoded = Activation('relu')(decoded)
-    decoded = UpSampling2D()(decoded)
-
-    decoded = Conv2D(256, (3, 3), padding='same')(decoded)
-    decoded = BatchNormalization()(decoded)
-    decoded = Activation('relu')(decoded)
-    decoded = UpSampling2D()(decoded)
+    decoded = UpSampling2D((2, 2))(decoded)
 
     decoded = Conv2D(3, (3, 3), padding='same')(decoded)
     decoded = BatchNormalization()(decoded)
-    decoded = Activation('relu')(decoded)
-
     decoded = Activation('sigmoid')(decoded)
 
     return Model(input_img, decoded)
