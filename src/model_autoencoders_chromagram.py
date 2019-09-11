@@ -101,10 +101,11 @@ def autoencoders():
 STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 
+with tf.device("/cpu:0"):
+    model = autoencoders()
+
 if len(k.tensorflow_backend._get_available_gpus()) > 1:
     model = multi_gpu_model(autoencoders(), gpus=len(k.tensorflow_backend._get_available_gpus()))
-else:
-    model = autoencoders()
 
 model.compile(optimizer='adam', loss='mean_squared_error')
 
@@ -123,5 +124,5 @@ history = model.fit_generator(
     callbacks=callbacks_list
 )
 
-model.save(MODEL_AUTOENCODERS + 'model_chromagram.h5')
+model.save(filepath=MODEL_AUTOENCODERS + 'model_chromagram.h5')
 print("Saved model to disk")
