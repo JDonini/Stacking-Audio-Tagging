@@ -8,7 +8,7 @@ from keras.models import Model
 from keras.layers import Input, Activation, Dropout
 from keras.layers.convolutional import Conv2D, MaxPooling2D, UpSampling2D
 from keras.layers.normalization import BatchNormalization
-from keras.callbacks import EarlyStopping, ReduceLROnPlateau
+from keras.callbacks import EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
 from keras_preprocessing.image import ImageDataGenerator
 from keras import backend as k
 sys.path.append('src')
@@ -101,17 +101,17 @@ def autoencoders():
 STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 
-with tf.device("/cpu:0"):
-    model = autoencoders()
-
 if len(k.tensorflow_backend._get_available_gpus()) > 1:
     model = multi_gpu_model(autoencoders(), gpus=len(k.tensorflow_backend._get_available_gpus()))
+else:
+    model = autoencoders()
 
 model.compile(optimizer='adam', loss='mean_squared_error')
 
 callbacks_list = [
     EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
     ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=12, min_lr=1e-10, mode='auto', verbose=1),
+    ModelCheckpoint(filepath=MODEL_AUTOENCODERS + 'model_chromagram.h5', monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 ]
 
 history = model.fit_generator(
@@ -124,5 +124,4 @@ history = model.fit_generator(
     callbacks=callbacks_list
 )
 
-model.save(filepath=MODEL_AUTOENCODERS + 'model_chromagram.h5')
 print("Saved model to disk")
