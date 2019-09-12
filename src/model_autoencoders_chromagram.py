@@ -101,12 +101,16 @@ def autoencoders():
 STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 
-if len(k.tensorflow_backend._get_available_gpus()) > 1:
-    model = multi_gpu_model(autoencoders(), gpus=len(k.tensorflow_backend._get_available_gpus()))
-else:
-    model = autoencoders()
+model = autoencoders()
 
-model.compile(optimizer='adam', loss='mean_squared_error')
+try:
+    parallel_model = multi_gpu_model(autoencoders(), gpus=len(k.tensorflow_backend._get_available_gpus(), cpu_merge=False))
+    print("Training using multiple GPUs..")
+except:
+    parallel_model = autoencoders()
+    print("Training using single GPU or CPU..")
+
+parallel_model.compile(optimizer='adam', loss='mean_squared_error')
 
 callbacks_list = [
     EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
@@ -114,7 +118,7 @@ callbacks_list = [
     ModelCheckpoint(filepath=MODEL_AUTOENCODERS + 'model_chromagram.h5', monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 ]
 
-history = model.fit_generator(
+history = parallel_model.fit_generator(
     generator=train_generator,
     steps_per_epoch=STEP_SIZE_TRAIN,
     validation_data=valid_generator,
