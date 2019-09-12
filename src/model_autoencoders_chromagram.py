@@ -103,12 +103,13 @@ STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 
 model = autoencoders()
 
-try:
-    parallel_model = multi_gpu_model(autoencoders(), gpus=2, cpu_merge=False))
+if len(k.tensorflow_backend._get_available_gpus()) > 1:
+    parallel_model = multi_gpu_model(autoencoders(), gpus=len(k.tensorflow_backend._get_available_gpus()), cpu_merge=False)
     print("Training using multiple GPUs..")
-except:
+else:
     parallel_model = autoencoders()
     print("Training using single GPU")
+
 
 parallel_model.compile(optimizer='adam', loss='mean_squared_error')
 
