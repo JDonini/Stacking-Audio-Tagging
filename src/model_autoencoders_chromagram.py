@@ -3,7 +3,6 @@ import os
 import pandas as pd
 import tensorflow as tf
 import numpy as np
-from keras.utils.training_utils import multi_gpu_model
 from keras.models import Model
 from keras.layers import Input, Activation, Dropout
 from keras.layers.convolutional import Conv2D, MaxPooling2D, UpSampling2D
@@ -103,23 +102,14 @@ STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 
 model = autoencoders()
 
-if len(k.tensorflow_backend._get_available_gpus()) > 1:
-    parallel_model = multi_gpu_model(autoencoders(), gpus=len(k.tensorflow_backend._get_available_gpus()), cpu_merge=False)
-    print("Training using multiple GPUs..")
-else:
-    parallel_model = autoencoders()
-    print("Training using single GPU")
-
-
-parallel_model.compile(optimizer='adam', loss='mean_squared_error')
+model.compile(optimizer='adam', loss='mean_squared_error')
 
 callbacks_list = [
     EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
     ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=12, min_lr=1e-10, mode='auto', verbose=1),
-    ModelCheckpoint(filepath=MODEL_AUTOENCODERS + 'model_chromagram.h5', monitor='val_loss', verbose=0, save_best_only=False, save_weights_only=False, mode='auto', period=1)
 ]
 
-history = parallel_model.fit_generator(
+history = model.fit_generator(
     generator=train_generator,
     steps_per_epoch=STEP_SIZE_TRAIN,
     validation_data=valid_generator,
@@ -129,4 +119,5 @@ history = parallel_model.fit_generator(
     callbacks=callbacks_list
 )
 
+model.save(MODEL_AUTOENCODERS + 'model_chromagram.h5')
 print("Saved model to disk")
