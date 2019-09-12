@@ -26,7 +26,7 @@ FIG_SIZE_AUTOENCODERS = 3.92, 2.56
 IMG_SIZE_AUTOENCODERS = (256, 392, 3)
 TARGET_SIZE_AUTOENCODERS = (256, 392)
 
-BATCH_SIZE = 6 * len(k.tensorflow_backend._get_available_gpus())
+BATCH_SIZE = 12
 
 LR = 1e-3
 LR_DECAY = 1e-6

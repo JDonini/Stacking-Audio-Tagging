@@ -3,6 +3,7 @@ import os
 import pandas as pd
 import tensorflow as tf
 import numpy as np
+from keras.utils import multi_gpu_model
 from keras.models import Model
 from keras.layers import Input, Activation
 from keras.layers.convolutional import Conv2D, MaxPooling2D, UpSampling2D
@@ -17,7 +18,6 @@ from config_project import SEED, BATCH_SIZE, TARGET_SIZE, NUM_EPOCHS, IMG_SIZE
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 datagen = ImageDataGenerator(rescale=1./255)
@@ -100,7 +100,12 @@ def autoencoders():
 STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 
-model = autoencoders()
+try:
+    model = multi_gpu_model(autoencoders())
+    print('Using GPUs')
+except:
+    model = autoencoders()
+    print('Using GPU')
 
 model.compile(optimizer='adam', loss='mean_squared_error')
 
