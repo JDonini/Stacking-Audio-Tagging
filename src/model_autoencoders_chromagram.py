@@ -3,14 +3,13 @@ import os
 import pandas as pd
 import tensorflow as tf
 import numpy as np
-from keras.utils.training_utils import multi_gpu_model
+from keras.utils import multi_gpu_model
 from keras.models import Model
-from keras.layers import Input, Activation, Dropout
+from keras.layers import Input, Activation
 from keras.layers.convolutional import Conv2D, MaxPooling2D, UpSampling2D
 from keras.layers.normalization import BatchNormalization
 from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from keras_preprocessing.image import ImageDataGenerator
-from keras import backend as k
 sys.path.append('src')
 from generate_structure import TRAIN_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_CHROMAGRAM, MODEL_AUTOENCODERS
 sys.path.append('database')
@@ -101,10 +100,12 @@ def autoencoders():
 STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 
-if len(k.tensorflow_backend._get_available_gpus()) > 1:
-    model = multi_gpu_model(autoencoders(), gpus=len(k.tensorflow_backend._get_available_gpus()))
-else:
+try:
+    model = multi_gpu_model(autoencoders())
+    print('Using GPUs')
+except:
     model = autoencoders()
+    print('Using GPU')
 
 model.compile(optimizer='adam', loss='mean_squared_error')
 
