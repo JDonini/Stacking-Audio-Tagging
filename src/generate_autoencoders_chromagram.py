@@ -41,7 +41,7 @@ predict_generator = datagen.flow_from_dataframe(
     target_size=TARGET_SIZE
 )
 
-model = load_model(MODEL_AUTOENCODERS + 'model_chromagram.h5')
+model = load_model(MODEL_AUTOENCODERS + 'model_chromagram.hdf5')
 
 predict_generator.reset()
 restored_predict_imgs = model.predict_generator(predict_generator,

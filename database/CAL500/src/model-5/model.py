@@ -10,13 +10,13 @@ from config_project import IMG_SIZE
 
 
 def inception_v3():
-    return InceptionV3(include_top=False, pooling='max', weights='imagenet', input_shape=(IMG_SIZE))
+    return InceptionV3(include_top=False, pooling='max', weights=None, input_shape=(IMG_SIZE))
 
 
 def vgg_19():
-    return VGG19(include_top=False, pooling='max', weights='imagenet', input_shape=(IMG_SIZE))
+    return VGG19(include_top=False, pooling='max', weights=None, input_shape=(IMG_SIZE))
 
 
 def inception_resnet_v2():
-    return InceptionResNetV2(include_top=False, pooling='max', weights='imagenet', input_shape=(IMG_SIZE))
+    return InceptionResNetV2(include_top=False, pooling='max', weights=None, input_shape=(IMG_SIZE))
 

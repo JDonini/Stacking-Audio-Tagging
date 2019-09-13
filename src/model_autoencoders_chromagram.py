@@ -123,5 +123,5 @@ history = model.fit_generator(
     callbacks=callbacks_list
 )
 
-model.save(MODEL_AUTOENCODERS + 'model_chromagram.h5')
+model.save(MODEL_AUTOENCODERS + 'model_chromagram.hdf5')
 print("Saved model to disk")
