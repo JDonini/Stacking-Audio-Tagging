@@ -78,8 +78,8 @@ target/
 .mypy_cache/
 
 # Models
-/database/CAL500/model/784-512/weights/
-/database/FMA/model/784-512/weights/
-/database/MagnaTagATune/model/784-512/weights/
-/database/MillionSong/model/784-512/weights/
-/database/Music2All/model/784-512/weights/
+/database/CAL500/model/768-512/weights/*
+/database/FMA/model/768-512/weights/*
+/database/MagnaTagATune/model/768-512/weights/*
+/database/MillionSong/model/768-512/weights/*
+/database/Music2All/model/768-512/weights/*
