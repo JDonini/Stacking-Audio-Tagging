@@ -26,10 +26,10 @@ FIG_SIZE_AUTOENCODERS = 3.92, 2.56
 IMG_SIZE_AUTOENCODERS = (256, 392, 3)
 TARGET_SIZE_AUTOENCODERS = (256, 392)
 
-BATCH_SIZE = 4
+BATCH_SIZE = 3
 
 LR = 1e-3
 LR_DECAY = 1e-6
 MOMENTUM = 0.9
 NUM_WORKERS = multiprocessing.cpu_count()
-NUM_EPOCHS = 32
+NUM_EPOCHS = 1 * len(k.tensorflow_backend._get_available_gpus())

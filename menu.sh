@@ -100,16 +100,22 @@ sub_menu(){
   echo -e "${MENU}**${NUMBER} 11)${MENU} Model 2 ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 12)${MENU} Model 3 ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 13)${MENU} Model 4 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 14)${MENU} Model 5 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 15)${MENU} Model 6 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 16)${MENU} Model 7 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 17)${MENU} Model 8 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 18)${MENU} Model 9 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 19)${MENU} Model 10 ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 20)${MENU} Model 5 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 21)${MENU} Model 6 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 22)${MENU} Model 7 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 23)${MENU} Model 8 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 20)${MENU} Model 11 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 21)${MENU} Model 12 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 22)${MENU} Model 13 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 23)${MENU} Model 14 ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 30)${MENU} Model 9 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 31)${MENU} Model 10 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 32)${MENU} Model 11 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 33)${MENU} Model 12 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 30)${MENU} Model 15 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 31)${MENU} Model 16 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 32)${MENU} Model 17 ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 33)${MENU} Model 18 ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT}enter to exit. ${NORMAL}"
   read sub1
@@ -157,8 +163,11 @@ sub_menu(){
       pyclean;
       option_picked "Generate Models Autoencoders Chromagram";
       python3 $(pwd)/src/model_autoencoders_chromagram.py
+      option_picked "Generate Models Autoencoders Mel Spectrogram";
       python3 $(pwd)/src/model_autoencoders_mel_spectrogram.py
+      option_picked "Generate Models Autoencoders MFCC";
       python3 $(pwd)/src/model_autoencoders_mfcc.py
+      option_picked "Generate Models Autoencoders STFT";
       python3 $(pwd)/src/model_autoencoders_stft.py
       sub_menu;
       ;;
@@ -167,8 +176,11 @@ sub_menu(){
       pyclean;
       option_picked "Generate Images Autoencoders Chromagram";
       python3 $(pwd)/src/generate_autoencoders_chromagram.py
+      option_picked "Generate Images Autoencoders Mel Spectrogram";
       python3 $(pwd)/src/generate_autoencoders_mel_spectrogram.py
+      option_picked "Generate Images Autoencoders MFCC";
       python3 $(pwd)/src/generate_autoencoders_mfcc.py
+      option_picked "Generate Images Autoencoders STFT";
       python3 $(pwd)/src/generate_autoencoders_stft.py
       sub_menu;
       ;;
@@ -217,7 +229,7 @@ sub_menu(){
       sub_menu;
       ;;
 
-      20) clear;
+      14) clear;
       pyclean;
       option_picked "Model 5 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-5/first_stage.py
@@ -226,7 +238,7 @@ sub_menu(){
       sub_menu;
       ;;
 
-      21) clear;
+      15) clear;
       pyclean;
       option_picked "Model 6 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-6/first_stage.py
@@ -235,7 +247,7 @@ sub_menu(){
       sub_menu;
       ;;
 
-      22) clear;
+      16) clear;
       pyclean;
       option_picked "Model 7 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-7/first_stage.py
@@ -244,7 +256,7 @@ sub_menu(){
       sub_menu;
       ;;
 
-      23) clear;
+      17) clear;
       pyclean;
       option_picked "Model 8 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-8/first_stage.py
@@ -253,7 +265,7 @@ sub_menu(){
       sub_menu;
       ;;
 
-      30) clear;
+      18) clear;
       pyclean;
       option_picked "Model 9 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-9/first_stage.py
@@ -262,7 +274,7 @@ sub_menu(){
       sub_menu;
       ;;
 
-      31) clear;
+      19) clear;
       pyclean;
       option_picked "Model 10 - First Stage";
       python3 $(pwd)/database/$database_name/src/model-10/first_stage.py
@@ -271,21 +283,119 @@ sub_menu(){
       sub_menu;
       ;;
 
-      32) clear;
+      20) clear;
       pyclean;
       option_picked "Model 11 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-11/first_stage.py
+      option_picked "Model 11 - Inception Resnet v2";
+      python3 $(pwd)/database/$database_name/src/model-11/first_stage_inception_resnet_v2.py
+      option_picked "Model 11 - Inception v3";
+      python3 $(pwd)/database/$database_name/src/model-11/first_stage_inception_v3.py
+      option_picked "Model 11 - VGG 19";
+      python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_19.py
+
       option_picked "Model 11 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-11/second_stage.py
+      option_picked "Model 11 - Inception Resnet v2";
+      python3 $(pwd)/database/$database_name/src/model-11/second_stage_inception_resnet_v2.py
+      option_picked "Model 11 - Inception v3";
+      python3 $(pwd)/database/$database_name/src/model-11/second_stage_inception_v3.py
+      option_picked "Model 11 - VGG 19";
+      python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_19.py
+      sub_menu;
+      ;;
+
+      21) clear;
+      pyclean;
+      option_picked "Model 12 - First Stage";
+      option_picked "Model 12 - Inception Resnet v2";
+      python3 $(pwd)/database/$database_name/src/model-12/first_stage_inception_resnet_v2.py
+      option_picked "Model 12 - Inception v3";
+      python3 $(pwd)/database/$database_name/src/model-12/first_stage_inception_v3.py
+      option_picked "Model 12 - VGG 19";
+      python3 $(pwd)/database/$database_name/src/model-12/first_stage_vgg_19.py
+
+      option_picked "Model 12 - Second Stage";
+      option_picked "Model 12 - Inception Resnet v2";
+      python3 $(pwd)/database/$database_name/src/model-12/second_stage_inception_resnet_v2.py
+      option_picked "Model 12 - Inception v3";
+      python3 $(pwd)/database/$database_name/src/model-12/second_stage_inception_v3.py
+      option_picked "Model 12 - VGG 19";
+      python3 $(pwd)/database/$database_name/src/model-12/second_stage_vgg_19.py
+      sub_menu;
+      ;;
+
+      22) clear;
+      pyclean;
+      option_picked "Model 13 - First Stage";
+      option_picked "Model 13 - Inception Resnet v2";
+      python3 $(pwd)/database/$database_name/src/model-13/first_stage_inception_resnet_v2.py
+      option_picked "Model 13 - Inception v3";
+      python3 $(pwd)/database/$database_name/src/model-13/first_stage_inception_v3.py
+      option_picked "Model 13 - VGG 19";
+      python3 $(pwd)/database/$database_name/src/model-13/first_stage_vgg_19.py
+
+      option_picked "Model 13 - Second Stage";
+      option_picked "Model 13 - Inception Resnet v2";
+      python3 $(pwd)/database/$database_name/src/model-13/second_stage_inception_resnet_v2.py
+      option_picked "Model 13 - Inception v3";
+      python3 $(pwd)/database/$database_name/src/model-13/second_stage_inception_v3.py
+      option_picked "Model 13 - VGG 19";
+      python3 $(pwd)/database/$database_name/src/model-13/second_stage_vgg_19.py
+      sub_menu;
+      ;;
+
+      23) clear;
+      pyclean;
+      option_picked "Model 14 - First Stage";
+      option_picked "Model 14 - Inception Resnet v2";
+      python3 $(pwd)/database/$database_name/src/model-14/first_stage_inception_resnet_v2.py
+      option_picked "Model 14 - Inception v3";
+      python3 $(pwd)/database/$database_name/src/model-14/first_stage_inception_v3.py
+      option_picked "Model 14 - VGG 19";
+      python3 $(pwd)/database/$database_name/src/model-14/first_stage_vgg_19.py
+
+      option_picked "Model 14 - Second Stage";
+      option_picked "Model 14 - Inception Resnet v2";
+      python3 $(pwd)/database/$database_name/src/model-14/second_stage_inception_resnet_v2.py
+      option_picked "Model 14 - Inception v3";
+      python3 $(pwd)/database/$database_name/src/model-14/second_stage_inception_v3.py
+      option_picked "Model 14 - VGG 19";
+      python3 $(pwd)/database/$database_name/src/model-14/second_stage_vgg_19.py
+      sub_menu;
+      ;;
+
+      30) clear;
+      pyclean;
+      option_picked "Model 15 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-15/first_stage.py
+      option_picked "Model 15 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-15/second_stage.py
+      sub_menu;
+      ;;
+
+      31) clear;
+      pyclean;
+      option_picked "Model 16 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-16/first_stage.py
+      option_picked "Model 16 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-16/second_stage.py
+      sub_menu;
+      ;;
+
+      32) clear;
+      pyclean;
+      option_picked "Model 17 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-17/first_stage.py
+      option_picked "Model 17 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-17/second_stage.py
       sub_menu;
       ;;
 
       33) clear;
       pyclean;
-      option_picked "Model 12 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-12/first_stage.py
-      option_picked "Model 12 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-12/second_stage.py
+      option_picked "Model 18 - First Stage";
+      python3 $(pwd)/database/$database_name/src/model-18/first_stage.py
+      option_picked "Model 18 - Second Stage";
+      python3 $(pwd)/database/$database_name/src/model-18/second_stage.py
       sub_menu;
       ;;
 
