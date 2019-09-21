@@ -286,36 +286,36 @@ sub_menu(){
       20) clear;
       pyclean;
       option_picked "Model 11 - First Stage";
-      option_picked "Model 11 - Inception Resnet v2";
-      python3 $(pwd)/database/$database_name/src/model-11/first_stage_inception_resnet_v2.py
-      option_picked "Model 11 - Inception v3";
-      python3 $(pwd)/database/$database_name/src/model-11/first_stage_inception_v3.py
-      option_picked "Model 11 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_19.py
-
-      option_picked "Model 11 - Second Stage";
-      option_picked "Model 11 - Inception Resnet v2";
-      python3 $(pwd)/database/$database_name/src/model-11/second_stage_inception_resnet_v2.py
-      option_picked "Model 11 - Inception v3";
-      python3 $(pwd)/database/$database_name/src/model-11/second_stage_inception_v3.py
-      option_picked "Model 11 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_19.py
+      option_picked "Model 11 - Xception";
+      python3 $(pwd)/database/$database_name/src/model-11/first_stage_xception.py
+#      option_picked "Model 11 - Inception v3";
+#      python3 $(pwd)/database/$database_name/src/model-11/first_stage_inception_v3.py
+#      option_picked "Model 11 - VGG 19";
+#      python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_19.py
+#      option_picked "Model 11 - Second Stage";
+#      option_picked "Model 11 - Xception";
+#      python3 $(pwd)/database/$database_name/src/model-11/second_stage_xception.py
+#      option_picked "Model 11 - Inception v3";
+#      python3 $(pwd)/database/$database_name/src/model-11/second_stage_inception_v3.py
+#      option_picked "Model 11 - VGG 19";
+#      python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_19.py
+#      option_picked "Model 11 - Starting Late Fusion";
+#      python3 $(pwd)/database/$database_name/src/model-11/late_fusion.py
       sub_menu;
       ;;
 
       21) clear;
       pyclean;
       option_picked "Model 12 - First Stage";
-      option_picked "Model 12 - Inception Resnet v2";
-      python3 $(pwd)/database/$database_name/src/model-12/first_stage_inception_resnet_v2.py
+      option_picked "Model 12 - Xception";
+      python3 $(pwd)/database/$database_name/src/model-12/first_stage_xception.py
       option_picked "Model 12 - Inception v3";
       python3 $(pwd)/database/$database_name/src/model-12/first_stage_inception_v3.py
       option_picked "Model 12 - VGG 19";
       python3 $(pwd)/database/$database_name/src/model-12/first_stage_vgg_19.py
-
       option_picked "Model 12 - Second Stage";
-      option_picked "Model 12 - Inception Resnet v2";
-      python3 $(pwd)/database/$database_name/src/model-12/second_stage_inception_resnet_v2.py
+      option_picked "Model 12 - Xception";
+      python3 $(pwd)/database/$database_name/src/model-12/second_stage_xception.py
       option_picked "Model 12 - Inception v3";
       python3 $(pwd)/database/$database_name/src/model-12/second_stage_inception_v3.py
       option_picked "Model 12 - VGG 19";
@@ -326,16 +326,15 @@ sub_menu(){
       22) clear;
       pyclean;
       option_picked "Model 13 - First Stage";
-      option_picked "Model 13 - Inception Resnet v2";
-      python3 $(pwd)/database/$database_name/src/model-13/first_stage_inception_resnet_v2.py
+      option_picked "Model 13 - Xception";
+      python3 $(pwd)/database/$database_name/src/model-13/first_stage_xception.py
       option_picked "Model 13 - Inception v3";
       python3 $(pwd)/database/$database_name/src/model-13/first_stage_inception_v3.py
       option_picked "Model 13 - VGG 19";
       python3 $(pwd)/database/$database_name/src/model-13/first_stage_vgg_19.py
-
       option_picked "Model 13 - Second Stage";
-      option_picked "Model 13 - Inception Resnet v2";
-      python3 $(pwd)/database/$database_name/src/model-13/second_stage_inception_resnet_v2.py
+      option_picked "Model 13 - Xception";
+      python3 $(pwd)/database/$database_name/src/model-13/second_stage_xception.py
       option_picked "Model 13 - Inception v3";
       python3 $(pwd)/database/$database_name/src/model-13/second_stage_inception_v3.py
       option_picked "Model 13 - VGG 19";
@@ -346,16 +345,15 @@ sub_menu(){
       23) clear;
       pyclean;
       option_picked "Model 14 - First Stage";
-      option_picked "Model 14 - Inception Resnet v2";
-      python3 $(pwd)/database/$database_name/src/model-14/first_stage_inception_resnet_v2.py
+      option_picked "Model 14 - Xception";
+      python3 $(pwd)/database/$database_name/src/model-14/first_stage_xception.py
       option_picked "Model 14 - Inception v3";
       python3 $(pwd)/database/$database_name/src/model-14/first_stage_inception_v3.py
       option_picked "Model 14 - VGG 19";
       python3 $(pwd)/database/$database_name/src/model-14/first_stage_vgg_19.py
-
       option_picked "Model 14 - Second Stage";
-      option_picked "Model 14 - Inception Resnet v2";
-      python3 $(pwd)/database/$database_name/src/model-14/second_stage_inception_resnet_v2.py
+      option_picked "Model 14 - Xception";
+      python3 $(pwd)/database/$database_name/src/model-14/second_stage_xception.py
       option_picked "Model 14 - Inception v3";
       python3 $(pwd)/database/$database_name/src/model-14/second_stage_inception_v3.py
       option_picked "Model 14 - VGG 19";

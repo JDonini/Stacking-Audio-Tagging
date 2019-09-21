@@ -6,7 +6,7 @@ import tensorflow as tf
 import datetime
 from keras_preprocessing.image import ImageDataGenerator
 from keras import backend as k
-from keras.models import Model
+from keras.models import Sequential
 from keras.layers import Dense, Input, Flatten
 from keras.utils.training_utils import multi_gpu_model
 from keras.callbacks import TensorBoard, EarlyStopping, ReduceLROnPlateau, CSVLogger
@@ -24,7 +24,6 @@ from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SE
 
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 datagen = ImageDataGenerator(rescale=1./255)
@@ -69,26 +68,12 @@ STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_TEST = test_generator.n/test_generator.batch_size
 STEP_SIZE_VALID = validation_generator.n/validation_generator.batch_size
 
-try:
-    model_vgg19 = multi_gpu_model(VGG19(weights=None, include_top=False))
-    _input = Input(shape=IMG_SIZE)
-    output_vgg19 = model_vgg19(_input)
-    x = Flatten()(output_vgg19)
-    x = Dense(512, activation='relu')(x)
-    x = Dense(256, activation='relu')(x)
-    x = Dense(97, activation='sigmoid')(x)
-    model = Model(inputs=_input, outputs=x)
-    print('Using GPUs')
-except:
-    model_vgg19 = VGG19(weights=None, include_top=False)
-    _input = Input(shape=IMG_SIZE)
-    output_vgg19 = model_vgg19(_input)
-    x = Flatten()(output_vgg19)
-    x = Dense(512, activation='relu')(x)
-    x = Dense(256, activation='relu')(x)
-    x = Dense(97, activation='sigmoid')(x)
-    model = Model(input)
-    print('Using GPU')
+model = Sequential()
+model.add(VGG19(weights=None, include_top=False, input_tensor=Input(shape=IMG_SIZE)))
+model.add(Flatten())
+model.add(Dense(512, activation='relu'))
+model.add(Dense(256, activation='relu'))
+model.add(Dense(97, activation='sigmoid'))
 
 model.load_weights(MODEL_12_WEIGHTS_FINAL + 'weights_first_stage_vgg_19.h5')
 

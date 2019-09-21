@@ -9,15 +9,14 @@ from generate_structure import MODEL_11_OUT_FIRST_STAGE, MODEL_11_OUT_SECOND_STA
 columns = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "predictions_vgg_19.csv").columns[1:].tolist()
 
 predict_vgg_19_stage_1 = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "predictions_vgg_19.csv", usecols=columns)
-predict_inception_resnet_v2_stage_1 = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "predictions_inception_resnet_v2.csv",
-                                                  usecols=columns)
+predict_inception_resnet_v2_stage_1 = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "predictions_xception.csv", usecols=columns)
 predict_inception_v3_stage_1 = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "predictions_inception_v3.csv", usecols=columns)
 
 predict_vgg_19_stage_2 = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "predictions_vgg_19.csv", usecols=columns)
-predict_inception_resnet_v2_stage_2 = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "predictions_inception_resnet_v2.csv",
-                                                  usecols=columns)
+predict_inception_resnet_v2_stage_2 = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "predictions_xception.csv", usecols=columns)
 predict_inception_v3_stage_2 = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "predictions_inception_v3.csv", usecols=columns)
 
+print(predict_inception_resnet_v2_stage_1)
 
 def late_fusion_stage_1():
     all_prediction_stage_1 = np.array(predict_vgg_19_stage_1, predict_inception_resnet_v2_stage_1,
@@ -42,4 +41,4 @@ def late_fusion_stage_2():
 if __name__ == '__main__':
     print('Starting Late Fusion Evaluating')
     late_fusion_stage_1()
-    late_fusion_stage_2()
+    # late_fusion_stage_2()

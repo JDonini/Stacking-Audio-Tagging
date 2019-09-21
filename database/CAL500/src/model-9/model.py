@@ -13,6 +13,7 @@ def cnn_cnn_model_9_arq_1():
     x = Conv2D(32, (3, 3), activation='relu')(input_1)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.2)(x)
+
     x = Conv2D(32, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.2)(x)
@@ -21,6 +22,7 @@ def cnn_cnn_model_9_arq_1():
     x = Conv2D(64, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.25)(x)
+
     x = Conv2D(64, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.25)(x)
@@ -47,6 +49,7 @@ def cnn_cnn_model_9_arq_2():
     y = BatchNormalization()(y)
     y = Dropout(rate=0.35)(y)
     y = MaxPooling2D()(y)
+
     y = Conv2D(32, (3, 3), activation='relu')(y)
     y = BatchNormalization()(y)
     y = Dropout(rate=0.3)(y)
@@ -55,6 +58,7 @@ def cnn_cnn_model_9_arq_2():
     y = BatchNormalization()(y)
     y = Dropout(rate=0.4)(y)
     y = MaxPooling2D()(y)
+
     y = Conv2D(64, (3, 3), activation='relu')(y)
     y = BatchNormalization()(y)
     y = Dropout(rate=0.3)(y)

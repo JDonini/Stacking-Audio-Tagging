@@ -22,10 +22,8 @@ from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SE
 
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
-
 datagen = ImageDataGenerator(rescale=1./255)
 
 train_generator = datagen.flow_from_dataframe(
@@ -68,12 +66,7 @@ STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 STEP_SIZE_TEST = test_generator.n/test_generator.batch_size
 
-try:
-    model = multi_gpu_model(cnn_cnn_model_2())
-    print('Using GPUs')
-except:
-    model = cnn_cnn_model_2()
-    print('Using GPU')
+model = cnn_cnn_model_2()
 
 model.load_weights(MODEL_2_WEIGHTS_FINAL + 'weights_first_stage.h5')
 
