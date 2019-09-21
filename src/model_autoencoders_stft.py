@@ -100,12 +100,7 @@ def autoencoders():
 STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 
-try:
-    model = multi_gpu_model(autoencoders())
-    print('Using GPUs')
-except:
-    model = autoencoders()
-    print('Using GPU')
+model = autoencoders()
 
 model.compile(optimizer='adam', loss='mean_squared_error')
 
