@@ -20,8 +20,6 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 datagen = ImageDataGenerator(rescale=1./255)
 
-# df_2 = pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 4000), nrows=4000)
-# df_3 = pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 8000), nrows=4000)
 # df_4 = pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 12000), nrows=4000)
 # df_5 = pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 16000), nrows=4000)
 # df_6 = pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 20000), nrows=4000)
@@ -29,7 +27,7 @@ datagen = ImageDataGenerator(rescale=1./255)
 # df_8 = pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 28000), nrows=4000)
 
 predict_generator = datagen.flow_from_dataframe(
-    dataframe=pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 4000), nrows=4000),
+    dataframe=pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 8000), nrows=4000),
     directory=AUDIO_CHROMAGRAM,
     x_col='song_name',
     y_col=columns,
