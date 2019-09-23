@@ -11,12 +11,7 @@ from config_project import IMG_SIZE
 def cnn_cnn_model_9_arq_1():
     input_1 = Input(shape=IMG_SIZE)
 
-    x = Conv2D(16, (3, 3), activation='relu')(input_1)
-    x = BatchNormalization()(x)
-    x = Dropout(rate=0.2)(x)
-    x = MaxPooling2D()(x)
-
-    x = Conv2D(32, (3, 3), activation='relu')(x)
+    x = Conv2D(32, (3, 3), activation='relu')(input_1)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.2)(x)
     x = MaxPooling2D()(x)
@@ -24,6 +19,7 @@ def cnn_cnn_model_9_arq_1():
     x = Conv2D(64, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.25)(x)
+    x = MaxPooling2D()(x)
 
     x = Conv2D(128, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
@@ -43,12 +39,7 @@ def cnn_cnn_model_9_arq_1():
 def cnn_cnn_model_9_arq_2():
     input_2 = Input(shape=IMG_SIZE)
 
-    y = Conv2D(16, (3, 3), activation='relu')(input_2)
-    y = BatchNormalization()(y)
-    y = Dropout(rate=0.2)(y)
-    y = MaxPooling2D()(y)
-
-    y = Conv2D(32, (3, 3), activation='relu')(y)
+    y = Conv2D(32, (3, 3), activation='relu')(input_2)
     y = BatchNormalization()(y)
     y = Dropout(rate=0.2)(y)
     y = MaxPooling2D()(y)
@@ -56,6 +47,7 @@ def cnn_cnn_model_9_arq_2():
     y = Conv2D(64, (3, 3), activation='relu')(y)
     y = BatchNormalization()(y)
     y = Dropout(rate=0.25)(y)
+    y = MaxPooling2D()(y)
 
     y = Conv2D(128, (3, 3), activation='relu')(y)
     y = BatchNormalization()(y)

@@ -3,7 +3,7 @@ import multiprocessing
 from keras import backend as k
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+os.environ["CUDA_VISIBLE_DEVICES"] = '0'
 
 EXT_AUDIO = '*.wav'
 EXT_IMG = '.png'
