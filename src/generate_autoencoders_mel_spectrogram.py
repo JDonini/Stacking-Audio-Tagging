@@ -20,8 +20,8 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 datagen = ImageDataGenerator(rescale=1./255)
 
-spredict_generator = datagen.flow_from_dataframe(
-    dataframe=pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 12000), nrows=4000),
+predict_generator = datagen.flow_from_dataframe(
+    dataframe=pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 16000), nrows=4000),
     directory=AUDIO_MEL_SPECTROGRAM,
     x_col='song_name',
     y_col=columns,
