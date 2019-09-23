@@ -73,6 +73,7 @@ def cnn_cnn_model_10_arq_2():
     y = BatchNormalization()(y)
     y = Dropout(rate=0.4)(y)
     y = MaxPooling2D()(y)
+
     y = Flatten()(y)
 
     return input_2, y

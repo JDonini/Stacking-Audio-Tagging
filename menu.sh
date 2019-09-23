@@ -12,7 +12,6 @@ show_menu(){
   echo -e "${MENU}**${NUMBER} 2)${MENU} FMA ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 3)${MENU} MagnaTagATune ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 4)${MENU} MillionSong ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 5)${MENU} Music2All ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT} enter to exit. ${NORMAL}"
   read opt
@@ -43,12 +42,6 @@ show_menu(){
 
       4) clear;
       export database_name="MillionSong"
-      option_picked $database_name;    
-      sub_menu;
-      ;;
-
-      5) clear;
-      export database_name="Music2All"
       option_picked $database_name;    
       sub_menu;
       ;;
