@@ -21,7 +21,7 @@ columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 datagen = ImageDataGenerator(rescale=1./255)
 
 predict_generator = datagen.flow_from_dataframe(
-    dataframe=pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 20000), nrows=4000),
+    dataframe=pd.read_csv(BINARY_ANNOTATIONS, skiprows=range(1, 24000), nrows=4000),
     directory=AUDIO_STFT,
     x_col='song_name',
     y_col=columns,
