@@ -1,7 +1,13 @@
 Stacking Audio Tagging
 ======================
 
-In this work I proposed apply Stacking with Convolutional Neural Network to improve Audio Tag classification.
+In this work I proposed apply Stacking with Convolutional Neural Network to improve Audio Tag Classification.
+
+The project is organized into 3 main projects:
+--------------------
+    M1 - Utilize Stacking technique with CNN to improve Audio Tag Classification;
+    M2 - Utilize Stacking technique with CNN and late fusion to improve Audio Tag Classification;
+    M3 - Utilize Stacking technique with CNN and Autoencoders to improve Audio Tag Classification;
 
 Project Organization
 --------------------
@@ -10,7 +16,6 @@ Project Organization
 ├── config-project.yml
 ├── database
 │   └── CAL500
-│       ├── config.py
 │       ├── data
 │       │   ├── processed
 │       │   │   ├── annotations
@@ -21,49 +26,54 @@ Project Organization
 │       ├── models
 │       ├── out
 │       └── src
-│           ├── cnn-cnn-complex
+│           ├── model-1
 │           │   ├── first_stage.py
 │           │   ├── __init__.py
 │           │   ├── model.py
 │           │   └── second_stage.py
-│           ├── cnn-cnn-simple
+│           ├── model-2
 │           │   ├── first_stage.py
 │           │   ├── __init__.py
 │           │   ├── model.py
 │           │   └── second_stage.py
-│           ├── cnn-svm
+│           ├── model-3
 │           │   ├── first_stage.py
 │           │   ├── __init__.py
 │           │   ├── model.py
 │           │   └── second_stage.py
-│           └── cnn-svm-svm
+│           └── model-n
 │               ├── first_stage.py
 │               ├── __init__.py
 │               ├── model.py
 │               └── second_stage.py
-├── docs
-│   ├── conf.py
-│   ├── index.rst
-│   └── Makefile
 ├── environment
 │   ├── environment.yml
 │   ├── install_environment.sh
 │   ├── update_packages_environment.sh
 │   └── update_yml_environment.sh
 ├── LICENSE
-├── main.py
+├── main.sh
 ├── README.md
 ├── scripts
 │   └── get_database.sh
 └── src
     ├── __init__.py
     ├── check_data.py
+    ├── generate_autoencoders_chromagram.py
+    ├── generate_autoencoders_mel_spectrogram.py
+    ├── generate_autoencoders_mfcc.py
+    ├── generate_autoencoders_stft.py
     ├── generate_graph.py
     ├── generate_holdout.py
+    ├── generate_info_data.py
     ├── generate_spectrogram.py
     ├── generate_structure.py
     ├── metrics.py
-    └── preprocessing_data.py
+    ├── model_autoencoders_chromagram.py
+    ├── model_autoencoders_mel_spectrogram.py
+    ├── model_autoencoders_mfcc.py
+    └── model_autoencoders_stft.py
+
 ```
 --------
 
