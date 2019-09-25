@@ -16,11 +16,10 @@ predict_vgg_19_stage_2 = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "predictions_vg
 predict_inception_resnet_v2_stage_2 = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "predictions_xception.csv", usecols=columns)
 predict_inception_v3_stage_2 = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "predictions_inception_v3.csv", usecols=columns)
 
-print(predict_inception_resnet_v2_stage_1)
 
 def late_fusion_stage_1():
-    all_prediction_stage_1 = np.array(predict_vgg_19_stage_1, predict_inception_resnet_v2_stage_1,
-                                      predict_inception_v3_stage_1)
+    all_prediction_stage_1 = np.array([predict_vgg_19_stage_1, predict_inception_resnet_v2_stage_1,
+                                      predict_inception_v3_stage_1])
 
     predict_stage_1_sum = all_prediction_stage_1.sum(0).argmax(1)
     predict_stage_1_prod = all_prediction_stage_1.prod(0).argmax(1)
@@ -39,6 +38,5 @@ def late_fusion_stage_2():
 
 
 if __name__ == '__main__':
-    print('Starting Late Fusion Evaluating')
     late_fusion_stage_1()
-    # late_fusion_stage_2()
+    late_fusion_stage_2()

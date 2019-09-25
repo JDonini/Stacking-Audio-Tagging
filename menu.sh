@@ -278,22 +278,22 @@ sub_menu(){
 
       20) clear;
       pyclean;
-      option_picked "Model 11 - First Stage";
-      option_picked "Model 11 - Xception";
-      python3 $(pwd)/database/$database_name/src/model-11/first_stage_xception.py
-#      option_picked "Model 11 - Inception v3";
-#      python3 $(pwd)/database/$database_name/src/model-11/first_stage_inception_v3.py
-#      option_picked "Model 11 - VGG 19";
-#      python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_19.py
-#      option_picked "Model 11 - Second Stage";
-#      option_picked "Model 11 - Xception";
-#      python3 $(pwd)/database/$database_name/src/model-11/second_stage_xception.py
-#      option_picked "Model 11 - Inception v3";
-#      python3 $(pwd)/database/$database_name/src/model-11/second_stage_inception_v3.py
-#      option_picked "Model 11 - VGG 19";
-#      python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_19.py
-#      option_picked "Model 11 - Starting Late Fusion";
-#      python3 $(pwd)/database/$database_name/src/model-11/late_fusion.py
+      # option_picked "Model 11 - First Stage";
+      # option_picked "Model 11 - Xception";
+      # python3 $(pwd)/database/$database_name/src/model-11/first_stage_xception.py
+      # option_picked "Model 11 - Inception v3";
+      # python3 $(pwd)/database/$database_name/src/model-11/first_stage_inception_v3.py
+      # option_picked "Model 11 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_19.py
+      # option_picked "Model 11 - Second Stage";
+      # option_picked "Model 11 - Xception";
+      # python3 $(pwd)/database/$database_name/src/model-11/second_stage_xception.py
+      # option_picked "Model 11 - Inception v3";
+      # python3 $(pwd)/database/$database_name/src/model-11/second_stage_inception_v3.py
+      # option_picked "Model 11 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_19.py
+      option_picked "Model 11 - Starting Late Fusion";
+      python3 $(pwd)/database/$database_name/src/model-11/late_fusion.py
       sub_menu;
       ;;
 

@@ -78,3 +78,9 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+##### Menu Organization - Select a Dataset
+![Screenshot](screenshot/img1.png)
+
+##### Menu Organization - Select an option from the menu.
+![Screenshot](screenshot/img2.png)
