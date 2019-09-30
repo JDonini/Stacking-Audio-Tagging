@@ -148,8 +148,7 @@ history = model.fit_generator(
     max_queue_size=100
 )
 
-score = model.evaluate_generator(test_generate_multiple_input(), steps=STEP_SIZE_TEST, verbose=0,
-                                 max_queue_size=100)
+score = model.evaluate_generator(test_generate_multiple_input(), steps=STEP_SIZE_TEST, verbose=0, max_queue_size=100)
 
 results_testing = pd.DataFrame()
 results_testing.loc[0, 'Loss'] = float('{0:.4f}'.format(score[0]))

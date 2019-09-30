@@ -101,7 +101,7 @@ history = model.fit_generator(
 )
 
 score = model.evaluate_generator(
-    validation_generator, steps=STEP_SIZE_VALID, max_queue_size=100)
+    test_generator, steps=STEP_SIZE_TEST, max_queue_size=100)
 
 results_testing = pd.DataFrame()
 results_testing.loc[0, 'Loss'] = float('{0:.4f}'.format(score[0]))
