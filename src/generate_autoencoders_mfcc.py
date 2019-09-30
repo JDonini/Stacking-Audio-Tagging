@@ -10,12 +10,11 @@ from keras import backend as k
 sys.path.append('src')
 from generate_structure import MODEL_AUTOENCODERS, BINARY_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MFCC, \
  AUTOENCODERS_MFCC
-sys.path.append('database')
+sys.path.append('config')
 from config_project import SEED, BATCH_SIZE, TARGET_SIZE, FIG_SIZE_AUTOENCODERS
 
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 datagen = ImageDataGenerator(rescale=1./255)

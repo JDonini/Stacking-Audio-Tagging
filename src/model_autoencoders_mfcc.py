@@ -12,12 +12,11 @@ from keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from keras_preprocessing.image import ImageDataGenerator
 sys.path.append('src')
 from generate_structure import TRAIN_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MFCC, MODEL_AUTOENCODERS
-sys.path.append('database')
+sys.path.append('config')
 from config_project import SEED, BATCH_SIZE, TARGET_SIZE, NUM_EPOCHS, IMG_SIZE
 
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 columns = pd.read_csv(VALIDATION_ANNOTATIONS).columns[1:].tolist()
 datagen = ImageDataGenerator(rescale=1./255)

@@ -1,6 +1,4 @@
 import matplotlib.pyplot as plt
-import sys
-sys.path.append('database/')
 
 
 def generate_acc_graph(history, model_name, model_stage):

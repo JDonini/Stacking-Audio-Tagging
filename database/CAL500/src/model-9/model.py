@@ -4,7 +4,7 @@ from keras.layers import Dense, Input, Dropout, Flatten
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
 from keras.layers.merge import concatenate
-sys.path.append('database')
+sys.path.append('config')
 from config_project import IMG_SIZE
 
 

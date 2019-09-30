@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 sys.path.append('src/')
 from generate_structure import BINARY_ANNOTATIONS, AUDIO
-sys.path.append('database/')
+sys.path.append('config/')
 from config_project import EXT_IMG, EXT_AUDIO, SEED
 np.random.seed(SEED)
 

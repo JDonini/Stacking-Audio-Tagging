@@ -8,10 +8,10 @@ import pylab
 import librosa
 import librosa.display
 import matplotlib.pyplot as plt
-sys.path.append('src/')
+sys.path.append('src')
 from generate_structure import AUDIO, AUDIO_MFCC, AUDIO_MEL_SPECTROGRAM, \
  AUDIO_STFT_PERCUSSIVE, AUDIO_STFT_HARMONIC, AUDIO_CHROMAGRAM, AUDIO_STFT
-sys.path.append('database')
+sys.path.append('config')
 from config_project import EXT_AUDIO, EXT_IMG, FIG_SIZE, N_MELS, SR, OFFSET, DURATION
 
 plt.rcParams.update({'figure.max_open_warning': 0})
