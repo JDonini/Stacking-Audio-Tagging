@@ -8,9 +8,9 @@ import pandas as pd
 import librosa
 import librosa.display
 import matplotlib.pyplot as plt
-sys.path.append('src/')
+sys.path.append('src')
 from generate_structure import BINARY_ANNOTATIONS, AUDIO, ANNOTATIONS
-sys.path.append('database/')
+sys.path.append('config')
 from config_project import EXT_AUDIO, AUDIO_THRESHOLD, EXT_IMG, SEED
 
 np.random.seed(SEED)

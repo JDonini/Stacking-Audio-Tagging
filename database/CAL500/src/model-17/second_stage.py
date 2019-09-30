@@ -17,8 +17,8 @@ from generate_graph import generate_acc_graph, generate_loss_graph, generate_auc
  generate_hamming_loss_graph, generate_ranking_loss_graph
 from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUTOENCODERS_MFCC, \
  MODEL_17_TENSOR, MODEL_17_WEIGHTS_FINAL, MODEL_17_OUT_SECOND_STAGE
-sys.path.append('database')
-from config_project import BATCH_SIZE, TARGET_SIZE_AUTOENCODERS, LR, NUM_EPOCHS, LR_DECAY, SEED
+sys.path.append('config')
+from config_project import BATCH_SIZE, TARGET_SIZE_AUTOENCODERS, LR, NUM_EPOCHS, LR_DECAY, SEED, EARLY_STOPPING, REDUCE_LR
 
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
@@ -76,10 +76,10 @@ model.compile(loss='binary_crossentropy', optimizer=RMSprop(
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
 callbacks_list = [
-    EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
-    EarlyStopping(monitor='val_acc', mode='max', patience=20),
+    EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=EARLY_STOPPING),
+    EarlyStopping(monitor='val_acc', mode='max', patience=EARLY_STOPPING),
     TensorBoard(log_dir=MODEL_17_TENSOR + 'second_stage/' + datetime_str, histogram_freq=0, write_graph=True),
-    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=12, min_lr=1e-10, mode='auto', verbose=1),
+    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=REDUCE_LR, min_lr=1e-10, mode='auto', verbose=1),
     CSVLogger(MODEL_17_OUT_SECOND_STAGE + 'training.csv', append=True, separator=',')
 ]
 

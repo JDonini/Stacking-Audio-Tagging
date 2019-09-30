@@ -17,8 +17,8 @@ from generate_graph import generate_acc_graph, generate_loss_graph, generate_auc
  generate_hamming_loss_graph, generate_ranking_loss_graph
 from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_CHROMAGRAM, \
  MODEL_5_TENSOR, MODEL_5_WEIGHTS_FINAL, MODEL_5_OUT_FIRST_STAGE
-sys.path.append('database')
-from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED
+sys.path.append('config')
+from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED, EARLY_STOPPING, REDUCE_LR
 
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
@@ -75,10 +75,10 @@ datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
 callbacks_list = [
     ModelCheckpoint(MODEL_5_WEIGHTS_FINAL + 'weights_first_stage.h5', save_weights_only=True, save_best_only=True),
-    EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
-    EarlyStopping(monitor='val_acc', mode='max', patience=20),
+    EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=EARLY_STOPPING),
+    EarlyStopping(monitor='val_acc', mode='max', patience=EARLY_STOPPING),
     TensorBoard(log_dir=MODEL_5_TENSOR + 'first_stage/' + datetime_str, histogram_freq=0, write_graph=True),
-    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=12, min_lr=1e-10, mode='auto', verbose=1),
+    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=REDUCE_LR, min_lr=1e-10, mode='auto', verbose=1),
     CSVLogger(MODEL_5_OUT_FIRST_STAGE + 'training.csv', append=True, separator=',')
 ]
 

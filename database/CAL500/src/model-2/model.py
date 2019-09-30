@@ -3,7 +3,7 @@ from keras.models import Model
 from keras.layers import Dense, Flatten, Dropout, Input
 from keras.layers.convolutional import Conv2D, MaxPooling2D
 from keras.layers.normalization import BatchNormalization
-sys.path.append('database')
+sys.path.append('config')
 from config_project import IMG_SIZE
 
 

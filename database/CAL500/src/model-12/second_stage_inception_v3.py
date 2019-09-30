@@ -81,10 +81,10 @@ model.compile(loss='binary_crossentropy', optimizer=RMSprop(
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
 callbacks_list = [
-    EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20),
-    EarlyStopping(monitor='val_acc', mode='max', patience=20),
+    EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=EARLY_STOPPING),
+    EarlyStopping(monitor='val_acc', mode='max', patience=EARLY_STOPPING),
     TensorBoard(log_dir=MODEL_12_TENSOR + 'second_stage/' + datetime_str, histogram_freq=0, write_graph=True),
-    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=12, min_lr=1e-10, mode='auto', verbose=1),
+    ReduceLROnPlateau(monitor='val_loss', factor=0.2, patience=REDUCE_LR, min_lr=1e-10, mode='auto', verbose=1),
     CSVLogger(MODEL_12_OUT_SECOND_STAGE + 'training_inception_v3.csv', append=True, separator=',')
 ]
 

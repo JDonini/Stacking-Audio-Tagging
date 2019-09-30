@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append('database')
+sys.path.append('config')
 from config_project import FIG_SIZE, FIG_SIZE_AUTOENCODERS
 
 fig_size = '/' + str(FIG_SIZE).replace('.', '').replace(',', '-').replace('(', '').replace(')', '').replace(' ', '')
