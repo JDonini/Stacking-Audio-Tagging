@@ -50,7 +50,7 @@ def recall_ml(y_pred,y_true):
     return recall/len(y_t)
 
 
-def metrics_cnn():
+def metrics_cnn_sum_stage_1():
     y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
     y_pred = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "y_proba_role_sum_late_fusion_stage_1.csv", header=0, index_col=0).values
     y_proba = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "y_pred_role_sum_late_fusion_stage_1.csv", header=0, index_col=0).values
@@ -64,10 +64,198 @@ def metrics_cnn():
     roc_score = roc_auc_score(y_test,y_proba, average='micro')
     pr_score = average_precision_score(y_test,y_proba,average='micro')
 
-    print('{0:.4f};{1:.4f};{2:.4f};{3:.4f};{4:.4f};{5:.4f};{6:.4f};{7:.4f};'.format(
-        hl_score, acc_score, acc_ml, fmeasure_score, roc_score, pr_score, prec_ml, rec_ml))
+    with open(MODEL_11_OUT_FIRST_STAGE + 'result_sum_late_fusion_stage_1.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results, )
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(f1_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
+
+
+def metrics_cnn_prob_stage_1():
+    y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "y_proba_role_prob_late_fusion_stage_1.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "y_pred_role_prob_late_fusion_stage_1.csv", header=0, index_col=0).values
+
+    hl_score = hamming_loss(y_pred,y_test)
+    acc_score = accuracy_score(y_pred,y_test)
+    acc_ml = accuracy_ml(y_pred,y_test)
+    prec_ml = precision_ml(y_pred,y_test)
+    rec_ml = recall_ml(y_pred,y_test)
+    fmeasure_score = f1_score(y_pred,y_test, average='micro')
+    roc_score = roc_auc_score(y_test,y_proba, average='micro')
+    pr_score = average_precision_score(y_test,y_proba,average='micro')
+
+    with open(MODEL_11_OUT_FIRST_STAGE + 'result_prob_late_fusion_stage_1.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results, )
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(f1_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
+
+
+def metrics_cnn_median_stage_1():
+    y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "y_proba_role_median_late_fusion_stage_1.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "y_pred_role_median_late_fusion_stage_1.csv", header=0, index_col=0).values
+
+    hl_score = hamming_loss(y_pred,y_test)
+    acc_score = accuracy_score(y_pred,y_test)
+    acc_ml = accuracy_ml(y_pred,y_test)
+    prec_ml = precision_ml(y_pred,y_test)
+    rec_ml = recall_ml(y_pred,y_test)
+    fmeasure_score = f1_score(y_pred,y_test, average='micro')
+    roc_score = roc_auc_score(y_test,y_proba, average='micro')
+    pr_score = average_precision_score(y_test,y_proba,average='micro')
+
+    with open(MODEL_11_OUT_FIRST_STAGE + 'result_median_late_fusion_stage_1.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results, )
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(f1_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
+
+
+def metrics_cnn_max_stage_1():
+    y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "y_proba_role_max_late_fusion_stage_1.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_11_OUT_FIRST_STAGE + "y_pred_role_max_late_fusion_stage_1.csv", header=0, index_col=0).values
+
+    hl_score = hamming_loss(y_pred,y_test)
+    acc_score = accuracy_score(y_pred,y_test)
+    acc_ml = accuracy_ml(y_pred,y_test)
+    prec_ml = precision_ml(y_pred,y_test)
+    rec_ml = recall_ml(y_pred,y_test)
+    fmeasure_score = f1_score(y_pred,y_test, average='micro')
+    roc_score = roc_auc_score(y_test,y_proba, average='micro')
+    pr_score = average_precision_score(y_test,y_proba,average='micro')
+
+    with open(MODEL_11_OUT_FIRST_STAGE + 'result_max_late_fusion_stage_1.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results, )
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(f1_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
+
+
+def metrics_cnn_sum_stage_2():
+    y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "y_proba_role_sum_late_fusion_stage_2.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "y_pred_role_sum_late_fusion_stage_2.csv", header=0, index_col=0).values
+
+    hl_score = hamming_loss(y_pred,y_test)
+    acc_score = accuracy_score(y_pred,y_test)
+    acc_ml = accuracy_ml(y_pred,y_test)
+    prec_ml = precision_ml(y_pred,y_test)
+    rec_ml = recall_ml(y_pred,y_test)
+    fmeasure_score = f1_score(y_pred,y_test, average='micro')
+    roc_score = roc_auc_score(y_test,y_proba, average='micro')
+    pr_score = average_precision_score(y_test,y_proba,average='micro')
+
+    with open(MODEL_11_OUT_SECOND_STAGE + 'result_sum_late_fusion_stage_2.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results, )
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(f1_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
+
+
+def metrics_cnn_prob_stage_2():
+    y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "y_proba_role_prob_late_fusion_stage_2.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "y_pred_role_prob_late_fusion_stage_2.csv", header=0, index_col=0).values
+
+    hl_score = hamming_loss(y_pred,y_test)
+    acc_score = accuracy_score(y_pred,y_test)
+    acc_ml = accuracy_ml(y_pred,y_test)
+    prec_ml = precision_ml(y_pred,y_test)
+    rec_ml = recall_ml(y_pred,y_test)
+    fmeasure_score = f1_score(y_pred,y_test, average='micro')
+    roc_score = roc_auc_score(y_test,y_proba, average='micro')
+    pr_score = average_precision_score(y_test,y_proba,average='micro')
+
+    with open(MODEL_11_OUT_SECOND_STAGE + 'result_prob_late_fusion_stage_2.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results, )
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(f1_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
+
+
+def metrics_cnn_median_stage_2():
+    y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "y_proba_role_median_late_fusion_stage_2.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "y_pred_role_median_late_fusion_stage_2.csv", header=0, index_col=0).values
+
+    hl_score = hamming_loss(y_pred,y_test)
+    acc_score = accuracy_score(y_pred,y_test)
+    acc_ml = accuracy_ml(y_pred,y_test)
+    prec_ml = precision_ml(y_pred,y_test)
+    rec_ml = recall_ml(y_pred,y_test)
+    fmeasure_score = f1_score(y_pred,y_test, average='micro')
+    roc_score = roc_auc_score(y_test,y_proba, average='micro')
+    pr_score = average_precision_score(y_test,y_proba,average='micro')
+
+    with open(MODEL_11_OUT_SECOND_STAGE + 'result_median_late_fusion_stage_2.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results, )
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(f1_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
+
+
+def metrics_cnn_max_stage_2():
+    y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "y_proba_role_max_late_fusion_stage_2.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_11_OUT_SECOND_STAGE + "y_pred_role_max_late_fusion_stage_2.csv", header=0, index_col=0).values
+
+    hl_score = hamming_loss(y_pred,y_test)
+    acc_score = accuracy_score(y_pred,y_test)
+    acc_ml = accuracy_ml(y_pred,y_test)
+    prec_ml = precision_ml(y_pred,y_test)
+    rec_ml = recall_ml(y_pred,y_test)
+    fmeasure_score = f1_score(y_pred,y_test, average='micro')
+    roc_score = roc_auc_score(y_test,y_proba, average='micro')
+    pr_score = average_precision_score(y_test,y_proba,average='micro')
+
+    with open(MODEL_11_OUT_SECOND_STAGE + 'result_max_late_fusion_stage_2.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results, )
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(f1_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
 
 
 if __name__ == '__main__':
-    metrics_cnn()
-    
+    metrics_cnn_sum_stage_1()
+    metrics_cnn_prob_stage_1()
+    metrics_cnn_median_stage_1()
+    metrics_cnn_max_stage_1()
+    metrics_cnn_sum_stage_2()
+    metrics_cnn_prob_stage_2()
+    metrics_cnn_median_stage_2()
+    metrics_cnn_max_stage_2()
