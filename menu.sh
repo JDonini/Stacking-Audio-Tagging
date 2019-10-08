@@ -315,6 +315,10 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-12/second_stage_inception_v3.py
       option_picked "Model 12 - VGG 19";
       python3 $(pwd)/database/$database_name/src/model-12/second_stage_vgg_19.py
+      option_picked "Model 12 - Starting Late Fusion";
+      python3 $(pwd)/database/$database_name/src/model-12/late_fusion.py
+      option_picked "Model 12 - Evaluating Late Fusion";
+      python3 $(pwd)/database/$database_name/src/model-12/metrics_late_fusion.py
       sub_menu;
       ;;
 
@@ -334,6 +338,10 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-13/second_stage_inception_v3.py
       option_picked "Model 13 - VGG 19";
       python3 $(pwd)/database/$database_name/src/model-13/second_stage_vgg_19.py
+      option_picked "Model 13 - Starting Late Fusion";
+      python3 $(pwd)/database/$database_name/src/model-13/late_fusion.py
+      option_picked "Model 13 - Evaluating Late Fusion";
+      python3 $(pwd)/database/$database_name/src/model-13/metrics_late_fusion.py
       sub_menu;
       ;;
 
@@ -353,6 +361,10 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-14/second_stage_inception_v3.py
       option_picked "Model 14 - VGG 19";
       python3 $(pwd)/database/$database_name/src/model-14/second_stage_vgg_19.py
+      option_picked "Model 14 - Starting Late Fusion";
+      python3 $(pwd)/database/$database_name/src/model-14/late_fusion.py
+      option_picked "Model 14 - Evaluating Late Fusion";
+      python3 $(pwd)/database/$database_name/src/model-14/metrics_late_fusion.py
       sub_menu;
       ;;
 
