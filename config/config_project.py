@@ -1,6 +1,5 @@
 import os
 import multiprocessing
-from keras import backend as k
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 os.environ["CUDA_VISIBLE_DEVICES"] = '0'
@@ -37,4 +36,3 @@ MOMENTUM = 0.9
 NUM_WORKERS = multiprocessing.cpu_count()
 # NUM_EPOCHS = 128
 NUM_EPOCHS = 1
- 
