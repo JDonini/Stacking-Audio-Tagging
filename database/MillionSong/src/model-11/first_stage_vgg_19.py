@@ -1,4 +1,3 @@
-import os
 import sys
 import numpy as np
 import pandas as pd
@@ -8,15 +7,11 @@ from keras_preprocessing.image import ImageDataGenerator
 from keras import backend as k
 from keras.models import Sequential
 from keras.layers import Dense, Input, Flatten
-from keras.utils.training_utils import multi_gpu_model
 from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceLROnPlateau, CSVLogger
 from keras.optimizers import RMSprop
 from keras.utils import plot_model
 from keras.applications.vgg19 import VGG19
 sys.path.append('src')
-from metrics import auc_roc, hamming_loss, ranking_loss, auc_pr
-from generate_graph import generate_acc_graph, generate_loss_graph, generate_auc_roc_graph, generate_auc_pr_graph, \
- generate_hamming_loss_graph, generate_ranking_loss_graph
 from generate_structure import AUDIO_CHROMAGRAM, TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, \
  MODEL_11_TENSOR, MODEL_11_WEIGHTS_FINAL, MODEL_11_OUT_FIRST_STAGE
 sys.path.append('config')
@@ -73,10 +68,10 @@ model.add(VGG19(weights=None, include_top=False, input_tensor=Input(shape=IMG_SI
 model.add(Flatten())
 model.add(Dense(512, activation='relu'))
 model.add(Dense(256, activation='relu'))
-model.add(Dense(97, activation='sigmoid'))
+model.add(Dense(265, activation='sigmoid'))
 
 model.compile(loss='binary_crossentropy', optimizer=RMSprop(
-    lr=LR, decay=LR_DECAY), metrics=['accuracy', auc_roc, auc_pr, hamming_loss, ranking_loss])
+    lr=LR, decay=LR_DECAY), metrics=['accuracy'])
 
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
@@ -100,18 +95,6 @@ history = model.fit_generator(
     max_queue_size=100
 )
 
-score = model.evaluate_generator(
-    test_generator, steps=STEP_SIZE_TEST, max_queue_size=100)
-
-results_testing = pd.DataFrame()
-results_testing.loc[0, 'Loss'] = float('{0:.4f}'.format(score[0]))
-results_testing.loc[0, 'Accuracy'] = float('{0:.4f}'.format(score[1]))
-results_testing.loc[0, 'AUC-ROC'] = float('{0:.4f}'.format(score[2]))
-results_testing.loc[0, 'AUC-PR'] = float('{0:.4f}'.format(score[3]))
-results_testing.loc[0, 'Hamming Loss'] = float('{0:.4f}'.format(score[4]))
-results_testing.loc[0, 'Ranking Loss'] = float('{0:.4f}'.format(score[5]))
-results_testing.to_csv(MODEL_11_OUT_FIRST_STAGE + "testing_vgg_19.csv", index=False)
-
 predictions = model.predict_generator(generator=test_generator,
                                       steps=STEP_SIZE_TEST,
                                       max_queue_size=100)
@@ -126,10 +109,4 @@ results.to_csv(MODEL_11_OUT_FIRST_STAGE + "predictions_vgg_19.csv", index=False)
 
 if __name__ == '__main__':
     k.clear_session()
-    generate_acc_graph(history, MODEL_11_OUT_FIRST_STAGE, 'model_accuracy_first_stage_vgg_19.png')
-    generate_loss_graph(history, MODEL_11_OUT_FIRST_STAGE, 'model_loss_first_stage_vgg_19.png')
-    generate_auc_roc_graph(history, MODEL_11_OUT_FIRST_STAGE, 'model_auc_roc_first_stage_vgg_19.png')
-    generate_auc_pr_graph(history, MODEL_11_OUT_FIRST_STAGE, 'model_auc_pr_first_stage_vgg_19.png')
-    generate_hamming_loss_graph(history, MODEL_11_OUT_FIRST_STAGE, 'model_hamming_loss_first_stage_vgg_19.png')
-    generate_ranking_loss_graph(history, MODEL_11_OUT_FIRST_STAGE, 'model_ranking_loss_second_stage_vgg_19.png')
-    plot_model(model, to_file=MODEL_11_OUT_FIRST_STAGE + 'cnn_model_first_stage_vgg_19.png')
+    plot_model(model, to_file=MODEL_11_OUT_FIRST_STAGE + 'cnn_model_stage_1_vgg_19.png')

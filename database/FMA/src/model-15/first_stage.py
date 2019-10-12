@@ -1,4 +1,3 @@
-import os
 import sys
 import datetime
 import numpy as np
@@ -7,14 +6,10 @@ import tensorflow as tf
 from tensorflow.keras.utils import plot_model
 from keras_preprocessing.image import ImageDataGenerator
 from keras import backend as k
-from keras.utils.training_utils import multi_gpu_model
 from keras.callbacks import TensorBoard, EarlyStopping, ReduceLROnPlateau, CSVLogger, ModelCheckpoint
 from keras.optimizers import RMSprop
 from model import cnn_cnn_model_15_s1
 sys.path.append('src')
-from metrics import auc_roc, hamming_loss, ranking_loss, auc_pr
-from generate_graph import generate_acc_graph, generate_loss_graph, generate_auc_roc_graph, generate_auc_pr_graph, \
- generate_hamming_loss_graph, generate_ranking_loss_graph
 from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_CHROMAGRAM, \
  MODEL_15_TENSOR, MODEL_15_WEIGHTS_FINAL, MODEL_15_OUT_FIRST_STAGE
 sys.path.append('config')
@@ -69,7 +64,7 @@ STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 model = cnn_cnn_model_15_s1()
 
 model.compile(loss='binary_crossentropy', optimizer=RMSprop(
-    lr=LR, decay=LR_DECAY), metrics=['accuracy', auc_roc, auc_pr, hamming_loss, ranking_loss])
+    lr=LR, decay=LR_DECAY), metrics=['accuracy'])
 
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
@@ -93,36 +88,24 @@ history = model.fit_generator(
     max_queue_size=100
 )
 
-score = model.evaluate_generator(
-    test_generator, steps=STEP_SIZE_TEST, max_queue_size=100)
-
-results_testing = pd.DataFrame()
-results_testing.loc[0, 'Loss'] = float('{0:.4f}'.format(score[0]))
-results_testing.loc[0, 'Accuracy'] = float('{0:.4f}'.format(score[1]))
-results_testing.loc[0, 'AUC-ROC'] = float('{0:.4f}'.format(score[2]))
-results_testing.loc[0, 'AUC-PR'] = float('{0:.4f}'.format(score[3]))
-results_testing.loc[0, 'Hamming Loss'] = float('{0:.4f}'.format(score[4]))
-results_testing.loc[0, 'Ranking Loss'] = float('{0:.4f}'.format(score[5]))
-results_testing.to_csv(MODEL_15_OUT_FIRST_STAGE + "testing.csv", index=False)
-
 test_generator.reset()
 predictions = model.predict_generator(test_generator,
                                       steps=STEP_SIZE_TEST,
                                       max_queue_size=100)
 
-results = pd.DataFrame(data=(predictions > 0.5).astype(int), columns=columns)
-results["song_name"] = test_generator.filenames
+results_proba = pd.DataFrame(data=predictions, columns=columns)
+results_proba["song_name"] = test_generator.filenames
 ordered_cols = ["song_name"] + columns
-results = results[ordered_cols]
-results.to_csv(MODEL_15_OUT_FIRST_STAGE + "predictions.csv", index=False)
+results_proba = results_proba[ordered_cols]
+results_proba.to_csv(MODEL_15_OUT_FIRST_STAGE + "y_proba_stage_1.csv", index=False)
+
+results_pred = pd.DataFrame(data=(predictions > 0.5).astype(int), columns=columns)
+results_pred["song_name"] = test_generator.filenames
+ordered_cols = ["song_name"] + columns
+results_pred = results_pred[ordered_cols]
+results_pred.to_csv(MODEL_15_OUT_FIRST_STAGE + "y_pred_stage_1.csv", index=False)
 
 
 if __name__ == '__main__':
     k.clear_session()
-    generate_acc_graph(history, MODEL_15_OUT_FIRST_STAGE, 'model_accuracy_first_stage.png')
-    generate_loss_graph(history, MODEL_15_OUT_FIRST_STAGE, 'model_loss_first_stage.png')
-    generate_auc_roc_graph(history, MODEL_15_OUT_FIRST_STAGE, 'model_auc_roc_first_stage.png')
-    generate_auc_pr_graph(history, MODEL_15_OUT_FIRST_STAGE, 'model_auc_pr_first_stage.png')
-    generate_hamming_loss_graph(history, MODEL_15_OUT_FIRST_STAGE, 'model_hamming_loss_first_stage.png')
-    generate_ranking_loss_graph(history, MODEL_15_OUT_FIRST_STAGE, 'model_ranking_loss_first_stage.png')
-    plot_model(model, to_file=MODEL_15_OUT_FIRST_STAGE + 'cnn_model_first_stage.png')
+    plot_model(model, to_file=MODEL_15_OUT_FIRST_STAGE + 'cnn_model_stage_1.png')

@@ -191,6 +191,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-1/first_stage.py
       option_picked "Model 1 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-1/second_stage.py
+      option_picked "Model 1 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-1/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -200,6 +202,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-2/first_stage.py
       option_picked "Model 2 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-2/second_stage.py
+      option_picked "Model 2 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-2/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -209,6 +213,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-3/first_stage.py
       option_picked "Model 3 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-3/second_stage.py
+      option_picked "Model 3 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-3/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -219,6 +225,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-4/first_stage.py
       option_picked "Model 4 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-4/second_stage.py
+      option_picked "Model 4 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-4/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -228,6 +236,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-5/first_stage.py
       option_picked "Model 5 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-5/second_stage.py
+      option_picked "Model 5 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-5/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -237,6 +247,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-6/first_stage.py
       option_picked "Model 6 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-6/second_stage.py
+      option_picked "Model 6 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-6/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -246,6 +258,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-7/first_stage.py
       option_picked "Model 7 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-7/second_stage.py
+      option_picked "Model 7 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-7/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -255,6 +269,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-8/first_stage.py
       option_picked "Model 8 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-8/second_stage.py
+      option_picked "Model 8 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-8/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -264,6 +280,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-9/first_stage.py
       option_picked "Model 9 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-9/second_stage.py
+      option_picked "Model 9 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-9/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -273,6 +291,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-10/first_stage.py
       option_picked "Model 10 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-10/second_stage.py
+      option_picked "Model 10 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-10/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -374,6 +394,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-15/first_stage.py
       option_picked "Model 15 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-15/second_stage.py
+      option_picked "Model 15 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-15/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -383,6 +405,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-16/first_stage.py
       option_picked "Model 16 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-16/second_stage.py
+      option_picked "Model 16 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-16/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -392,6 +416,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-17/first_stage.py
       option_picked "Model 17 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-17/second_stage.py
+      option_picked "Model 17 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-17/metrics_cnn.py
       sub_menu;
       ;;
 
@@ -401,6 +427,8 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-18/first_stage.py
       option_picked "Model 18 - Second Stage";
       python3 $(pwd)/database/$database_name/src/model-18/second_stage.py
+      option_picked "Model 18 - Evaluating";
+      python3 $(pwd)/database/$database_name/src/model-18/metrics_cnn.py
       sub_menu;
       ;;
 

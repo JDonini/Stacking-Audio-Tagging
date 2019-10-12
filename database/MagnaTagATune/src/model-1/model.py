@@ -39,6 +39,6 @@ def cnn_cnn_model_1():
 
     hidden_1 = Dense(512, activation='relu')(x)
     hidden_2 = Dense(256, activation='relu')(hidden_1)
-    output = Dense(97, activation='sigmoid')(hidden_2)
+    output = Dense(188, activation='sigmoid')(hidden_2)
 
     return Model(inputs=input, outputs=output)
