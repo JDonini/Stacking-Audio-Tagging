@@ -68,7 +68,7 @@ model.add(VGG19(weights=None, include_top=False, input_tensor=Input(shape=IMG_SI
 model.add(Flatten())
 model.add(Dense(512, activation='relu'))
 model.add(Dense(256, activation='relu'))
-model.add(Dense(4940, activation='sigmoid'))
+model.add(Dense(1023, activation='sigmoid'))
 
 model.load_weights(MODEL_14_WEIGHTS_FINAL + 'weights_first_stage_vgg_19.h5')
 

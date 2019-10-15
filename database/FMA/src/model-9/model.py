@@ -71,6 +71,6 @@ def merge_model_9():
     merge = concatenate([model_arq_1, model_arq_2])
 
     hidden_1 = Dense(512, activation='relu')(merge)
-    output = Dense(4940, activation='sigmoid')(hidden_1)
+    output = Dense(1023, activation='sigmoid')(hidden_1)
 
     return Model(inputs=[input_arq_1, input_arq_2], outputs=output)

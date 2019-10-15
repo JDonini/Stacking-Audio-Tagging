@@ -68,7 +68,7 @@ model.add(VGG19(weights=None, include_top=False, input_tensor=Input(shape=IMG_SI
 model.add(Flatten())
 model.add(Dense(512, activation='relu'))
 model.add(Dense(256, activation='relu'))
-model.add(Dense(4940, activation='sigmoid'))
+model.add(Dense(1023, activation='sigmoid'))
 
 model.compile(loss='binary_crossentropy', optimizer=RMSprop(
     lr=LR, decay=LR_DECAY), metrics=['accuracy'])
