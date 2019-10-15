@@ -66,7 +66,7 @@ STEP_SIZE_VALID = validation_generator.n/validation_generator.batch_size
 model = Sequential()
 model.add(Xception(weights=None, include_top=False, input_tensor=Input(shape=IMG_SIZE)))
 model.add(Flatten())
-model.add(Dense(4940, activation='sigmoid'))
+model.add(Dense(1023, activation='sigmoid'))
 
 model.load_weights(MODEL_12_WEIGHTS_FINAL + 'weights_first_stage_xception.h5')
 
