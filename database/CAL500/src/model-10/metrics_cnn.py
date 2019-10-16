@@ -47,8 +47,8 @@ def recall_ml(y_pred, y_true):
 
 def metrics_cnn_stage_1():
     y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
-    y_pred = pd.read_csv(MODEL_1_OUT_FIRST_STAGE + "y_proba_stage_1.csv", header=0, index_col=0).values
-    y_proba = pd.read_csv(MODEL_1_OUT_FIRST_STAGE + "y_pred_stage_1.csv", header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_1_OUT_FIRST_STAGE + "y_prred_stage_1.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_1_OUT_FIRST_STAGE + "y_proba_stage_1.csv", header=0, index_col=0).values
 
     hl_score = hamming_loss(y_pred, y_test)
     acc_score = accuracy_score(y_pred, y_test)
@@ -72,8 +72,8 @@ def metrics_cnn_stage_1():
 
 def metrics_cnn_stage_2():
     y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
-    y_pred = pd.read_csv(MODEL_1_OUT_SECOND_STAGE + "y_proba_stage_2.csv", header=0, index_col=0).values
-    y_proba = pd.read_csv(MODEL_1_OUT_SECOND_STAGE + "y_pred_stage_2.csv", header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_1_OUT_SECOND_STAGE + "y_pred_stage_2.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_1_OUT_SECOND_STAGE + "y_proba_stage_2.csv", header=0, index_col=0).values
 
     hl_score = hamming_loss(y_pred, y_test)
     acc_score = accuracy_score(y_pred, y_test)
