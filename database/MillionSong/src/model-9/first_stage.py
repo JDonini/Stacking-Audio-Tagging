@@ -10,11 +10,15 @@ from keras.callbacks import ModelCheckpoint, TensorBoard, EarlyStopping, ReduceL
 from keras.optimizers import RMSprop
 from model import merge_model_9
 sys.path.append('src')
+from metrics import auc_roc, hamming_loss, ranking_loss, auc_pr
+from generate_graph import generate_acc_graph, generate_loss_graph, generate_auc_roc_graph, generate_auc_pr_graph, \
+ generate_hamming_loss_graph, generate_ranking_loss_graph
 from generate_structure import AUDIO_STFT_HARMONIC, AUDIO_STFT_PERCUSSIVE, TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, \
  VALIDATION_ANNOTATIONS, MODEL_9_TENSOR, MODEL_9_WEIGHTS_FINAL, MODEL_9_OUT_FIRST_STAGE
 sys.path.append('config')
 from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED, EARLY_STOPPING, REDUCE_LR
 
+start_time = datetime.datetime.now()
 np.random.seed(SEED)
 tf.set_random_seed(SEED)
 
@@ -119,7 +123,7 @@ STEP_SIZE_TEST = test_generator_harmonic.n/test_generator_harmonic.batch_size
 model = merge_model_9()
 
 model.compile(loss='binary_crossentropy', optimizer=RMSprop(
-    lr=LR, decay=LR_DECAY), metrics=['accuracy'])
+    lr=LR, decay=LR_DECAY), metrics=['accuracy', auc_roc, auc_pr, hamming_loss, ranking_loss])
 
 datetime_str = ('{date:%Y-%m-%d-%H:%M:%S}'.format(date=datetime.datetime.now()))
 
@@ -143,6 +147,21 @@ history = model.fit_generator(
     max_queue_size=100
 )
 
+score = model.evaluate_generator(test_generate_multiple_input(),
+                                 steps=STEP_SIZE_TEST,
+                                 max_queue_size=100)
+
+end_time = datetime.datetime.now()
+results_testing = pd.DataFrame()
+results_testing.loc[0, 'Loss'] = float('{0:.4f}'.format(score[0]))
+results_testing.loc[0, 'Accuracy'] = float('{0:.4f}'.format(score[1]))
+results_testing.loc[0, 'AUC-ROC'] = float('{0:.4f}'.format(score[2]))
+results_testing.loc[0, 'AUC-PR'] = float('{0:.4f}'.format(score[3]))
+results_testing.loc[0, 'Hamming Loss'] = float('{0:.4f}'.format(score[4]))
+results_testing.loc[0, 'Ranking Loss'] = float('{0:.4f}'.format(score[5]))
+results_testing.loc[0, 'Duration'] = ('{}'.format(end_time - start_time))
+results_testing.to_csv(MODEL_9_OUT_FIRST_STAGE + "testing.csv", index=False)
+
 test_generator_harmonic.reset()
 predictions = model.predict_generator(test_generate_multiple_input(),
                                       steps=STEP_SIZE_TEST,
@@ -162,4 +181,10 @@ results_pred.to_csv(MODEL_9_OUT_FIRST_STAGE + "y_pred_stage_1.csv", index=False)
 
 if __name__ == '__main__':
     k.clear_session()
-    plot_model(model, to_file=MODEL_9_OUT_FIRST_STAGE + 'cnn_model_stage_1.png')
+    generate_acc_graph(history, MODEL_9_OUT_FIRST_STAGE, 'model_accuracy_first_stage.png')
+    generate_loss_graph(history, MODEL_9_OUT_FIRST_STAGE, 'model_loss_first_stage.png')
+    generate_auc_roc_graph(history, MODEL_9_OUT_FIRST_STAGE, 'model_auc_roc_first_stage.png')
+    generate_auc_pr_graph(history, MODEL_9_OUT_FIRST_STAGE, 'model_auc_pr_first_stage.png')
+    generate_hamming_loss_graph(history, MODEL_9_OUT_FIRST_STAGE, 'model_hamming_loss_first_stage.png')
+    generate_ranking_loss_graph(history, MODEL_9_OUT_FIRST_STAGE, 'model_ranking_loss_first_stage.png')
+    plot_model(model, to_file=MODEL_9_OUT_FIRST_STAGE + 'cnn_model_first_stage.png')

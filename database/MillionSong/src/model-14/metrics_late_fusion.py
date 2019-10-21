@@ -197,7 +197,7 @@ def metrics_cnn_prob_stage_2():
 
 def metrics_cnn_median_stage_2():
     y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
-    y_pred = pd.read_csv(MODEL_14_OUT_SECOND_STAGE + "y_preb_role_median_late_fusion_stage_2.csv", header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_14_OUT_SECOND_STAGE + "y_pred_role_median_late_fusion_stage_2.csv", header=0, index_col=0).values
     y_proba = pd.read_csv(MODEL_14_OUT_SECOND_STAGE + "y_proba_role_median_late_fusion_stage_2.csv", header=0, index_col=0).values
 
     hl_score = hamming_loss(y_pred, y_test)
