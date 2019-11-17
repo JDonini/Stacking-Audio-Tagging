@@ -1,0 +1,2 @@
+Loss,Accuracy,AUC-ROC,AUC-PR,Hamming Loss,Ranking Loss,Duration
+0.0248,0.9985,0.5,0.0016,25.3288,6.3287,1:27:58.593115

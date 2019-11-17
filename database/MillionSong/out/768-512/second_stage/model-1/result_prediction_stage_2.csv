@@ -1,8 +1,8 @@
-Hamming Loss - 0.0202
-Accuracy - 0.0000
-Accuracy Multilabel - 0.2255
-Precision Multilabel - 0.5765
-Recall Multilabel - 0.2492
-F1 Score - 0.3270
-Roc AUC Score - 0.9125
-Average Precision Score - 0.3599
+Hamming Loss - 0.0289
+Accuracy - 0.0020
+Accuracy Multilabel - 0.1858
+Precision Multilabel - 0.3174
+Recall Multilabel - 0.2647
+F1 Score - 0.2683
+Roc AUC Score - 0.8813
+Average Precision Score - 0.2082
