@@ -306,16 +306,16 @@ sub_menu(){
 
       20) clear;
       pyclean;
-      option_picked "Model 11 - First Stage";
-      option_picked "Model 11 - VGG 16";
-      python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_16.py
-      option_picked "Model 11 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_19.py
-      option_picked "Model 11 - Second Stage";
-      option_picked "Model 11 - VGG 16";
-      python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_16.py
-      option_picked "Model 11 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_19.py
+      # option_picked "Model 11 - First Stage";
+      # option_picked "Model 11 - VGG 16";
+      # python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_16.py
+      # option_picked "Model 11 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_19.py
+      # option_picked "Model 11 - Second Stage";
+      # option_picked "Model 11 - VGG 16";
+      # python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_16.py
+      # option_picked "Model 11 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_19.py
       option_picked "Model 11 - Starting Late Fusion";
       python3 $(pwd)/database/$database_name/src/model-11/late_fusion.py
       option_picked "Model 11 - Evaluating Late Fusion";
@@ -325,16 +325,16 @@ sub_menu(){
 
       21) clear;
       pyclean;
-      option_picked "Model 12 - First Stage";
-      option_picked "Model 12 - VGG 16";
-      python3 $(pwd)/database/$database_name/src/model-12/first_stage_vgg_16.py
-      option_picked "Model 12 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-12/first_stage_vgg_19.py
-      option_picked "Model 12 - Second Stage";
-      option_picked "Model 12 - VGG 16";
-      python3 $(pwd)/database/$database_name/src/model-12/second_stage_vgg_16.py
-      option_picked "Model 12 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-12/second_stage_vgg_19.py
+      # option_picked "Model 12 - First Stage";
+      # option_picked "Model 12 - VGG 16";
+      # python3 $(pwd)/database/$database_name/src/model-12/first_stage_vgg_16.py
+      # option_picked "Model 12 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-12/first_stage_vgg_19.py
+      # option_picked "Model 12 - Second Stage";
+      # option_picked "Model 12 - VGG 16";
+      # python3 $(pwd)/database/$database_name/src/model-12/second_stage_vgg_16.py
+      # option_picked "Model 12 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-12/second_stage_vgg_19.py
       option_picked "Model 12 - Starting Late Fusion";
       python3 $(pwd)/database/$database_name/src/model-12/late_fusion.py
       option_picked "Model 12 - Evaluating Late Fusion";
@@ -344,16 +344,16 @@ sub_menu(){
 
       22) clear;
       pyclean;
-      option_picked "Model 13 - First Stage";
-      option_picked "Model 13 - VGG 16";
-      python3 $(pwd)/database/$database_name/src/model-13/first_stage_vgg_16.py
-      option_picked "Model 13 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-13/first_stage_vgg_19.py
-      option_picked "Model 13 - Second Stage";
-      option_picked "Model 13 - VGG 16";
-      python3 $(pwd)/database/$database_name/src/model-13/second_stage_vgg_16.py
-      option_picked "Model 13 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-13/second_stage_vgg_19.py
+      # option_picked "Model 13 - First Stage";
+      # option_picked "Model 13 - VGG 16";
+      # python3 $(pwd)/database/$database_name/src/model-13/first_stage_vgg_16.py
+      # option_picked "Model 13 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-13/first_stage_vgg_19.py
+      # option_picked "Model 13 - Second Stage";
+      # option_picked "Model 13 - VGG 16";
+      # python3 $(pwd)/database/$database_name/src/model-13/second_stage_vgg_16.py
+      # option_picked "Model 13 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-13/second_stage_vgg_19.py
       option_picked "Model 13 - Starting Late Fusion";
       python3 $(pwd)/database/$database_name/src/model-13/late_fusion.py
       option_picked "Model 13 - Evaluating Late Fusion";
@@ -363,16 +363,16 @@ sub_menu(){
 
       23) clear;
       pyclean;
-      option_picked "Model 14 - First Stage";
-      option_picked "Model 14 - VGG 16";
-      python3 $(pwd)/database/$database_name/src/model-14/first_stage_vgg_16.py
-      option_picked "Model 14 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-14/first_stage_vgg_19.py
-      option_picked "Model 14 - Second Stage";
-      option_picked "Model 14 - VGG 16";
-      python3 $(pwd)/database/$database_name/src/model-14/second_stage_vgg_16.py
-      option_picked "Model 14 - VGG 19";
-      python3 $(pwd)/database/$database_name/src/model-14/second_stage_vgg_19.py
+      # option_picked "Model 14 - First Stage";
+      # option_picked "Model 14 - VGG 16";
+      # python3 $(pwd)/database/$database_name/src/model-14/first_stage_vgg_16.py
+      # option_picked "Model 14 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-14/first_stage_vgg_19.py
+      # option_picked "Model 14 - Second Stage";
+      # option_picked "Model 14 - VGG 16";
+      # python3 $(pwd)/database/$database_name/src/model-14/second_stage_vgg_16.py
+      # option_picked "Model 14 - VGG 19";
+      # python3 $(pwd)/database/$database_name/src/model-14/second_stage_vgg_19.py
       option_picked "Model 14 - Starting Late Fusion";
       python3 $(pwd)/database/$database_name/src/model-14/late_fusion.py
       option_picked "Model 14 - Evaluating Late Fusion";

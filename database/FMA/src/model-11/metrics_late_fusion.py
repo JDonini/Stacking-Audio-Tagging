@@ -6,7 +6,7 @@ sys.path.append('src')
 from generate_structure import MODEL_11_OUT_FIRST_STAGE, MODEL_11_OUT_SECOND_STAGE, TEST_ANNOTATIONS
 
 
-def accuracy(y_pred,y_true):
+def accuracy(y_pred, y_true):
     return np.mean(np.equal(y_true, y_pred, dtype=np.int32))
 
 
