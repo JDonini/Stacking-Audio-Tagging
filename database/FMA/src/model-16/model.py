@@ -30,11 +30,6 @@ def cnn_cnn_model_16_s1():
     x = Dropout(rate=0.2)(x)
     x = MaxPooling2D()(x)
 
-    x = Conv2D(256, (3, 3), activation='relu')(x)
-    x = BatchNormalization()(x)
-    x = Dropout(rate=0.3)(x)
-    x = MaxPooling2D()(x)
-
     x = Flatten()(x)
 
     hidden_1 = Dense(256, activation='relu')(x)
@@ -65,11 +60,6 @@ def cnn_cnn_model_16_s2():
     x = Conv2D(128, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.2)(x)
-    x = MaxPooling2D()(x)
-
-    x = Conv2D(256, (3, 3), activation='relu')(x)
-    x = BatchNormalization()(x)
-    x = Dropout(rate=0.3)(x)
     x = MaxPooling2D()(x)
 
     x = Flatten()(x)
