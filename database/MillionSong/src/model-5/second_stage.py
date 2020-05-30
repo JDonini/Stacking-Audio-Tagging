@@ -8,15 +8,15 @@ from keras_preprocessing.image import ImageDataGenerator
 from keras import backend as k
 from keras.callbacks import TensorBoard, EarlyStopping, ReduceLROnPlateau, CSVLogger
 from keras.optimizers import RMSprop
-from model import cnn_cnn_model_5
+from model import cnn_cnn_model_5_s2
 sys.path.append('src')
 from metrics import auc_roc, hamming_loss, ranking_loss, auc_pr
 from generate_graph import generate_acc_graph, generate_loss_graph, generate_auc_roc_graph, generate_auc_pr_graph, \
  generate_hamming_loss_graph, generate_ranking_loss_graph
-from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_CHROMAGRAM, \
+from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUTOENCODERS_STFT, \
  MODEL_5_TENSOR, MODEL_5_WEIGHTS_FINAL, MODEL_5_OUT_SECOND_STAGE
 sys.path.append('config')
-from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED, EARLY_STOPPING, REDUCE_LR
+from config_project import BATCH_SIZE, TARGET_SIZE_AUTOENCODERS, LR, NUM_EPOCHS, LR_DECAY, SEED, EARLY_STOPPING, REDUCE_LR
 
 start_time = datetime.datetime.now()
 np.random.seed(SEED)
@@ -27,47 +27,47 @@ datagen = ImageDataGenerator(rescale=1./255)
 
 train_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(TRAIN_ANNOTATIONS),
-    directory=AUDIO_CHROMAGRAM,
+    directory=AUTOENCODERS_STFT,
     x_col='song_name',
     y_col=columns,
     batch_size=BATCH_SIZE,
     seed=SEED,
     shuffle=True,
     class_mode='other',
-    target_size=TARGET_SIZE
+    target_size=TARGET_SIZE_AUTOENCODERS
 )
 
 test_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(TEST_ANNOTATIONS),
-    directory=AUDIO_CHROMAGRAM,
+    directory=AUTOENCODERS_STFT,
     x_col='song_name',
     y_col=columns,
     batch_size=BATCH_SIZE,
     seed=SEED,
     shuffle=True,
     class_mode='other',
-    target_size=TARGET_SIZE
+    target_size=TARGET_SIZE_AUTOENCODERS
 )
 
 valid_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(VALIDATION_ANNOTATIONS),
-    directory=AUDIO_CHROMAGRAM,
+    directory=AUTOENCODERS_STFT,
     x_col='song_name',
     y_col=columns,
     batch_size=BATCH_SIZE,
     seed=SEED,
     shuffle=True,
     class_mode='other',
-    target_size=TARGET_SIZE
+    target_size=TARGET_SIZE_AUTOENCODERS
 )
 
 STEP_SIZE_TRAIN = train_generator.n/train_generator.batch_size
 STEP_SIZE_VALID = valid_generator.n/valid_generator.batch_size
 STEP_SIZE_TEST = test_generator.n/test_generator.batch_size
 
-model = cnn_cnn_model_5()
+model = cnn_cnn_model_5_s2()
 
-model.load_weights(MODEL_5_WEIGHTS_FINAL + 'weights_first_stage.h5')
+model.load_weights(MODEL_5_WEIGHTS_FINAL + 'weights_first_stage.h5', by_name=True, skip_mismatch=True)
 
 model.compile(loss='binary_crossentropy', optimizer=RMSprop(
     lr=LR, decay=LR_DECAY), metrics=['accuracy', auc_roc, auc_pr, hamming_loss, ranking_loss])

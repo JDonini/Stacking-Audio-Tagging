@@ -21,20 +21,20 @@ def accuracy_ml(y_pred, y_true):
 def precision_ml(y_pred, y_true):
     y_t = [[index for index, value in enumerate(data) if value == 1] for data in y_true]
     y_p = [[index for index, value in enumerate(data) if value == 1] for data in y_pred]
-    
+
     prec = 0
     for i in range(len(y_t)):
         s,t = set(y_t[i]), set(y_p[i])
         intersection = s.intersection(t)
         if len(t) != 0:
             prec += (len(intersection)/len(t))
-    return prec/len(y_t)    
+    return prec/len(y_t)
 
 
 def recall_ml(y_pred, y_true):
     y_t = [[index for index, value in enumerate(data) if value == 1] for data in y_true]
     y_p = [[index for index, value in enumerate(data) if value == 1] for data in y_pred]
- 
+
     recall = 0
 
     for i in range(len(y_t)):

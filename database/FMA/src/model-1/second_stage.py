@@ -13,10 +13,10 @@ sys.path.append('src')
 from metrics import auc_roc, hamming_loss, ranking_loss, auc_pr
 from generate_graph import generate_acc_graph, generate_loss_graph, generate_auc_roc_graph, generate_auc_pr_graph, \
  generate_hamming_loss_graph, generate_ranking_loss_graph
-from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_CHROMAGRAM, \
+from generate_structure import TRAIN_ANNOTATIONS, TEST_ANNOTATIONS, VALIDATION_ANNOTATIONS, AUDIO_MEL_SPECTROGRAM, \
  MODEL_1_TENSOR, MODEL_1_WEIGHTS_FINAL, MODEL_1_OUT_SECOND_STAGE
 sys.path.append('config')
-from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED, REDUCE_LR, EARLY_STOPPING
+from config_project import BATCH_SIZE, TARGET_SIZE, LR, NUM_EPOCHS, LR_DECAY, SEED, EARLY_STOPPING, REDUCE_LR
 
 start_time = datetime.datetime.now()
 np.random.seed(SEED)
@@ -27,7 +27,7 @@ datagen = ImageDataGenerator(rescale=1./255)
 
 train_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(TRAIN_ANNOTATIONS),
-    directory=AUDIO_CHROMAGRAM,
+    directory=AUDIO_MEL_SPECTROGRAM,
     x_col='song_name',
     y_col=columns,
     batch_size=BATCH_SIZE,
@@ -39,7 +39,7 @@ train_generator = datagen.flow_from_dataframe(
 
 test_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(TEST_ANNOTATIONS),
-    directory=AUDIO_CHROMAGRAM,
+    directory=AUDIO_MEL_SPECTROGRAM,
     x_col='song_name',
     y_col=columns,
     batch_size=BATCH_SIZE,
@@ -51,7 +51,7 @@ test_generator = datagen.flow_from_dataframe(
 
 valid_generator = datagen.flow_from_dataframe(
     dataframe=pd.read_csv(VALIDATION_ANNOTATIONS),
-    directory=AUDIO_CHROMAGRAM,
+    directory=AUDIO_MEL_SPECTROGRAM,
     x_col='song_name',
     y_col=columns,
     batch_size=BATCH_SIZE,

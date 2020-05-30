@@ -21,20 +21,20 @@ def accuracy_ml(y_pred, y_true):
 def precision_ml(y_pred, y_true):
     y_t = [[index for index, value in enumerate(data) if value == 1] for data in y_true]
     y_p = [[index for index, value in enumerate(data) if value == 1] for data in y_pred]
-    
+
     prec = 0
     for i in range(len(y_t)):
         s,t = set(y_t[i]), set(y_p[i])
         intersection = s.intersection(t)
         if len(t) != 0:
             prec += (len(intersection)/len(t))
-    return prec/len(y_t)    
+    return prec/len(y_t)
 
 
 def recall_ml(y_pred, y_true):
     y_t = [[index for index, value in enumerate(data) if value == 1] for data in y_true]
     y_p = [[index for index, value in enumerate(data) if value == 1] for data in y_pred]
- 
+
     recall = 0
 
     for i in range(len(y_t)):
@@ -58,20 +58,16 @@ def metrics_cnn_stage_1():
     fmeasure_score = f1_score(y_pred, y_test, average='micro')
     roc_score = roc_auc_score(y_test, y_proba, average='micro')
     pr_score = average_precision_score(y_test, y_proba, average='micro')
-    
-    print(accuracy_score(y_test, y_pred))
-    
-    print(accuracy_score(y_test, y_pred, normalize=False))
 
-    with open(MODEL_1_OUT_FIRST_STAGE + 'result_prediction_stage_1.csv', 'w+') as results:
-        print('Hamming Loss - {:.4f}'.format(hl_score), file=results)
-        print('Accuracy - {:.4f}'.format(acc_score), file=results)
-        print('Accuracy Multilabel - {:.4f}'.format(acc_ml), file=results)
-        print('Precision Multilabel - {:.4f}'.format(prec_ml), file=results)
-        print('Recall Multilabel - {:.4f}'.format(rec_ml), file=results)
-        print('F1 Score - {:.4f}'.format(fmeasure_score), file=results)
-        print('Roc AUC Score - {:.4f}'.format(roc_score), file=results)
-        print('Average Precision Score - {:.4f}'.format(pr_score), file=results)
+    with open(MODEL_1_OUT_FIRST_STAGE + 'result_prediction_stage_1.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results)
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(fmeasure_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
 
 
 def metrics_cnn_stage_2():
@@ -88,15 +84,15 @@ def metrics_cnn_stage_2():
     roc_score = roc_auc_score(y_test, y_proba, average='micro')
     pr_score = average_precision_score(y_test, y_proba, average='micro')
 
-    with open(MODEL_1_OUT_SECOND_STAGE + 'result_prediction_stage_2.csv', 'w+') as results:
-        print('Hamming Loss - {:.4f}'.format(hl_score), file=results)
-        print('Accuracy - {:.4f}'.format(acc_score), file=results)
-        print('Accuracy Multilabel - {:.4f}'.format(acc_ml), file=results)
-        print('Precision Multilabel - {:.4f}'.format(prec_ml), file=results)
-        print('Recall Multilabel - {:.4f}'.format(rec_ml), file=results)
-        print('F1 Score - {:.4f}'.format(fmeasure_score), file=results)
-        print('Roc AUC Score - {:.4f}'.format(roc_score), file=results)
-        print('Average Precision Score - {:.4f}'.format(pr_score), file=results)
+    with open(MODEL_1_OUT_SECOND_STAGE + 'result_prediction_stage_2.csv') as results:
+        print('Hamming Loss - {.4f}'.format(hl_score), file=results)
+        print('Accuracy Score - {.4f}'.format(acc_score), file=results)
+        print('Accuracy Multilabel - {.4f}'.format(acc_ml), file=results)
+        print('Precision Multilabel - {.4f}'.format(prec_ml), file=results)
+        print('Recall Multilabel - {.4f}'.format(rec_ml), file=results)
+        print('F1 Score - {.4f}'.format(fmeasure_score), file=results)
+        print('Roc AUC Score - {.4f}'.format(roc_score), file=results)
+        print('Average Precision Score - {.4f}'.format(pr_score), file=results)
 
 
 if __name__ == '__main__':

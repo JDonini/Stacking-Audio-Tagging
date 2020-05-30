@@ -8,10 +8,9 @@ show_menu(){
   RED_TEXT=`echo "\033[31m"`
   ENTER_LINE=`echo "\033[33m"`
   echo -e "${MENU}*********************************************${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 1)${MENU} CAL500 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 2)${MENU} FMA ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 3)${MENU} MagnaTagATune ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 4)${MENU} MillionSong ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 1)${MENU} FMA ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 2)${MENU} MagnaTagATune ${NORMAL}"
+  echo -e "${MENU}**${NUMBER} 3)${MENU} MillionSong ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT} enter to exit. ${NORMAL}"
   read opt
@@ -22,27 +21,22 @@ show_menu(){
       exit;
     else
       case $opt in
+
       1) clear;
-      export database_name="CAL500"
-      option_picked $database_name;    
+      export database_name="FMA"
+      option_picked $database_name;
       sub_menu;
       ;;
 
       2) clear;
-      export database_name="FMA"
-      option_picked $database_name;    
+      export database_name="MagnaTagATune"
+      option_picked $database_name;
       sub_menu;
       ;;
 
       3) clear;
-      export database_name="MagnaTagATune"
-      option_picked $database_name;    
-      sub_menu;
-      ;;
-
-      4) clear;
       export database_name="MillionSong"
-      option_picked $database_name;    
+      option_picked $database_name;
       sub_menu;
       ;;
 
@@ -92,24 +86,10 @@ sub_menu(){
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${MENU}**${NUMBER} 10)${MENU} Model 1 ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 11)${MENU} Model 2 ${NORMAL}"
+  echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${MENU}**${NUMBER} 12)${MENU} Model 3 ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 13)${MENU} Model 4 ${NORMAL}"
   echo -e "${MENU}**${NUMBER} 14)${MENU} Model 5 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 15)${MENU} Model 6 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 16)${MENU} Model 7 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 17)${MENU} Model 8 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 18)${MENU} Model 9 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 19)${MENU} Model 10 ${NORMAL}"
-  echo -e "${MENU}*********************************************${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 20)${MENU} Model 11 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 21)${MENU} Model 12 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 22)${MENU} Model 13 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 23)${MENU} Model 14 ${NORMAL}"
-  echo -e "${MENU}*********************************************${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 30)${MENU} Model 15 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 31)${MENU} Model 16 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 32)${MENU} Model 17 ${NORMAL}"
-  echo -e "${MENU}**${NUMBER} 33)${MENU} Model 18 ${NORMAL}"
   echo -e "${MENU}*********************************************${NORMAL}"
   echo -e "${ENTER_LINE}Please enter a menu option and enter or ${RED_TEXT}enter to exit. ${NORMAL}"
   read sub1
@@ -178,18 +158,18 @@ sub_menu(){
       python3 $(pwd)/src/generate_autoencoders_stft.py
       sub_menu;
       ;;
-  
+
       7) clear;
       pyclean;
       option_picked "Generate TRAIN/TEST/VALIDATION";
-      python3 $(pwd)/src/generate_holdout.py      
+      python3 $(pwd)/src/generate_holdout.py
       sub_menu;
       ;;
 
       8) clear;
       pyclean;
       option_picked "Test Metrics";
-      python3 $(pwd)/src/metrics.py      
+      python3 $(pwd)/src/metrics.py
       sub_menu;
       ;;
 
@@ -226,7 +206,6 @@ sub_menu(){
       sub_menu;
       ;;
 
-
       13) clear;
       pyclean;
       option_picked "Model 4 - First Stage";
@@ -246,181 +225,6 @@ sub_menu(){
       python3 $(pwd)/database/$database_name/src/model-5/second_stage.py
       option_picked "Model 5 - Evaluating";
       python3 $(pwd)/database/$database_name/src/model-5/metrics_cnn.py
-      sub_menu;
-      ;;
-
-      15) clear;
-      pyclean;
-      option_picked "Model 6 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-6/first_stage.py
-      option_picked "Model 6 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-6/second_stage.py
-      option_picked "Model 6 - Evaluating";
-      python3 $(pwd)/database/$database_name/src/model-6/metrics_cnn.py
-      sub_menu;
-      ;;
-
-      16) clear;
-      pyclean;
-      option_picked "Model 7 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-7/first_stage.py
-      option_picked "Model 7 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-7/second_stage.py
-      option_picked "Model 7 - Evaluating";
-      python3 $(pwd)/database/$database_name/src/model-7/metrics_cnn.py
-      sub_menu;
-      ;;
-
-      17) clear;
-      pyclean;
-      option_picked "Model 8 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-8/first_stage.py
-      option_picked "Model 8 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-8/second_stage.py
-      option_picked "Model 8 - Evaluating";
-      python3 $(pwd)/database/$database_name/src/model-8/metrics_cnn.py
-      sub_menu;
-      ;;
-
-      18) clear;
-      pyclean;
-      option_picked "Model 9 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-9/first_stage.py
-      option_picked "Model 9 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-9/second_stage.py
-      option_picked "Model 9 - Evaluating";
-      python3 $(pwd)/database/$database_name/src/model-9/metrics_cnn.py
-      sub_menu;
-      ;;
-
-      19) clear;
-      pyclean;
-      option_picked "Model 10 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-10/first_stage.py
-      option_picked "Model 10 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-10/second_stage.py
-      option_picked "Model 10 - Evaluating";
-      python3 $(pwd)/database/$database_name/src/model-10/metrics_cnn.py
-      sub_menu;
-      ;;
-
-      20) clear;
-      pyclean;
-      # option_picked "Model 11 - First Stage";
-      # option_picked "Model 11 - VGG 16";
-      # python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_16.py
-      # option_picked "Model 11 - VGG 19";
-      # python3 $(pwd)/database/$database_name/src/model-11/first_stage_vgg_19.py
-      # option_picked "Model 11 - Second Stage";
-      # option_picked "Model 11 - VGG 16";
-      # python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_16.py
-      # option_picked "Model 11 - VGG 19";
-      # python3 $(pwd)/database/$database_name/src/model-11/second_stage_vgg_19.py
-      option_picked "Model 11 - Starting Late Fusion";
-      python3 $(pwd)/database/$database_name/src/model-11/late_fusion.py
-      option_picked "Model 11 - Evaluating Late Fusion";
-      python3 $(pwd)/database/$database_name/src/model-11/metrics_late_fusion.py
-      sub_menu;
-      ;;
-
-      21) clear;
-      pyclean;
-      # option_picked "Model 12 - First Stage";
-      # option_picked "Model 12 - VGG 16";
-      # python3 $(pwd)/database/$database_name/src/model-12/first_stage_vgg_16.py
-      # option_picked "Model 12 - VGG 19";
-      # python3 $(pwd)/database/$database_name/src/model-12/first_stage_vgg_19.py
-      # option_picked "Model 12 - Second Stage";
-      # option_picked "Model 12 - VGG 16";
-      # python3 $(pwd)/database/$database_name/src/model-12/second_stage_vgg_16.py
-      # option_picked "Model 12 - VGG 19";
-      # python3 $(pwd)/database/$database_name/src/model-12/second_stage_vgg_19.py
-      option_picked "Model 12 - Starting Late Fusion";
-      python3 $(pwd)/database/$database_name/src/model-12/late_fusion.py
-      option_picked "Model 12 - Evaluating Late Fusion";
-      python3 $(pwd)/database/$database_name/src/model-12/metrics_late_fusion.py
-      sub_menu;
-      ;;
-
-      22) clear;
-      pyclean;
-      # option_picked "Model 13 - First Stage";
-      # option_picked "Model 13 - VGG 16";
-      # python3 $(pwd)/database/$database_name/src/model-13/first_stage_vgg_16.py
-      # option_picked "Model 13 - VGG 19";
-      # python3 $(pwd)/database/$database_name/src/model-13/first_stage_vgg_19.py
-      # option_picked "Model 13 - Second Stage";
-      # option_picked "Model 13 - VGG 16";
-      # python3 $(pwd)/database/$database_name/src/model-13/second_stage_vgg_16.py
-      # option_picked "Model 13 - VGG 19";
-      # python3 $(pwd)/database/$database_name/src/model-13/second_stage_vgg_19.py
-      option_picked "Model 13 - Starting Late Fusion";
-      python3 $(pwd)/database/$database_name/src/model-13/late_fusion.py
-      option_picked "Model 13 - Evaluating Late Fusion";
-      python3 $(pwd)/database/$database_name/src/model-13/metrics_late_fusion.py
-      sub_menu;
-      ;;
-
-      23) clear;
-      pyclean;
-      # option_picked "Model 14 - First Stage";
-      # option_picked "Model 14 - VGG 16";
-      # python3 $(pwd)/database/$database_name/src/model-14/first_stage_vgg_16.py
-      # option_picked "Model 14 - VGG 19";
-      # python3 $(pwd)/database/$database_name/src/model-14/first_stage_vgg_19.py
-      # option_picked "Model 14 - Second Stage";
-      # option_picked "Model 14 - VGG 16";
-      # python3 $(pwd)/database/$database_name/src/model-14/second_stage_vgg_16.py
-      # option_picked "Model 14 - VGG 19";
-      # python3 $(pwd)/database/$database_name/src/model-14/second_stage_vgg_19.py
-      option_picked "Model 14 - Starting Late Fusion";
-      python3 $(pwd)/database/$database_name/src/model-14/late_fusion.py
-      option_picked "Model 14 - Evaluating Late Fusion";
-      python3 $(pwd)/database/$database_name/src/model-14/metrics_late_fusion.py
-      sub_menu;
-      ;;
-
-      30) clear;
-      pyclean;
-      option_picked "Model 15 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-15/first_stage.py
-      option_picked "Model 15 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-15/second_stage.py
-      option_picked "Model 15 - Evaluating";
-      python3 $(pwd)/database/$database_name/src/model-15/metrics_cnn.py
-      sub_menu;
-      ;;
-
-      31) clear;
-      pyclean;
-      option_picked "Model 16 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-16/first_stage.py
-      option_picked "Model 16 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-16/second_stage.py
-      option_picked "Model 16 - Evaluating";
-      python3 $(pwd)/database/$database_name/src/model-16/metrics_cnn.py
-      sub_menu;
-      ;;
-
-      32) clear;
-      pyclean;
-      option_picked "Model 17 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-17/first_stage.py
-      option_picked "Model 17 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-17/second_stage.py
-      option_picked "Model 17 - Evaluating";
-      python3 $(pwd)/database/$database_name/src/model-17/metrics_cnn.py
-      sub_menu;
-      ;;
-
-      33) clear;
-      pyclean;
-      option_picked "Model 18 - First Stage";
-      python3 $(pwd)/database/$database_name/src/model-18/first_stage.py
-      option_picked "Model 18 - Second Stage";
-      python3 $(pwd)/database/$database_name/src/model-18/second_stage.py
-      option_picked "Model 18 - Evaluating";
-      python3 $(pwd)/database/$database_name/src/model-18/metrics_cnn.py
       sub_menu;
       ;;
 

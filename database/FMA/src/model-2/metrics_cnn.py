@@ -21,20 +21,20 @@ def accuracy_ml(y_pred, y_true):
 def precision_ml(y_pred, y_true):
     y_t = [[index for index, value in enumerate(data) if value == 1] for data in y_true]
     y_p = [[index for index, value in enumerate(data) if value == 1] for data in y_pred]
-    
+
     prec = 0
     for i in range(len(y_t)):
         s,t = set(y_t[i]), set(y_p[i])
         intersection = s.intersection(t)
         if len(t) != 0:
             prec += (len(intersection)/len(t))
-    return prec/len(y_t)    
+    return prec/len(y_t)
 
 
 def recall_ml(y_pred, y_true):
     y_t = [[index for index, value in enumerate(data) if value == 1] for data in y_true]
     y_p = [[index for index, value in enumerate(data) if value == 1] for data in y_pred]
- 
+
     recall = 0
 
     for i in range(len(y_t)):
@@ -72,8 +72,8 @@ def metrics_cnn_stage_1():
 
 def metrics_cnn_stage_2():
     y_test = pd.read_csv(TEST_ANNOTATIONS, header=0, index_col=0).values
-    y_pred = pd.read_csv(MODEL_1_OUT_SECOND_STAGE + "y_proba_stage_2.csv", header=0, index_col=0).values
-    y_proba = pd.read_csv(MODEL_1_OUT_SECOND_STAGE + "y_pred_stage_2.csv", header=0, index_col=0).values
+    y_pred = pd.read_csv(MODEL_1_OUT_SECOND_STAGE + "y_pred_stage_2.csv", header=0, index_col=0).values
+    y_proba = pd.read_csv(MODEL_1_OUT_SECOND_STAGE + "y_proba_stage_2.csv", header=0, index_col=0).values
 
     hl_score = hamming_loss(y_pred, y_test)
     acc_score = accuracy_score(y_pred, y_test)

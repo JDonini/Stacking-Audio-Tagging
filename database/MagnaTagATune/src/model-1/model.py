@@ -18,27 +18,39 @@ def cnn_cnn_model_1():
     x = Conv2D(32, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.2)(x)
+    x = Conv2D(32, (3, 3), activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(rate=0.2)(x)
     x = MaxPooling2D()(x)
 
     x = Conv2D(64, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.25)(x)
+
+    x = Conv2D(128, (3, 3), activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(rate=0.3)(x)
     x = MaxPooling2D()(x)
 
     x = Conv2D(128, (3, 3), activation='relu')(x)
+    x = BatchNormalization()(x)
+    x = Dropout(rate=0.3)(x)
+    x = MaxPooling2D()(x)
+
+    x = Conv2D(256, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
     x = Dropout(rate=0.2)(x)
     x = MaxPooling2D()(x)
 
     x = Conv2D(256, (3, 3), activation='relu')(x)
     x = BatchNormalization()(x)
-    x = Dropout(rate=0.3)(x)
+    x = Dropout(rate=0.2)(x)
     x = MaxPooling2D()(x)
 
     x = Flatten()(x)
 
-    hidden_1 = Dense(512, activation='relu')(x)
-    hidden_2 = Dense(256, activation='relu')(hidden_1)
+    hidden_1 = Dense(256, activation='relu')(x)
+    hidden_2 = Dense(128, activation='relu')(hidden_1)
     output = Dense(188, activation='sigmoid')(hidden_2)
 
     return Model(inputs=input, outputs=output)
