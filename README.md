@@ -8,6 +8,16 @@ The project is organized into 2 main projects:
     P1 - Utilize Stacking technique with CNN to improve Audio Tag Classification;
     P2 - Utilize Stacking technique with CNN and Autoencoders to improve Audio Tag Classification;
 
+Install Dependencies:
+--------------------
+    poetry shell
+    poetry install
+
+Run Project:
+--------------------
+    bash menu.sh
+    After running bash menu.sh select database
+
 Project Organization
 --------------------
 ```
