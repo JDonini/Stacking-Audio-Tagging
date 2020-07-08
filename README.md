@@ -5,8 +5,8 @@ In this work I proposed apply Stacking with Convolutional Neural Network to impr
 
 The project is organized into 2 main projects:
 --------------------
-    P1 - Utilize Stacking technique with CNN to improve Audio Tag Classification;
-    P2 - Utilize Stacking technique with CNN and Autoencoders to improve Audio Tag Classification;
+    M1 - Utilize Stacking technique with CNN to improve Audio Tag Classification;
+    M2 - Utilize Stacking technique with CNN and Autoencoders to improve Audio Tag Classification;
 
 Install Dependencies:
 --------------------
